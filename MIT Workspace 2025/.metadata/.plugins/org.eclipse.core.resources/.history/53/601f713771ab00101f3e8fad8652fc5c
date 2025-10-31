@@ -1,0 +1,20 @@
+package com;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import com.resources.WishResource;
+
+@SpringBootApplication
+public class SbRest02ProducerApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(SbRest02ProducerApplication.class, args);
+		
+		System.out.println(">>=====| Hello");
+		WishResource ws = new WishResource();
+		
+		
+	}
+
+}

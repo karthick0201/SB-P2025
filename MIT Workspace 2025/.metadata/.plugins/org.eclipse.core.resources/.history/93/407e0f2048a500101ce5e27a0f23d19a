@@ -1,0 +1,7 @@
+package com.mit.dao;
+
+import org.springframework.data.repository.ListCrudRepository;
+
+public class AppartmentDao implements ListCrudRepository<T, ID> {
+
+}

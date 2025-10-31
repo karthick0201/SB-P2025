@@ -1,0 +1,7 @@
+spring.application.name=SB-Rest-02-Producer_Application
+
+#PORT NO
+server.port=1212
+
+#picture store folder name
+picture.folerName=my-pictures

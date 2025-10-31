@@ -1,0 +1,12 @@
+package com.example;
+
+import com.conversion.Light;
+
+public class JSONClient {
+
+	public static void main(String[] args) {
+		
+		Light l1 = new Light();
+		
+	}
+}

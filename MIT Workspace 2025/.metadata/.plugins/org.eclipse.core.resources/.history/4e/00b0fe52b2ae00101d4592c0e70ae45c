@@ -1,0 +1,19 @@
+package com.service;
+
+import java.util.List;
+
+import com.entity.Customer;
+
+public interface CustomerService {
+	
+	public List<Customer> getAllCutomer();
+	
+	public Customer getCustomerById(int id) throws Exception;
+	
+	public Customer addCustomer(Customer customer);
+	
+	public boolean deleteCustomer(int id);
+	
+	public List<Customer> addCustomer(List<Customer> customerList);
+
+}

@@ -1,0 +1,13 @@
+package com.Entity;
+
+
+public class Student {
+
+	private int id;
+	
+	private String rollNo;
+	
+	private String name;
+	
+	
+}

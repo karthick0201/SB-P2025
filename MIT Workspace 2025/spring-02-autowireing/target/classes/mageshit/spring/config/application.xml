@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+ <!-- 
+ >> PRATICING AUTOWIRE CONCEPT <<
+ 
+ 1.  Interface Injection -> normal
+ 2.  Autowiring - Only able to do, properties in the form of object.
+ 
+ //Inject Dependencies using strategy
+ 	1. no
+ 	2. byName
+ 	3. byClass
+ 	4. constructor
+ 	
+ 	If Using above strategy no need to explicitly ref like below line
+ 		<property name="monitor"  ref = "lgMonitor"/>
+ 		
+ 	automatically inject.
+ 	
+ 
+  -->
+ 
+ <!-- 1. autowire = "no" ==> its a default strategy. we explicit reference the bean-->
+<!--  
+	 <bean name="labtop" class="mageshit.spring.beans.Labtop" autowire="no">
+		<property name="name" value="Lenovo" />
+		<property name="monitor" ref="lgMonitor" />
+	</bean>
+  -->
+ <!-- 2. autowire = "byName" strategy ==> used to match Class Variable Name with here -->
+<!--  
+ 	 <bean name="labtop" class="mageshit.spring.beans.Labtop" autowire="byName">
+		<property name="name" value="Lenovo" />
+	</bean>
+	<bean name = "monitor" class = "mageshit.spring.beans.LGMonitor">
+ 		<property name="name"  value = "LG Latex 4K Monitor"/>
+ 	</bean>
+
+ -->
+ 
+  <!-- 3. autowire = "byType" strategy
+  		If interface is comes -> it throws "No Unique bean definition found Exception"
+  		Solution : Primary = "true"
+   -->
+   
+   <bean name = "labtop" class= "mageshit.spring.beans.Labtop" autowire="byType">
+   		<property name="name" value="Lenovo" />
+   </bean>
+   
+ 	<bean name = "dellMonitor" class = "mageshit.spring.beans.DellMonitor" primary="true">
+ 		<property name="name"  value = "Dell 4K Monitor"/>
+ 	</bean>
+ 	
+ 	<bean name = "lgMonitor" class = "mageshit.spring.beans.LGMonitor">
+ 		<property name="name"  value = "LG Latex 4K Monitor"/>
+ 	</bean>
+ 
+ 	<!-- 3. autowire = "constructor" strategy
+  		Similar to byType strategy, Difference is injecting object is different.
+   -->
+   <bean id = "studyLight" class = "mageshit.spring.beans.StudyLight" autowire="constructor">
+ 		<constructor-arg name="name"  value = "Meecho Light"/>
+ 	</bean>
+   
+   <bean id = "battery" class = "mageshit.spring.beans.Battery">
+ 		<constructor-arg name="name"  value = "Lion Battery"/>
+ 	</bean>
+ 	
+ 	
+</beans>

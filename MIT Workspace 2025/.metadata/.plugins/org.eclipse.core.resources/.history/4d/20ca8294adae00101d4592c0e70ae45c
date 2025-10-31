@@ -1,0 +1,77 @@
+package com;
+
+import java.util.Arrays;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import com.entity.Customer;
+import com.service.CustomerService;
+
+@SpringBootApplication
+public class SbRest05MicroserviceCustomerApplication implements CommandLineRunner{
+
+	public static void main(String[] args) {
+		SpringApplication.run(SbRest05MicroserviceCustomerApplication.class, args);
+	}
+	
+	@Autowired
+	private CustomerService customerService;
+	
+	@Override
+	public void run(String... args) throws Exception {
+		
+		Customer customer1 = Customer
+								.builder()
+								.email("chin.cdp@example.com")
+								.name("Pran")
+								.phoneNo("784512963")
+								.location("Chennai")
+								.gender("female")
+								.build();
+		Customer customer2 = Customer
+								.builder()
+								.email("dharan.p@example.com")
+								.name("Dharan")
+								.phoneNo("9784512963")
+								.location("Virudhunagar")
+								.gender("male")
+								.build();
+		
+		Customer customer3 = Customer
+								.builder()
+								.email("raji.p@example.com")
+								.name("Raji")
+								.phoneNo("8784512963")
+								.location("Tenkasi")
+								.gender("female")
+								.build();
+		Customer customer4 = Customer
+								.builder()
+								.email("kannan.t@example.com")
+								.name("Kannan")
+								.phoneNo("6784512963")
+								.location("Madurai")
+								.gender("male")
+								.build();
+		Customer customer5 = Customer
+								.builder()
+								.email("nandhu.a@example.com")
+								.name("Nandhu")
+								.phoneNo("994512963")
+								.location("Madurai")
+								.gender("male")
+								.build();
+		
+		List<Customer> customerList = Arrays.asList(customer1,customer2,customer3,customer4,customer5);
+		
+		//customerService.addCustomer(customerList);
+		
+		//System.out.println(">>-----| TEST CUSTOMERS ARE SAVED... |------<<");
+		
+	}
+
+}

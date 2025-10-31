@@ -1,0 +1,28 @@
+package com.exception;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Setter
+@Getter
+public class ResourceNotFoundException extends RuntimeException{
+	
+	private String resouceName;
+	
+	private String fieldName;
+	
+	private long fieldValue;
+	
+	public ResourceNotFoundException() {
+	}
+
+	public ResourceNotFoundException(String resouceName, String fieldName, long fieldValue) {
+		super(String.format("%s not found with %s : %s", resouceName,fieldName,fieldValue));
+		this.resouceName = resouceName;
+		this.fieldName = fieldName;
+		this.fieldValue = fieldValue;
+	}
+	
+	
+
+}

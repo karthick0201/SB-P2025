@@ -1,0 +1,41 @@
+package com.dto;
+
+public class ProductDto {
+	
+	private String productName;
+	
+	private int availableQuantity;
+	
+	private double price;
+
+	public String getProductName() {
+		return productName;
+	}
+
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+
+	public int getAvailableQuantity() {
+		return availableQuantity;
+	}
+
+	public void setAvailableQuantity(int availableQuantity) {
+		this.availableQuantity = availableQuantity;
+	}
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+	
+	@Override
+	public String toString() {
+		return "ProductDto [productName=" + productName + ", availableQuantity=" + availableQuantity + ", price="
+				+ price + "]";
+	}
+
+}

@@ -1,0 +1,9 @@
+package com.mit.bean;
+
+
+public class Ticket {
+
+	private String name;
+	
+	private String 
+}

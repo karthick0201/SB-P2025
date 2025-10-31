@@ -1,0 +1,55 @@
+package com.mit.entity.customgenerator;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "appartment_table")
+public class Appartment {
+
+	@Id
+	@Column(name = "room_no")
+	private String roomNumber; // F1R10 ==> Floor 1, Room - 10
+	
+	@Column(name = "rent")
+	private double rent;
+	
+	@Column(name = "owner_name")
+	private String ownerName;
+
+	@Override
+	public String toString() {
+		return "Appartment [roomNumber=" + roomNumber + ", rent=" + rent + ", ownerName=" + ownerName + "]";
+	}
+
+	public String getRoomNumber() {
+		return roomNumber;
+	}
+
+	public void setRoomNumber(String roomNumber) {
+		this.roomNumber = roomNumber;
+	}
+
+	public double getRent() {
+		return rent;
+	}
+
+	public void setRent(double rent) {
+		this.rent = rent;
+	}
+
+	public String getOwnerName() {
+		return ownerName;
+	}
+
+	public void setOwnerName(String ownerName) {
+		this.ownerName = ownerName;
+	}
+	
+	
+	
+	
+	
+}

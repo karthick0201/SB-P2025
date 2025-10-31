@@ -1,0 +1,42 @@
+package com.mit;
+
+import java.util.Arrays;
+import java.util.List;
+
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import com.mit.entity.Sticker;
+
+@SpringBootApplication
+public class Sb04DatajpaGeneratorAutoApplication implements CommandLineRunner{
+
+	public static void main(String[] args) {
+		SpringApplication.run(Sb04DatajpaGeneratorAutoApplication.class, args);
+	}
+
+	@Override
+	public void run(String... args) throws Exception {
+		
+		/* 1. Generator - AUTO */
+		
+		List<Sticker> stickersList = getStickersList();
+		
+		
+		
+		
+	}
+
+	private List<Sticker> getStickersList() {
+		
+		Sticker s1 = new Sticker("Naruto","Team 7",60);
+		Sticker s2 = new Sticker("Sasuke","Team 7",50);
+		Sticker s3 = new Sticker("Sikamaru","Team 10",80);
+		Sticker s4 = new Sticker("Hinata","Team 9",40);
+		Sticker s5 = new Sticker("Rock Lee","Team 6",90);
+		
+		return Arrays.asList(s1,s2,s3,s4,s5);
+	}
+
+}

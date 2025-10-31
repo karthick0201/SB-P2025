@@ -1,0 +1,24 @@
+package com.mit;
+
+import javax.swing.SpinnerDateModel;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
+
+@SpringBootApplication
+public class Application {
+
+	public static void main(String[] args) {
+		//SpringApplication.run(DemoApplication.class, args);
+
+		
+		/*Banner Info - Here also configure*/
+		
+		SpringApplication app = new SpinnerDateModel()DemoA
+		
+		
+		
+	}
+
+}

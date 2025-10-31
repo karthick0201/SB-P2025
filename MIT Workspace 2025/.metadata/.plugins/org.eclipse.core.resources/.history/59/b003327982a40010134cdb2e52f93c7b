@@ -1,0 +1,102 @@
+package com.mit;
+
+import java.util.Arrays;
+
+import org.springframework.boot.Banner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
+
+import com.mit.bean.Ticket;
+
+@SpringBootApplication
+public class Application {
+
+	public static void main(String[] args) throws Exception {
+		//SpringApplication.run(DemoApplication.class, args);
+
+		/*1. Banner Info - Here also configure*/
+		
+		SpringApplication app = new SpringApplication(Application.class);
+		
+		app.setBannerMode(Banner.Mode.CONSOLE); // PROORITY IS HERE - PROEPRTY IS SECOND
+		
+		ConfigurableApplicationContext context = app.run(args);
+		System.out.println("~~~~~~ Main Method Starts ....");
+		
+		
+		
+		/*
+		 * 2. Spring boot runners Concept
+		 * 
+		 * Executes this methods after spring boot application started
+		 * 
+		 * THERE ARE 2 TYPES OF RUNNER AVAILABLE
+		 * 
+		 * 	1. Command Line Runner (Non-key value)
+		 * 	2. Application Runner (Key value)
+		 * 
+		 * 	Both are functional interfaces
+		 * 
+		 * Use : one time use - Testing purpose, add test data, like life cycle methods
+		 * 
+		 * CONCLUSION : 
+		 * 	
+		 * 	** Container calls this run method
+		 * 	** Calling procedure
+		 * 		1. Run Method (I)
+		 * 		2. Main Methods (II)
+		 * 
+		 * 
+		 */
+		
+		
+		springbootRunnerPratice();
+		
+		
+		
+		
+		/*
+		 * 3. SB Application.properties file - We no need to provide any sort of
+		 * configuation related to app.properties file - i.e. no need to
+		 * provide @PropertySource(path = "classpath:...")
+		 */
+		
+		applicationPropertiesInSpringBootExample(context);
+		
+		
+		
+		
+		
+		
+		System.out.println("~~~~~~ Main Method Ends ....");
+		
+		
+		
+		
+	}
+
+	private static void springbootRunnerPratice() {
+		/* 1. CommandLineRunner */
+
+		// I created TestCommandLineRunner class to test commandLineRunner
+
+	}
+
+//	@Autowired
+	//private Ticket ticket;
+	
+	private static void applicationPropertiesInSpringBootExample(ConfigurableApplicationContext context) {
+		
+
+		Ticket ticketBean = context.getBean(Ticket.class);
+		ticketBean.display();
+		System.out.println(ticketBean);
+		
+		System.out.println("Active profiles: " + Arrays.toString(context.getEnvironment().getActiveProfiles()));
+		System.out.println("ticket.passengerName property: " + context.getEnvironment().getProperty("ticket.passengerName"));
+
+		
+	}
+
+}

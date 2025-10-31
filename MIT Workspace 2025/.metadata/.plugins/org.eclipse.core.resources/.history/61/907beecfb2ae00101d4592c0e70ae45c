@@ -1,0 +1,89 @@
+package com.service;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.dao.CustomerDao;
+import com.entity.Customer;
+import com.request.CustomerRequest;
+import com.response.CustomerResponse;
+
+@Service
+public class CustomerServiceImpl implements CustomerService {
+
+	
+	@Autowired
+	private CustomerDao customerDao;
+	
+	@Override
+	public List<CustomerResponse> getAllCutomer() {
+		
+		
+		
+		  List<Customer> customerList = customerDao.findAll();
+		  
+		  List<CustomerResponse> 
+		  		customerResponseList = customerList
+							  			.stream()
+							  			.map(customer -> convertCustomerEntitytToCustomerResponse(customer))
+							  			.collect(Collectors.toList());
+		  
+		  return customerResponseList;
+	}
+
+	@Override
+	public CustomerResponse getCustomerById(int id) throws Exception {
+		
+		Optional<Customer> optionalCustomer =  customerDao.findById(id);
+		
+		if(optionalCustomer.isEmpty()) {
+			throw new Exception("Customer With " + id + " is not found!!!"); // After Change to Custom Exception
+		}
+		
+		CustomerResponse customerResponse = convertCustomerEntitytToCustomerResponse(optionalCustomer.get());
+		
+		return customerResponse;
+		
+	}
+
+	@Override
+	public Customer addCustomer(Customer customer) {
+		
+		Customer savedCustomer = customerDao.save(customer);
+		
+		System.out.println("~~~~~~~~~~~ SavedCustomer : " + savedCustomer);
+		return savedCustomer;
+	}
+
+	@Override
+	public boolean deleteCustomer(int id) {
+		
+		customerDao.deleteById(id);		
+		
+		return true;
+	}
+
+	@Override
+	public List<Customer> addCustomer(List<Customer> customerList) {
+		List<Customer> savedCustomerList = customerDao.saveAll(customerList);
+		return savedCustomerList;
+	}
+	
+	@Autowired
+	private ModelMapper mapper;
+	/*Utility Method for Converting CustomerRequest To CustomerEntity*/
+	public Customer convertCustomerRequestToCustomerEntity(CustomerRequest customerRequest) {
+		return mapper.map(customerRequest, Customer.class);
+	}
+	/*Utility Method for Converting CustomerEntity To CustomerResponse*/
+	public CustomerResponse convertCustomerEntitytToCustomerResponse(Customer customer) {
+		return mapper.map(customer, CustomerResponse.class);
+	}
+	
+
+}

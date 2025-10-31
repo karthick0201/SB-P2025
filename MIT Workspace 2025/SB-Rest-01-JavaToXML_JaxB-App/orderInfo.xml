@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<order>
+    <orderId>101</orderId>
+    <customerName>Pranathi</customerName>
+    <products_list>
+        <product>
+            <product_id>1</product_id>
+            <name>Study Lamp</name>
+            <quantity>5</quantity>
+            <price>200</price>
+        </product>
+        <product>
+            <product_id>2</product_id>
+            <name>Monitor</name>
+            <quantity>1</quantity>
+            <price>12000</price>
+        </product>
+        <product>
+            <product_id>3</product_id>
+            <name>Labtop</name>
+            <quantity>2</quantity>
+            <price>45000</price>
+        </product>
+        <product>
+            <product_id>4</product_id>
+            <name>Chair</name>
+            <quantity>10</quantity>
+            <price>700</price>
+        </product>
+    </products_list>
+</order>

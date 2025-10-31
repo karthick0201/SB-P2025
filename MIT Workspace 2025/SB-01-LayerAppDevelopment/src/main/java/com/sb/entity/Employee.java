@@ -1,0 +1,100 @@
+package com.sb.entity;
+
+import java.time.LocalDate;
+
+/**
+ * @author karth
+ *
+ *
+ *	 Employee.
+ *
+ */
+public class Employee {
+
+	private int id;
+	private String name;
+	private String role;
+	private LocalDate joinedDate;
+	
+	private Employee(EmployeeBuilder employeeBuilder) {
+		this.id = employeeBuilder.id;
+		this.name = employeeBuilder.name;
+		this.role = employeeBuilder.role;
+		this.joinedDate = employeeBuilder.joinedDate;
+	}
+	
+	public static class EmployeeBuilder{
+		private int id;
+		private String name;
+		private String role;
+		private LocalDate joinedDate;
+		
+		public EmployeeBuilder setId(int id) {
+			this.id = id;
+			return this;
+		}
+		public EmployeeBuilder setName(String name) {
+			this.name = name;
+			return this;
+		}
+		public EmployeeBuilder setRole(String role) {
+			this.role = role;
+			return this;
+		}
+		public EmployeeBuilder setJoinedDate(LocalDate joinedDate) {
+			this.joinedDate = joinedDate;
+			return this;
+		}
+		
+		public Employee build() {
+			
+			return new Employee(this);
+		}
+		
+		
+		
+	}
+	
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
+	}
+	public LocalDate getJoinedDate() {
+		return joinedDate;
+	}
+	public void setJoinedDate(LocalDate joinedDate) {
+		this.joinedDate = joinedDate;
+	}
+	public void display() {
+		System.out.println("------------------------");
+		System.out.println("Id   : " + id);
+		System.out.println("Name : " + name);
+		System.out.println("Role : " + role);
+		System.out.println("Date : " + joinedDate);
+		System.out.println("------------------------");
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+
+}

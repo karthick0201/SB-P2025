@@ -1,0 +1,86 @@
+package com.mit.service;
+
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.mit.dao.PostDao;
+import com.mit.entity.Comment;
+import com.mit.entity.Post;
+
+@Service
+public class PostService {
+
+	
+	@Autowired
+	private PostDao postDao;
+	
+	public void oneToManyPratice() {
+		
+	}
+	
+	public void insertRecordsToTable() {
+		
+		// Preparing Comments 
+		
+		Comment c1 = new Comment("Epdi poguthu...",new Date());
+		Comment c2 = new Comment("Super",new Date());
+		Comment c3 = new Comment("Nice Picture",new Date());
+
+		Comment c4 = new Comment("Fashion designer ahh... HAha",new Date());
+		Comment c5 = new Comment("Omg nice",new Date());
+		
+		Comment c6 = new Comment("paaraaaa...",new Date());
+		Comment c7 = new Comment("Ethuku...",new Date());
+		
+
+		// Preparing Post
+		
+		Post p1 = new Post();
+		p1.setComments(Arrays.asList(c1,c2,c3));
+		p1.setPost("Megalaya day 2 vlog");
+		p1.setPostedDate(new Date());
+		
+		Post p2 = new Post();
+		p2.setComments(Arrays.asList(c4,c5));
+		p2.setPost("Home Vlog Reel");
+		p2.setPostedDate(new Date());
+		
+		Post p3 = new Post();
+		p3.setComments(Arrays.asList(c6,c7));
+		p3.setPost("Home Temple Reel");
+		p3.setPostedDate(new Date());
+		
+		
+		
+		postDao.saveAll(Arrays.asList(p1,p2,p3));
+		
+		printPostEntity();
+		
+		
+		
+	}
+
+	private void printPostEntity() {
+		
+		List<Post> postList = postDao.findAll();
+		
+		System.out.println(">>-------| PRINTING POST LIST");
+		
+		postList.forEach(p -> {
+			p.display();
+		});
+		
+		
+		System.out.println(">>-----------------------------<<");
+		
+		
+		
+	}
+	
+	
+	
+}

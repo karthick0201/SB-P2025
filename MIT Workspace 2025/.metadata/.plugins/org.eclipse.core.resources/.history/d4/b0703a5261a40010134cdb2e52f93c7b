@@ -1,0 +1,5 @@
+spring.application.name=demo
+
+#Banner Information
+
+spring.main.banner-mode=off

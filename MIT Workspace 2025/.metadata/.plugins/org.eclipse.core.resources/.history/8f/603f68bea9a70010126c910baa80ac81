@@ -1,0 +1,15 @@
+spring.application.name=SB-10-mvc-enquiry-form
+
+
+#ViewResolver
+spring.mvc.view.prefix=/views/
+spring.mvc.view.suffix=.jsp
+
+#Port Number
+#server.port=1234
+
+#Context configure
+#server.servlet.context-path=anyName
+
+
+

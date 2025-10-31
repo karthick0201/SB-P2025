@@ -1,0 +1,13 @@
+package com.mit.service;
+
+import com.mit.dto.EnquiryDTO;
+
+public class EnquiryServiceImpl implements EnquiryService {
+
+	@Override
+	public EnquiryDTO createEnquiry(EnquiryDTO enquiry) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

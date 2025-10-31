@@ -1,0 +1,66 @@
+package com.exception;
+
+import java.time.LocalDateTime;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import jakarta.servlet.http.HttpServletRequest;
+
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+
+	
+	@ExceptionHandler(ResourceNotFoundException.class)
+	public ResponseEntity<ErrorResponse> notFoundErrorHandler(ResourceNotFoundException exception,
+																HttpServletRequest request){
+		
+		ErrorResponse error = ErrorResponse
+								.builder()
+								.path(request.getRequestURI())
+								.message(exception.getMessage())
+								.localDateTime(LocalDateTime.now())
+								.errorCode("User_Not_Found")
+								.build();
+		
+		return ResponseEntity
+					.status(HttpStatus.NOT_FOUND)
+					.body(error);
+		
+	}
+	
+	@ExceptionHandler(Exception.class)
+	public ResponseEntity<ErrorResponse> exceptionHandler(ResourceNotFoundException exception, HttpServletRequest request){
+		
+		ErrorResponse error = ErrorResponse
+								.builder()
+								.path(request.getRequestURI())
+								.message(exception.getMessage())
+								.localDateTime(LocalDateTime.now())
+								.errorCode("Error_Occured")
+								.build();
+		
+		return ResponseEntity
+					.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body(error);
+	}
+	
+	 @ExceptionHandler(ImageStorageException.class)
+	    public ResponseEntity<ErrorResponse> handleImageStorageException(
+	            ImageStorageException ex, HttpServletRequest request) {
+
+	        ErrorResponse error = ErrorResponse
+					.builder()
+					.path(request.getRequestURI())
+					.message(ex.getMessage())
+					.localDateTime(LocalDateTime.now())
+					.errorCode("IMAGE_SAVE_FAILED")
+					.build();
+
+	        return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
+	    }
+	
+	
+}

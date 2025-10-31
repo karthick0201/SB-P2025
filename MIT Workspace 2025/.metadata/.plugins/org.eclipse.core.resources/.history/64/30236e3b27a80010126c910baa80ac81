@@ -1,0 +1,39 @@
+package com;
+
+import java.util.Arrays;
+import java.util.List;
+
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import com.Entity.Course;
+import com.service.CourseService;
+
+@SpringBootApplication
+public class SbProject01CourseRegistrationSystemApplication implements CommandLineRunner{
+
+	public static void main(String[] args) {
+		SpringApplication.run(SbProject01CourseRegistrationSystemApplication.class, args);
+	}
+
+	
+	private CourseService courseService;
+	
+	
+	@Override
+	public void run(String... args) throws Exception {
+		
+		Course c1 = new Course("Java Full stack", "Magesh", 4);
+		Course c2 = new Course("IOT", "Suresh", 3);
+		Course c3 = new Course("Cloud Computing", "Dharan", 2);
+		Course c4 = new Course("AI", "Arun", 3);
+		Course c5 = new Course("MachineLearning", "Varun", 14);
+		
+		List<Course> courseList = Arrays.asList(c1,c2,c3,c4,c5);
+		
+		courseService.addCourse(courseList);
+	}
+
+}
+

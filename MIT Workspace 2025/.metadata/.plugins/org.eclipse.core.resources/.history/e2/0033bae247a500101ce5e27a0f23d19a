@@ -1,0 +1,63 @@
+package com.mit.entity.customgenerator;
+
+import org.hibernate.annotations.GenericGenerator;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "appartment_table_custom_pk_example")
+public class Appartment {
+
+	@Id
+	@Column(name = "room_no")
+	@GenericGenerator(
+			name = "appartment_seq",
+			strategy = "com.mit.entity.customgenerator.MyAppartmentCustomGnerator"
+			)
+	@GeneratedValue(name = "appartment_seq")
+	private String roomNumber; // Prefix : cdp_ Suffix : <Number> || cdp_1
+	
+	@Column(name = "rent")
+	private double rent;
+	
+	@Column(name = "owner_name")
+	private String ownerName;
+
+	@Override
+	public String toString() {
+		return "Appartment [roomNumber=" + roomNumber + ", rent=" + rent + ", ownerName=" + ownerName + "]";
+	}
+
+	public String getRoomNumber() {
+		return roomNumber;
+	}
+
+	public void setRoomNumber(String roomNumber) {
+		this.roomNumber = roomNumber;
+	}
+
+	public double getRent() {
+		return rent;
+	}
+
+	public void setRent(double rent) {
+		this.rent = rent;
+	}
+
+	public String getOwnerName() {
+		return ownerName;
+	}
+
+	public void setOwnerName(String ownerName) {
+		this.ownerName = ownerName;
+	}
+	
+	
+	
+	
+	
+}

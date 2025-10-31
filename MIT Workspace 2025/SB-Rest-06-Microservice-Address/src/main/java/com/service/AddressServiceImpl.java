@@ -1,0 +1,96 @@
+package com.service;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
+import org.springframework.stereotype.Service;
+
+import com.dao.AddressDao;
+import com.entity.Address;
+import com.request.AddressRequest;
+import com.response.AddressResponse;
+
+@Service
+public class AddressServiceImpl implements AddressService {
+
+	
+	@Autowired
+	private AddressDao addressDao;
+	
+	@Override
+	public List<AddressResponse> getAllAddress() {
+		
+		List<Address> addressList = addressDao.findAll();
+		
+		return addressList
+					.stream()
+					.map(add -> convertAddressEntityToAddressResponse(add))
+					.collect(Collectors.toList());
+	}
+
+	@Override
+	public AddressResponse getAddressById(int id) throws Exception {
+		
+		Optional<Address> oAddress = addressDao.findById(id);
+		
+		if(oAddress.isEmpty()) {
+			throw new Exception(String.format("Id : %s Not Present in Address Table", id)); // Note : After Change to CustomException and make it global
+		}
+		return mapper.map(oAddress.get(),AddressResponse.class);
+	}
+
+	@Autowired
+	private Environment environment;
+	
+	@Override
+	public AddressResponse getAddressByCustomerId(int id) throws Exception {
+		
+		System.out.println(">>----| API PORT NUMBER : " + environment.getProperty("server.port"));
+		
+		Optional<Address> oAddress = addressDao.findByCustomerId(id);
+		
+		if(oAddress.isEmpty()) {
+			throw new Exception(String.format("Customer Id : %s Not Match and there is no Present in Address Table", id)); // Note : After Change to CustomException and make it global
+		}
+		return mapper.map(oAddress.get(),AddressResponse.class);
+	}
+
+	@Override
+	public AddressResponse addAddress(AddressRequest addressRequest) {
+		
+		Address addressRef = mapper.map(addressRequest, Address.class);
+		addressRef.setId(0);
+		Address savedAddressRef = addressDao.save(addressRef);
+		
+		return mapper.map(savedAddressRef, AddressResponse.class);
+		
+		
+		
+	}
+	
+	@Autowired
+	private ModelMapper mapper;
+	
+	/* Utility Method for Conversion */
+	public Address convertAddressRequestToAddressEntity(AddressRequest addressRequest) {
+		return mapper.map(addressRequest, Address.class);
+		
+	}
+	
+	public AddressResponse convertAddressEntityToAddressResponse(Address address) {
+		return mapper.map(address, AddressResponse.class);
+	}
+
+	@Override
+	public String deleteAddress(int id) {
+		
+		addressDao.deleteById(id);
+		
+		return "Id : " + id + " address Deleted Success!!!";
+	}
+
+}

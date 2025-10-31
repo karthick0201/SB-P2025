@@ -1,0 +1,78 @@
+package com.example;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.util.Arrays;
+
+import com.conversion.Order;
+import com.conversion.Product;
+
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
+import jakarta.xml.bind.Unmarshaller;
+
+/**
+ * Hello world!
+ */
+public class MarshallingClient {
+    public static void main(String[] args) throws JAXBException, FileNotFoundException {
+        
+    	marshalling();
+    	
+    	unMarshalling();
+    	
+    }
+
+	private static void unMarshalling() throws JAXBException, FileNotFoundException {
+		System.out.println(">>------| Converting XML To Java |--------<<");
+		
+		JAXBContext context = JAXBContext.newInstance(Order.class);
+		
+		
+		Unmarshaller unmarshallerRef = context.createUnmarshaller();
+		
+		Order orderRef = (Order)unmarshallerRef.unmarshal(new FileInputStream("orderInfo.xml"));
+		
+		System.out.println("Order Ref : " + orderRef);
+		
+		
+		System.out.println(">>>------| Process Completed...");
+		
+	}
+
+	private static void marshalling() throws JAXBException, FileNotFoundException {
+		
+		Order orderRef = getOrderRef();
+		
+		System.out.println(">>------| Converting Java To XML |--------<<");
+		
+		JAXBContext context = JAXBContext.newInstance(Order.class);
+		
+		Marshaller marshallerRef = context.createMarshaller();
+		
+		marshallerRef.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+		
+		/* Print in COnsole */
+		marshallerRef.marshal(orderRef, System.out);
+		
+		/* Store in File */
+		marshallerRef.marshal(orderRef, new FileOutputStream("orderInfo.xml"));
+		
+		System.out.println(">>>------| Process Completed...");
+		
+	}
+
+	private static Order getOrderRef() {
+		
+		Product p1 = new Product(1,"Study Lamp",5,200);
+		Product p2 = new Product(2,"Monitor",1,12000);
+		Product p3 = new Product(3,"Labtop",2,45000);
+		Product p4 = new Product(4,"Chair",10,700);
+		
+		Order orderRef = new Order(101, "Pranathi", Arrays.asList(p1,p2,p3,p4));
+		
+		return orderRef;
+	}
+}

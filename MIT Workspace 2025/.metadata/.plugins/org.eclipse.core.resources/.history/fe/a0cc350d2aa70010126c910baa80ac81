@@ -1,0 +1,10 @@
+spring.application.name=SB-09-datajpa-mongodb
+
+#MongoDB Configuration
+
+spring.data.mongodb.host=localhost
+spring.data.mongodb.port=27017
+spring.data.mongodb.database=mit
+
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true

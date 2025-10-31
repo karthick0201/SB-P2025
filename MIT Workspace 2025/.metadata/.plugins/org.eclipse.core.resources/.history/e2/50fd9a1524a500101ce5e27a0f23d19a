@@ -1,0 +1,14 @@
+package com.mit.entity.table;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
+@Entity
+@Table(name = "table")
+public class Table {
+
+	@Id
+	private String id;
+	private String name;
+	private String type;
+}

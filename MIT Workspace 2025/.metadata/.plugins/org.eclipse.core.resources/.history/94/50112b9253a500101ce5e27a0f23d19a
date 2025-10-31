@@ -1,0 +1,36 @@
+package com.mit;
+
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class Sb06DatajpaPagingandsortingRepositoryApplication implements CommandLineRunner{
+
+	public static void main(String[] args) {
+		SpringApplication.run(Sb06DatajpaPagingandsortingRepositoryApplication.class, args);
+	}
+
+	@Override
+	public void run(String... args) throws Exception {
+		/*
+		 * 1. Paging and Sorting Repository Pratice
+		 */
+		
+		System.out.println(">>---------|| Paging and Sorting Repostiory Pratice ||------------<<" );
+		
+		
+		
+		
+		
+		line();
+		System.out.println(">>------------------------------------------------------------------<<");
+		
+	}
+
+	private void line() {
+		System.out.println("\n\n>>---------------------------------------------------<<");
+		System.out.println(">>------------------------------------------------------<<\n\n");
+	}
+
+}

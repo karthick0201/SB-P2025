@@ -1,0 +1,27 @@
+package com.service;
+
+import java.util.List;
+
+import com.dto.PersonDto;
+
+public interface PersonService {
+
+	/*1. Get All Customer*/
+	public List<PersonDto> getPersons();
+	
+	/*2. Get Customer Using ID*/
+	public PersonDto getPerson(int id);
+	
+	/*3. Delete Customer*/
+	public String deletePerson(int id);
+	
+	/*4. Add Customer*/
+	public PersonDto addPerson(PersonDto personDto);
+	
+	/*5. Update Customer*/
+	public PersonDto updatePerson(PersonDto personDto);
+	
+	/* 6. Update Customer Location */
+	public PersonDto updatePersonLocation(int id, String location);
+	
+}

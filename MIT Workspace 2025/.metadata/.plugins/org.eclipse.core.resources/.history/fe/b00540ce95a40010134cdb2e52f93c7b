@@ -1,0 +1,38 @@
+package com.mit;
+
+import java.util.Arrays;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.core.env.Environment;
+
+@SpringBootApplication
+public class Application implements CommandLineRunner{
+
+	public static void main(String[] args) {
+		SpringApplication.run(Application.class, args);
+	}
+
+	
+	@Autowired
+	Environment environment;
+	
+	@Override
+	public void run(String... args) throws Exception {
+		
+		System.out.println(">>----| Profiles Concept Pratice |-------<<");
+		
+		String[] activeProfiles = environment.getActiveProfiles();
+		
+		System.out.println("ActiveProfiles : " + Arrays.toString(activeProfiles));
+		
+		
+		System.out.println(">-----------------------------------------<");
+		
+		
+		
+	}
+
+}

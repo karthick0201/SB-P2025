@@ -1,0 +1,106 @@
+package com.mit;
+
+import java.util.Arrays;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import com.mit.entity.House;
+import com.mit.service.HouseServiceI;
+
+@SpringBootApplication
+public class Sb06DatajpaPagingandsortingRepositoryApplication implements CommandLineRunner{
+
+	public static void main(String[] args) {
+		SpringApplication.run(Sb06DatajpaPagingandsortingRepositoryApplication.class, args);
+	}
+
+	
+	@Autowired
+	private HouseServiceI houseService;
+	
+	@Override
+	public void run(String... args) throws Exception {
+		/*
+		 * 1. Paging and Sorting Repository Pratice
+		 */
+		
+		//pagingPratice();
+		
+		/* 2. Sorting Using 'owner' - Print */
+		
+		sortingPratice();
+	
+		
+	}
+
+	private void sortingPratice() {
+		System.out.println(">>---------|| Paging and Sorting Repostiory Pratice ||------------<<" );
+		
+		List<House> listHouse = getListOfHouse();
+		
+		houseService.saveAllHome(listHouse);
+		
+		System.out.println(">------|| printing ssorting records ");
+		
+		houseService.printHouseRecordsSortByOwner();
+		
+		line();
+		
+	}
+
+	private void pagingPratice() {
+		System.out.println(">>---------|| Paging and Sorting Repostiory Pratice ||------------<<" );
+		
+		List<House> listHouse = getListOfHouse();
+		
+		houseService.saveAllHome(listHouse);
+		
+		System.out.println(">------|| printing paging ");
+		
+		houseService.printCustomHouseInto();
+		
+		line();
+		System.out.println(">------|| printing paging ASC and soryBy(owner,id)");
+		
+		houseService.printHouseRecordsSortByOwner("asc","owner","id");
+		
+		
+		
+		line();
+		
+	}
+
+	private List<House> getListOfHouse() {
+		
+		House h1 = new House("Karthick R","Country House");
+		House h2 = new House("Pranthi","2 Block House");
+		House h3 = new House("Priety","2 Block House");
+		House h4 = new House("Kannan","3 Block House");
+		House h5 = new House("Raji","4 Block House");
+		House h6 = new House("Akalya","2 Stone House");
+		House h7 = new House("Sathish","3 Stone House");
+		House h8 = new House("Nandhu","3 Gold House");
+		House h9 = new House("Charan","4 Gold House");
+		House h10 = new House("rajan","1 Water House");
+		House h11 = new House("santhosh","7 Diamond House");
+		House h12 = new House("booma akka","3 Diamond House");
+		House h13 = new House("aswin","2 Red House");
+		House h14 = new House("sugensh","3 Blue House");
+		House h15 = new House("ganesh","5 Eclipe House");
+		House h16 = new House("sai","3 Platinum House");
+		House h17 = new House("ram","Country House");
+		
+		
+		return Arrays.asList(h1,h2,h3,h4,h5,h6,h7,h8,h9,h10,h11,h12,h13,h14,h15,h16,h17);
+	}
+
+	private void line() {
+		System.out.println("\n\n>>---------------------------------------------------<<");
+		System.out.println(">>------------------------------------------------------<<\n\n");
+	}
+
+}

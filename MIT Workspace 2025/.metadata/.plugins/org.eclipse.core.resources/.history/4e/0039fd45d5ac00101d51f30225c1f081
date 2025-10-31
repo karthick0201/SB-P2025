@@ -1,0 +1,9 @@
+package com.consumer;
+
+public class PersonConsumer {
+
+	public void home() {
+		
+	}
+
+}

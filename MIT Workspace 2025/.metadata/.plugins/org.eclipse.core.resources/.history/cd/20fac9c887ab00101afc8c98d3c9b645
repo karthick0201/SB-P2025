@@ -1,0 +1,28 @@
+package com;
+
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import com.resources.WishResource;
+
+@SpringBootApplication
+public class SbRest02ProducerApplication implements CommandLineRunner{
+
+	public static void main(String[] args) {
+		SpringApplication.run(SbRest02ProducerApplication.class, args);
+		
+		
+	}
+
+	@Override
+	public void run(String... args) throws Exception {
+		System.out.println(">>-------| REST API - PRODUCER APPLICATION DEVELOPMENT |-------<<<");
+		
+		CustomerUtils.initializingCustomerList();
+		
+		
+	}
+
+
+}

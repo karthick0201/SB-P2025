@@ -1,0 +1,234 @@
+package com.controller;
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
+import org.springframework.web.client.ResourceAccessException;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
+
+import com.entity.Customer;
+import com.feign.clients.AddressClient;
+import com.response.AddressResponse;
+import com.response.CustomerResponse;
+import com.service.CustomerService;
+
+@RestController
+@RequestMapping(value = "/api/customer")
+@RefreshScope
+public class CustomerController {
+
+	@Autowired
+	private CustomerService customerService;
+	
+	@LoadBalanced
+	@Autowired
+	private RestTemplate restTemplate;
+	
+	@Autowired
+	private WebClient webClient;
+	
+	@Autowired 
+	private AddressClient addressFiegnClient;
+	
+	@Autowired
+	private DiscoveryClient discoveryClient;
+	
+	@Value("${testmsg}")
+	private String message;
+	
+	@GetMapping(value = "/message")
+	public ResponseEntity<String> refreshMessage(){
+		
+		return new ResponseEntity<>(message,HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/")
+	public ResponseEntity<List<CustomerResponse>> getAllCustomer(){
+		
+		List<CustomerResponse> customerList = customerService.getAllCutomer();
+		
+		// HERE MAKING ONE API CALL - Not Each Request api CALL.
+//		List<AddressResponse> addResList = getCustomerAddressListUsingWebClient();
+		List<AddressResponse> addResList = getCustomerAddressListUsingFeignClient();
+		//List<AddressResponse> addResList = getCustomerAddressListUsingServiceDiscoveryClient();
+
+		customerList.forEach(cus -> {
+			addResList
+				.stream()
+				.filter(add -> add.getCustomerId() == cus.getId())
+				.findFirst()
+				.ifPresent(cus::setAddressResponse);
+		});
+		return new ResponseEntity<>(customerList,HttpStatus.OK);
+		
+	}
+	
+	private List<AddressResponse> getCustomerAddressListUsingServiceDiscoveryClient() {
+		
+		List<ServiceInstance> instanceList = discoveryClient.getInstances("ADDRESS-SERVICE");
+		
+		
+		ServiceInstance serviceInstance = instanceList.get(0);
+		
+		String endpoint = serviceInstance.getUri() + "/api/address/";
+		
+		System.out.println("API URL  ::: " + endpoint);
+		
+		ResponseEntity<List<AddressResponse>> 
+							responseEntity = restTemplate.exchange(
+													endpoint,
+													HttpMethod.GET,
+													null,
+													new ParameterizedTypeReference<List<AddressResponse>>() {});
+		
+	
+		if (responseEntity.getStatusCode() == HttpStatus.OK) {
+			return responseEntity.getBody();
+		}
+
+		return null;
+	}
+
+	private List<AddressResponse> getCustomerAddressListUsingFeignClient() {
+		ResponseEntity<List<AddressResponse>> responseEntity = 
+												addressFiegnClient
+													.getCustomerAddressListUsingWebClient();
+
+		if (responseEntity.getStatusCode() == HttpStatus.OK) {
+			return responseEntity.getBody();
+		}
+
+		return null;
+	}
+	
+	
+
+	private List<AddressResponse> getCustomerAddressListUsingWebClient() {
+		
+		
+		ResponseEntity<List<AddressResponse>> responseEntity = webClient
+																.get()
+																.uri("/")
+																.accept(MediaType.APPLICATION_JSON)
+																.retrieve()
+																.toEntityList(AddressResponse.class)
+																.block();
+		
+		if(responseEntity.getStatusCode() == HttpStatus.OK) {
+			return responseEntity.getBody();
+		}
+		
+		return null;
+	}
+
+	@GetMapping(value = "/{customerId}")
+	public ResponseEntity<?> getCustomerById(@PathVariable("customerId") int id){
+		
+		CustomerResponse customerRef;
+		try {
+			customerRef = customerService.getCustomerById(id);
+			
+//			AddressResponse addResponse = getAddressResponseUsingRestTemplate(id); // Dynamic - Multiple Instance case handled
+			AddressResponse addResponse = getAddressResponseUsingFiegnClient(id);
+			System.out.println("AddressResponse of Id : " + id + " : " + addResponse);
+			if(addResponse != null) {
+				customerRef.setAddressResponse(addResponse);
+			}
+			
+			return new ResponseEntity<>(customerRef,HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
+		}
+		
+	}
+	
+	private AddressResponse getAddressResponseUsingFiegnClient(int id) {
+
+		try {
+			ResponseEntity<AddressResponse> addRes = addressFiegnClient.getAddressResponseUsingFiegnClient(id);
+			
+			if (addRes.getStatusCode() == HttpStatus.OK) {
+				return addRes.getBody();
+			}
+			System.out.println("Address API Call From CustomerMS ::: STATUS Code : " + addRes.getStatusCode());
+		} catch (ResourceAccessException e) {
+			System.err.println("Address service not reachable: " + e.getMessage());
+		} catch (HttpClientErrorException | HttpServerErrorException e) {
+			System.err.println("Address service error: " + e.getStatusCode() + " - " + e.getMessage());
+		} catch (Exception e) {
+			System.err.println("Unexpected error calling address service: " + e.getMessage());
+		}
+		return null;
+	}
+
+	private AddressResponse getAddressResponseUsingRestTemplate(int id) {
+	
+		/* Old Hard Coded URL */
+		//String url = "http://localhost:1122/api/address/customer/{customerId}";
+		
+		/* IF Multiple Instances available - Case */
+		String url = "http://ADDRESS-SERVICE/api/address/customer/{customerId}"; // Service Discovery Will pick instance in round robin style.
+		
+		System.out.println("URL :: " + url);
+		
+		try {
+		    ResponseEntity<AddressResponse> addRes 
+							    			= restTemplate.exchange(
+											        url,
+											        HttpMethod.GET,
+											        null,
+											        AddressResponse.class,
+											        Map.of("customerId", id)
+											    );
+		    
+		    if (addRes.getStatusCode() == HttpStatus.OK) {
+		        return addRes.getBody();
+		    }
+		    System.out.println("Address API Call From CustomerMS ::: STATUS Code : " + addRes.getStatusCode());
+		} catch (ResourceAccessException e) {
+		    System.err.println("Address service not reachable: " + e.getMessage());
+		}catch (HttpClientErrorException | HttpServerErrorException e) {
+	        System.err.println("Address service error: " + e.getStatusCode() + " - " + e.getMessage());
+	    } catch (Exception e) {
+	        System.err.println("Unexpected error calling address service: " + e.getMessage());
+	    }
+		return null;
+
+	}
+
+
+	@DeleteMapping(value ="/delete/{customerId}")
+	public ResponseEntity<String> deleteCustomerById(@PathVariable("customerId")int id) {
+		customerService.deleteCustomer(id);
+		return new ResponseEntity<>(id + " Deleted Successfull", HttpStatus.OK);
+		
+	}
+	
+	@PostMapping(value = "/add")
+	public ResponseEntity<CustomerResponse> addCustomer(@RequestBody Customer customer){
+		
+		return new ResponseEntity<>(customerService.addCustomer(customer), HttpStatus.OK);
+	}
+}

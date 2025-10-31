@@ -1,0 +1,30 @@
+package com.example;
+
+import com.conversion.Light;
+
+public class JSONClient {
+
+	public static void main(String[] args) {
+		
+		Light l1 = new Light();
+		l1.setId(1);
+		l1.setName("White Light");
+		l1.setEnergyWatt(8);
+		
+		Light l2 = new Light();
+		l1.setId(2);
+		l1.setName("Red Light");
+		l1.setEnergyWatt(16);
+		
+		Light l3 = new Light();
+		l1.setId(3);
+		l1.setName("Blue Light");
+		l1.setEnergyWatt(78);
+		
+		
+		
+		
+		
+		
+	}
+}

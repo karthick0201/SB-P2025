@@ -1,0 +1,90 @@
+package com.mit;
+
+import java.util.Arrays;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import com.mit.dao.LightDao;
+
+import com.mit.entity.Light;
+
+@SpringBootApplication
+public class Sb07DatajpaJparepositoryFindermethodsApplication implements CommandLineRunner{
+
+	public static void main(String[] args) {
+		SpringApplication.run(Sb07DatajpaJparepositoryFindermethodsApplication.class, args);
+	}
+
+	@Override
+	public void run(String... args) throws Exception {
+		System.out.println(">------------|JPA repository and Finder Methods in JPA |-----------------<");
+		
+		/*
+		 * 1. JpaRespository Methods Pratice
+		 */
+		
+		jpaRepositoryPratice();
+
+		
+		
+		
+		
+		line();
+		
+	}
+	
+	
+	@Autowired
+	LightDao lightDao;
+
+	private void jpaRepositoryPratice() {
+		
+		line();
+		List<Light> lightList = getLightsList();
+		
+		lightDao.saveAllAndFlush(lightList);
+		
+		System.out.println(">>------| All Records");
+		
+		printEntity(lightDao.findAll());
+
+		
+		
+		
+		line();
+		
+		
+		
+		
+		
+	}
+
+	
+	private void printEntity(List<Light> lightList) {
+		System.out.println(">>---------|| PRINT METHOD ||------------<<" );
+		lightList.forEach(l -> System.out.println(l));
+		line();
+		
+	}
+	private List<Light> getLightsList() {
+		Light l1 = new Light("Western","Study");
+		Light l2 = new Light("Lenovo","Monitor");
+		Light l3 = new Light("Samsung","Study");
+		Light l4 = new Light("Lenovo","Monitor");
+		Light l5 = new Light("dell","Study");
+		Light l6 = new Light("onida","Room");
+		Light l7 = new Light("Rgb","Room");
+		
+		return Arrays.asList(l1,l2,l3,l4,l5,l6,l7);
+	}
+
+	private void line() {
+		System.out.println("\n\n\n >---------------------------------------<");
+		System.out.println(">>----------------------------------------------<<\n\n\n");
+	}
+
+}

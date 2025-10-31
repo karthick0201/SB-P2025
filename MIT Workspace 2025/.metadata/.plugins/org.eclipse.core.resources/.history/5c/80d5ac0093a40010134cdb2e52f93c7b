@@ -1,0 +1,28 @@
+spring.application.name=demo
+
+#Banner Information(off/log/console)
+
+#spring.main.banner-mode=off 
+
+
+#properties - no configuration provided
+
+ticket.passengerName=pranathi
+ticket.from=chennai
+ticket.to=megalaya
+ticket.ticketClass=FirstClass
+ticket.price=10000
+
+
+#Insta Bloger Info
+
+blogger.name=Velvet_p
+blogger.category[0]=Fashion
+blogger.category[1]=Home Vlogs
+blogger.category[2]=Office bytes
+blogger.followersCount=133
+
+
+#activating profile here
+
+spring.profiles.active=dev

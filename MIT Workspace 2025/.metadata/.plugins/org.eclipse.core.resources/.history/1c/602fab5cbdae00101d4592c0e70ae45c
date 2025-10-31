@@ -1,0 +1,47 @@
+package com.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.dao.AddressDao;
+import com.request.AddressRequest;
+import com.response.AddressResponse;
+
+@Service
+public class AddressServiceImpl implements AddressService {
+
+	
+	@Autowired
+	private AddressDao addressDao;
+	
+	@Override
+	public List<AddressResponse> getAllAddress() {
+		
+		
+		
+		
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public AddressResponse getAddressById(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public AddressResponse getAddressByCustomerId(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean addAddress(AddressRequest addressRequest) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+}

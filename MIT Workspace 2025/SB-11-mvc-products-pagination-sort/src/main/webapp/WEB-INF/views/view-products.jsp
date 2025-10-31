@@ -1,0 +1,100 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>CDP SuperMarket</title>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" />
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" />
+</head>
+<body>
+
+
+	<div style="align-content: center;">
+		<h2>CDP Super Market</h2>
+		<br> <br>
+		<h4>${title}</h4>
+	
+
+	<table align="center" border="1" style="background-color: black;">
+		<tr align="center" style="background-color: burlywood;">
+			<th width="50">
+			<p>S.No</p>
+			</th>
+			<th width="150">
+				<a href="${pageContext.request.contextPath}/products/${currentPage}?sortField=productName&sortDirection=${reverseSortDirection}">productName</a>
+			</th>
+			<th width="100">
+				<a href="${pageContext.request.contextPath}/products/${currentPage}?sortField=availableQuantity&sortDirection=${reverseSortDirection}">Quantity</a>
+			</th>
+			<th width="100">
+				<a href="${pageContext.request.contextPath}/products/${currentPage}?sortField=price&sortDirection=${reverseSortDirection}">Price</a>
+			</th>
+			<th width="200">
+				<a href="${pageContext.request.contextPath}/products/${currentPage}?sortField=date&sortDirection=${reverseSortDirection}">Added Date</a>
+			</th>
+		</tr>
+
+		<tbody align="center" id="productstable">
+			
+			<c:forEach var="product" items="${products}" varStatus="i">
+					<tr align="center" style="background-color: burlywood;">
+						<td>${i.index + 1}</td>
+						<td>${product.productName}</td>
+						<td>${product.availableQuantity}</td>
+						<td>${product.price}</td>
+						<td>${product.date}</td>
+						<td><a href="editEnquiry/${product.id}">|Edit|</a> <a
+							  href="deleteEnquiry/${product.id}"
+							onclick="return confirm('Do you want To Delete Enquiry Information?')">|Delete|</a>
+						</td>
+					</tr>
+				</c:forEach>
+
+
+		</tbody>
+		<!--Table body where rows will be inserted -->
+	</table>
+	
+	<!-- Adding the Pagination Bar -->
+	
+	<c:if test="${totalPages > 1}">		
+		<div style="margin-left:211px;">	
+			<nav aria-label="Page navigation example">
+				<ul class="pagination">
+						<li class="page-item ${currentPage == 1 ? 'disabled' : ''}">
+							<a class="page-link text-danger fw-bolder"
+							href="${currentPage == 1 
+					        ? '#' 
+					        : pageContext.request.contextPath.concat('/products/').concat((currentPage - 1).toString()).concat('?sortField=').concat(sortField).concat('&sortDirection=').concat(sortDirection)}">
+								Previous </a>
+						</li>
+						<c:forEach var="pageNoCount" begin="1" end="${totalPages}" step="1">
+			   		  <li class="page-item">
+			   		      <a class="page-link text-danger fw-bolder"
+			   		          href="${pageContext.request.contextPath}/products/${pageNoCount}?sortField=${sortField}&sortDirection=${sortDirection}">${pageNoCount}</a>
+			   		  </li>
+				  </c:forEach>
+				  <li class="page-item ${currentPage == totalPages ? 'disabled' : ''}">
+					  <a class="page-link text-danger fw-bolder"
+					     href="${currentPage == totalPages 
+					        ? '#' 
+					        : pageContext.request.contextPath.concat('/products/').concat((currentPage + 1).toString()).concat('?sortField=').concat(sortField).concat('&sortDirection=').concat(sortDirection)}">
+					     Next
+					  </a>
+				</li>
+				</ul>
+		    </nav>		   
+		</div>
+	</c:if>
+	
+	
+
+</div>
+
+</body>
+</html>

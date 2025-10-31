@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<typeInfoHistroy>
+    <typeInfo handle="=SB-Rest-06-Microservice-Address/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.service{AddressService.java[AddressService" modifiers="513" timestamp="1761080722697"/>
+    <typeInfo handle="=SB-Rest-06-Microservice-Address/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.entity{Address.java[Address" modifiers="1" timestamp="1761089981834"/>
+    <typeInfo handle="=SB-Rest-06-Microservice-Address/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.service{AddressServiceImpl.java[AddressServiceImpl" modifiers="1" timestamp="1761258210108"/>
+    <typeInfo handle="=SB-Rest-06-Microservice-Address/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.controller{AddressController.java[AddressController" modifiers="1" timestamp="1761145678323"/>
+</typeInfoHistroy>

@@ -1,0 +1,5 @@
+package com.response;
+
+public class PageResponse {
+
+}

@@ -1,0 +1,109 @@
+package com.consumer;
+
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.time.LocalDate;
+
+import com.dto.PersonDto;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+
+public class PersonConsumer {
+
+	public void httpClientPratice() throws IOException, InterruptedException {
+		
+		/* 1. GET - GET ALL PERSONS INFORMATION */
+		//gettingPersonsInfo();
+		/* 2. POST - ADD PERSON */
+		addingPersonInformation();
+		
+		
+	}
+
+	private void addingPersonInformation() throws IOException, InterruptedException {
+		
+		//1. Preparing requestBody - Object Creation
+		
+		PersonDto persondto = new PersonDto();
+		persondto.setEmail("chandru.example.com");
+		persondto.setLocation("Coimbatore");
+		persondto.setCreatedDate(LocalDate.now());
+		persondto.setName("Chandru depam");
+		
+		//2. Conversion -  JavaObject To JSON
+		
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.registerModule(new JavaTimeModule());
+		mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS); // optional (ISO format)
+
+		String payload = mapper
+							.writerWithDefaultPrettyPrinter()
+							.writeValueAsString(persondto);		
+		
+		System.out.println("Payload : \n" + payload);
+		
+		
+		//3. Preparing request object
+		
+		HttpRequest httpRequest = HttpRequest.newBuilder()
+									.uri(URI.create("http://localhost:1212/api/person/"))
+									.header("Content-Type", "application/json")
+									.header("Accept","application/json")
+									.POST(HttpRequest.BodyPublishers.ofString(payload))
+									.build();
+		
+
+		//4. Creating HttpClient Object - to Make API Call
+		HttpClient restClientRef = HttpClient.newHttpClient();
+		
+		HttpResponse<String> responseRef = restClientRef.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+		
+		if(responseRef.statusCode() == 201){
+			
+			String responseString = responseRef.body();
+			PersonDto savedResponsePersonDto = mapper.readValue(responseString, PersonDto.class);
+			System.out.println(">>----------| Post - Saved response |---------<<");
+			
+			System.out.println(savedResponsePersonDto);
+			
+			System.out.println(">>----------------------------------------------<<");
+		}else {
+			System.out.println(">------| Post API Call Failed!!! Status code : " + responseRef.statusCode());
+			System.out.println(responseRef.body());
+			System.out.println(">>-------------------------------<<");
+		}
+									
+		
+	}
+
+	private void gettingPersonsInfo() throws IOException, InterruptedException {
+
+		//1. cREATE HttpClient Object
+		HttpClient httpClient = HttpClient.newHttpClient();
+		
+		//2. Preparing Request Object
+		
+		HttpRequest request = HttpRequest
+								.newBuilder()
+								.uri(URI.create("http://localhost:1212/api/person/"))
+								.header("Accept", "application/json")
+								.GET()
+								.build();
+		// 3. API Request Call
+		HttpResponse<String> httpResponse = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+		
+		if(httpResponse.statusCode() == 200) {
+			String responseBody = httpResponse.body();
+			System.out.println(responseBody);
+		}else {
+			System.out.println("Request Failed : " + httpResponse.statusCode());
+			System.out.println("Info : " + httpResponse.body());
+		}
+		
+	}
+
+}

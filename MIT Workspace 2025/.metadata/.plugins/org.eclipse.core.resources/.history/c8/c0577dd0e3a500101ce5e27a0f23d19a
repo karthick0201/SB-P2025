@@ -1,0 +1,13 @@
+package com.mit;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class Sb08DatajpaAssociationsApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(Sb08DatajpaAssociationsApplication.class, args);
+	}
+
+}

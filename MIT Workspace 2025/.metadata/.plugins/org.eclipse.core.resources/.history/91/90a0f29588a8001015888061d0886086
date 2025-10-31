@@ -1,0 +1,24 @@
+package com.mit.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import com.mit.dto.EnquiryDTO;
+
+
+@Controller
+public class EnquireController {
+
+	
+	@GetMapping(value = "/")
+	public String enquiryForm(Model model) {
+		
+		model.addAttribute("enquireyForm",new EnquiryDTO());
+		
+		System.out.println(">> Landed Enquiery Form ");
+		
+		return "enquiryDetails";
+	}
+	
+}

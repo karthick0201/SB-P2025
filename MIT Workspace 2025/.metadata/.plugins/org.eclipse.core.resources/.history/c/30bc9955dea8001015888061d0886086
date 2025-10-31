@@ -1,0 +1,60 @@
+package com;
+
+import java.util.Arrays;
+import java.util.List;
+
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import com.entity.Product;
+
+@SpringBootApplication
+public class Sb11MvcProductsPaginationSortApplication implements CommandLineRunner{
+
+	public static void main(String[] args) {
+		SpringApplication.run(Sb11MvcProductsPaginationSortApplication.class, args);
+	}
+
+	@Override
+	public void run(String... args) throws Exception {
+		System.out.println(">>>-----| cdpshop.com |---------<<<");
+		
+		getProductsList();
+		
+		
+		
+		
+		System.out.println(">>-------------------------------<<");
+		
+	}
+
+	private void getProductsList() {
+		List<Product> products = Arrays.asList(
+	            new Product("Rice", 50, 80),
+	            new Product("Milk", 50, 30),
+	            new Product("Sugar", 25, 40),
+	            new Product("Oil", 10, 150),
+	            new Product("Wheat Flour", 40, 45),
+	            new Product("Salt", 100, 20),
+	            new Product("Tea Powder", 20, 120),
+	            new Product("Coffee", 15, 180),
+	            new Product("Butter", 10, 200),
+	            new Product("Cheese", 5, 250),
+	            new Product("Eggs", 60, 6),
+	            new Product("Bread", 30, 25),
+	            new Product("Biscuits", 40, 15),
+	            new Product("Soap", 25, 35),
+	            new Product("Shampoo", 20, 90),
+	            new Product("Toothpaste", 15, 60),
+	            new Product("Detergent", 30, 85),
+	            new Product("Toor Dal", 35, 95),
+	            new Product("Urad Dal", 25, 110),
+	            new Product("Chilli Powder", 10, 140)
+	        );
+		
+		return products;
+		
+	}
+
+}

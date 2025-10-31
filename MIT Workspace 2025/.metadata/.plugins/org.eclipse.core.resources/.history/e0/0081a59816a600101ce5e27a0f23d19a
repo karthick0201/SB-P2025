@@ -1,0 +1,136 @@
+package com.mit.entity;
+
+import java.util.Date;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+
+@Entity
+@Table(name = "login")
+public class Login {
+
+	@Id
+	@GeneratedValue
+	private int id;
+	
+	@Column(name = "username")
+	private String userName;
+	
+	@Column(name = "password")
+	private String password;
+	
+	@Column(name = "login_status")
+	private String status;
+	
+	@Column(name = "created_date")
+	@Temporal(TemporalType.DATE)
+	private Date createdDate;
+	
+	@OneToOne(
+			cascade = CascadeType.ALL, 
+			fetch = FetchType.LAZY
+			)
+	@JoinColumn(name = "student_id")
+	private Student student;
+
+	public int getId() {
+		return id;
+	}
+
+	public Login() {
+		// TODO Auto-generated constructor stub
+	}
+	public Login(String userName, String password, Student student) {
+		super();
+		this.userName = userName;
+		this.password = password;
+		this.student = student;
+	}
+	
+	
+
+	public Login(String userName, String password, String status, Date createdDate, Student student) {
+		super();
+		this.userName = userName;
+		this.password = password;
+		this.status = status;
+		this.createdDate = createdDate;
+		this.student = student;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	@Override
+	public String toString() {
+		return  id + " : " + userName + " : "
+				+ password + " : " + status
+				+ " : " + createdDate + " : " + student;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public Student getStudent() {
+		return student;
+	}
+
+	public void setStudent(Student student) {
+		this.student = student;
+	}
+	
+	public void display() {
+		System.out.println(">>-------| Login Id : " + id);
+
+		System.out.println("LoginInfo : ");
+		System.out.println(id + " : " + userName + " : "
+				+ password + " : " + status + " : " + createdDate);
+		
+		if(student!=null) student.display();
+		
+		
+		System.out.println(">>----------------------------<<");
+	}
+
+
+	
+}

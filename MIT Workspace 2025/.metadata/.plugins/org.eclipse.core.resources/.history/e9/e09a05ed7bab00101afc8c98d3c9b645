@@ -1,0 +1,18 @@
+package com.util;
+
+import java.util.List;
+
+import com.binding.Customer;
+
+public class CustomerUtils {
+	
+	public List<Customer> getCustomerList(){
+		
+		Customer c1 = new Customer();
+		
+		return null;
+		
+		
+	}
+
+}

@@ -1,0 +1,9 @@
+package com.resources;
+
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController // ==> @Controller + @ResponseBody
+@RequestMapping(value = "/api/login")
+public class LoginResource {
+
+}

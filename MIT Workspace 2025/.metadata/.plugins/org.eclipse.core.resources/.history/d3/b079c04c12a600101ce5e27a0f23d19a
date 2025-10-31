@@ -1,0 +1,64 @@
+package com.mit;
+
+import java.util.Date;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import com.mit.dao.LoginDao;
+import com.mit.dao.StudentDao;
+import com.mit.entity.Login;
+import com.mit.entity.Student;
+
+@SpringBootApplication
+public class Sb08DatajpaAssociationsApplication implements CommandLineRunner{
+
+	public static void main(String[] args) {
+		SpringApplication.run(Sb08DatajpaAssociationsApplication.class, args);
+	}
+
+	@Override
+	public void run(String... args) throws Exception {
+		
+		System.out.println(">>----------| Assocations - One To One |--------<<");
+		
+		oneToOneAssocationPratice();
+		
+		
+		
+		
+		
+		System.out.println(">>-----------------------------------------------<<");
+		
+	}
+	
+	@Autowired
+	private StudentDao studentDao;
+	
+	@Autowired
+	private LoginDao loginDao;
+
+	private void oneToOneAssocationPratice() {
+		
+		line();
+		Student studentRef = new Student(20417, "Karthick R", "Chennai");
+		
+		Login login = new Login("karthick0201","k@123","Active",new Date(),studentRef);
+		
+		Login loginInfo = loginDao.saveAndFlush(login);
+		
+		System.out.println("LoginInfo : " + loginInfo);
+		
+		line();
+		
+	}
+
+	private void line() {
+		System.out.println("\n\n>>----------------------<<");
+		System.out.println(">>----------------------<<\n\n");
+		
+	}
+
+}

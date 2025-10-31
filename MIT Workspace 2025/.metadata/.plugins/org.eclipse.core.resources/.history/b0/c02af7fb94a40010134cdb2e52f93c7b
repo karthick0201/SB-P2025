@@ -1,0 +1,6 @@
+#Prod Environemnt Properties
+
+database.username=prod@sym
+database.password=prod@sym@123
+
+application.emails=prod.sym@zc.com

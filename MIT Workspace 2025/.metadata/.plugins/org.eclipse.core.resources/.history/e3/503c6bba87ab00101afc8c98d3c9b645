@@ -1,0 +1,31 @@
+package com.util;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
+
+import com.binding.Customer;
+
+public class CustomerUtils {
+	
+	public static List<Customer> getCustomerList(){
+		
+		Customer c1 = new Customer(101,"Arun","Prime",54);
+		Customer c2 = new Customer(102,"Rafi","Prime Plus",78);
+		Customer c3 = new Customer(103,"Dharan","Classic",44);
+		Customer c4 = new Customer(104,"Akalya","Prime",96);
+		Customer c5 = new Customer(105,"Kannan","Classic",12);
+				
+				
+		return Arrays.asList(c1,c2,c3,c4,c5);
+	}
+	public static int generateUniqueId() {
+        UUID idOne = UUID.randomUUID();
+        String str = idOne.toString();
+        int uid = str.hashCode();
+        String filterStr = String.valueOf(uid);
+        str = filterStr.replaceAll("-", "");
+        return Integer.parseInt(str);
+    }
+
+}

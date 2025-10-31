@@ -1,0 +1,16 @@
+package com.mit.service;
+
+import org.springframework.stereotype.Service;
+
+import com.mit.dto.EnquiryDTO;
+
+@Service
+public class EnquiryServiceImpl implements EnquiryService {
+
+	@Override
+	public EnquiryDTO createEnquiry(EnquiryDTO enquiry) {
+		
+		return null;
+	}
+
+}

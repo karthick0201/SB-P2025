@@ -1,0 +1,76 @@
+package com.entity;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
+public class Course {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "course_id")
+	private int courseId;
+	
+	@Column(name = "course_name")
+	private String courseName;
+	
+	@Column(name = "course_trainer")
+	private String courseTrainer;
+	
+	@Column(name = "course_duration_in_Month")
+	private int durationInMonth;
+
+	
+	public Course() {
+		
+	}
+	
+	public Course(String courseName, String courseTrainer, int durationInMonth) {
+		super();
+		this.courseName = courseName;
+		this.courseTrainer = courseTrainer;
+		this.durationInMonth = durationInMonth;
+	}
+
+	public int getCourseId() {
+		return courseId;
+	}
+
+	public void setCourseId(int courseId) {
+		this.courseId = courseId;
+	}
+
+	public String getCourseName() {
+		return courseName;
+	}
+
+	public void setCourseName(String courseName) {
+		this.courseName = courseName;
+	}
+
+	public String getCourseTrainer() {
+		return courseTrainer;
+	}
+
+	public void setCourseTrainer(String courseTrainer) {
+		this.courseTrainer = courseTrainer;
+	}
+
+	public int getDurationInMonth() {
+		return durationInMonth;
+	}
+
+	public void setDurationInMonth(int durationInMonth) {
+		this.durationInMonth = durationInMonth;
+	}
+
+	@Override
+	public String toString() {
+		return "Course [courseId=" + courseId + ", courseName=" + courseName + ", courseTrainer=" + courseTrainer
+				+ ", durationInMonth=" + durationInMonth + "]";
+	}
+
+}

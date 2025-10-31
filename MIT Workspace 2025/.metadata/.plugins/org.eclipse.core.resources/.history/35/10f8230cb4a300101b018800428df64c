@@ -1,0 +1,81 @@
+package com.sb.dao;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+
+import com.sb.entity.Employee;
+import com.sb.rse.MyResulsetExtractor;
+
+public class EmployeeDaoImpl implements EmployeeDaoI {
+
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
+
+	@Override
+	public boolean addEmployee(Employee e) {
+
+		String query = "INSERT INTO employee (name, role, joinDate) Values(?,?,?);";
+
+		Object[] o = { e.getName(), e.getRole(), e.getJoinedDate() };
+
+		int affectedRow = jdbcTemplate.update(query, o);
+
+		return affectedRow > 0;
+	}
+
+	@Override
+	public boolean deleteEmployee(int id) {
+		String query = "DELETE FROM employee WHERE id=?";
+		int update = jdbcTemplate.update(query, id);
+		return update > 0;
+
+	}
+
+	@Override
+	public Employee getEmployeeById(int id) {
+		String query = "SELECT * FROM employee WHERE id=?;";
+
+		List<Employee> employees = jdbcTemplate.query(query, new MyResulsetExtractor(), id);
+
+		return employees.get(0);
+	}
+
+	@Override
+	public List<Employee> getAllEmployees() {
+		String query = "SELECT * FROM employee;";
+
+		List<Employee> employees = jdbcTemplate.query(query, new MyResulsetExtractor());
+
+		return employees;
+	}
+
+	@Override
+	public boolean containsEmployee(int id) {
+		String query="SELECT * FROM employee WHERE id=?;";
+		List<Employee> e=null;
+		e = jdbcTemplate.query(query,new RowMapper<Employee>() {
+
+			@Override
+			public Employee mapRow(ResultSet rs, int rowNum) throws SQLException {
+					Employee e=new Employee.EmployeeBuilder()
+							.setId(rs.getInt(1))
+							.setName(rs.getString(2))
+							.setRole(rs.getString(3))
+							.setJoinedDate( rs.getDate(4) == null ? null : rs.getDate(4).toLocalDate())
+							.build();		
+					return e; 
+				}
+			},id);
+		
+		if(!e.isEmpty()) {
+			return true;
+		}
+		return false;
+	}
+
+}

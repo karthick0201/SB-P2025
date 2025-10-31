@@ -1,0 +1,13 @@
+package com;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class SbRest05MicroserviceCustomerApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(SbRest05MicroserviceCustomerApplication.class, args);
+	}
+
+}

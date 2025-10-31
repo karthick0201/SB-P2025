@@ -1,0 +1,49 @@
+package com.mit;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import com.mit.controller.StudentControllerI;
+import com.mit.entity.Student;
+
+@SpringBootApplication
+public class Sb03DatajpaCrudRepoApplication implements CommandLineRunner {
+
+	public static void main(String[] args) {
+		SpringApplication.run(Sb03DatajpaCrudRepoApplication.class, args);
+	}
+
+
+
+	@Override
+	public void run(String... args) throws Exception {
+		System.out.println(">----| Spring Boot DATA JPA PRATICE|-----<");
+
+		/*
+		 * 1. CrudRepository Method Pratice
+		 */
+		crudMethodsPratice();
+
+		System.out.println(">|----------------------------------------|<");
+
+	}
+	
+	@Autowired
+	private StudentControllerI controller;
+	
+	private void crudMethodsPratice() {
+		/*
+		1. CrudRepository 12 Methods Pratice
+		*/
+		
+		/*1. Save(Student)*/		
+		
+		Student s = new Student(3, "Priety", "7894563214", "Chennai");
+		boolean status = controller.saveStuduent(s);
+
+		
+	}
+
+}

@@ -1,0 +1,6 @@
+package com.mit.entity;
+
+@Collection("")
+public class Student {
+
+}

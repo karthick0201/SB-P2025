@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move element &apos;StickerDao.java&apos; to &apos;SB-05-datajpa-generator-auto/src/main/java/com.mit.dao&apos;&#x0D;&#x0A;- Original project: &apos;SB-05-datajpa-generator-auto&apos;&#x0D;&#x0A;- Destination element: &apos;SB-05-datajpa-generator-auto/src/main/java/com.mit.dao&apos;&#x0D;&#x0A;- Original element: &apos;com.mit.entity.StickerDao.java&apos;&#x0D;&#x0A;- Update references to refactored element" description="Move compilation unit" destination="/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.mit.dao" element1="/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.mit.entity{StickerDao.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.move" patterns="*" policy="org.eclipse.jdt.ui.moveResources" qualified="false" references="true" stamp="1760013350321" units="1" version="1.0"/>
+</session>

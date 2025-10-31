@@ -1,0 +1,113 @@
+package com.mit.service;
+
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.mit.dao.LoginDao;
+import com.mit.entity.Login;
+import com.mit.entity.Student;
+
+@Service
+public class LoginService {
+
+	@Autowired
+	private LoginDao loginDao;
+	
+	public boolean saveLogin() {
+		
+		// Student Information
+		
+		Student s1 = new Student();
+		s1.setJoinedDate(new Date());
+		s1.setLocation("Madurai");
+		s1.setName("Karthick R");
+		s1.setRollNo(20417);
+		
+		Student s2 = new Student();
+		s2.setJoinedDate(new Date());
+		s2.setLocation("Chennai");
+		s2.setName("Pranathi");
+		s2.setRollNo(22473);
+		
+		Student s3 = new Student();
+		s3.setJoinedDate(new Date());
+		s3.setLocation("Salem");
+		s3.setName("Kathija");
+		s3.setRollNo(25645);
+		
+		Student s4 = new Student();
+		s4.setJoinedDate(new Date());
+		s4.setLocation("Coimbatore");
+		s4.setName("Adithiya");
+		s4.setRollNo(19784);
+		
+		// Login Information
+		
+		Login l1 = new Login();
+		l1.setUserName("karthick0201");
+		l1.setPassword("k@123");
+		l1.setStatus("Active");
+		l1.setCreatedDate(new Date());
+		l1.setStudent(s1);
+		
+		Login l2 = new Login();
+		l2.setUserName("velavet_p");
+		l2.setPassword("p@123");
+		l2.setStatus("Active");
+		l2.setCreatedDate(new Date());
+		l2.setStudent(s2);
+		
+		Login l3 = new Login();
+		l3.setUserName("karthija1999");
+		l3.setPassword("k@1999");
+		l3.setStatus("Active");
+		l3.setCreatedDate(new Date());
+		l3.setStudent(s3);
+		
+		Login l4 = new Login();
+		l4.setUserName("Athiyaa");
+		l4.setPassword("adi@4040");
+		l4.setStatus("Active");
+		l4.setCreatedDate(new Date());
+		l4.setStudent(s4);
+		
+		// Saving Login Info
+		
+		loginDao.saveAllAndFlush(Arrays.asList(l1,l2,l3,l4));
+		
+		//Printing Table Info
+		printLoginList();
+		
+		return true;
+	}
+	
+	public void lazyEarlyExample() {
+		
+		/*Test 1 : Student As Lazy*/
+		
+		
+		
+		
+	}
+
+	private void printLoginList() {
+		
+		line();
+		List<Login> loginList = loginDao.findAll();
+		System.out.println(">>>>--------> PRINTING LOGIN RECORDS <-----------<<");
+		loginList.forEach(ll -> ll.display());
+		
+		
+		line();
+	}
+	private void line() {
+		System.out.println("\n\n>>----------------------<<");
+		System.out.println(">>----------------------<<\n\n");
+		
+	}
+	
+}

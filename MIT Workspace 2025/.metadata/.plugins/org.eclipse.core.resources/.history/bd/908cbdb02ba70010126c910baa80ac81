@@ -1,0 +1,11 @@
+package com.mit.dao;
+
+import org.springframework.data.mongodb.repository.MongoRepository;
+
+import com.mit.entity.Student;
+
+public interface StudentDao extends MongoRepository<Student, String>{
+	
+	
+
+}

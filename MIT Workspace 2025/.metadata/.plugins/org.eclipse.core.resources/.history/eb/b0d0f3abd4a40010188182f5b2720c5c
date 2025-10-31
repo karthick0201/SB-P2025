@@ -1,0 +1,7 @@
+package com.mit.dao;
+
+import org.springframework.data.repository.CrudRepository;
+
+public class StudentDao implements CrudRepository<T, ID> {
+
+}

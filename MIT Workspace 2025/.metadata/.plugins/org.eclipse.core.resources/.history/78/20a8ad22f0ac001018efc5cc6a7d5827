@@ -1,0 +1,91 @@
+package com.consumer;
+
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.time.LocalDate;
+
+import com.dto.PersonDto;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+public class PersonConsumer {
+
+	public void httpClientPratice() throws IOException, InterruptedException {
+		
+		/* 1. GET - GET ALL PERSONS INFORMATION */
+		gettingPersonsInfo();
+		/* 2. POST - ADD PERSON */
+		addingPersonInformation();
+		
+		
+	}
+
+	private void addingPersonInformation() throws JsonProcessingException {
+		
+		// 1. CREATING httpClient Object
+		HttpClient httpClient = HttpClient.newHttpClient();
+		
+		
+		//Preparing requestBody
+		
+		PersonDto persondto = new PersonDto();
+		persondto.setEmail("chandru.example.com");
+		persondto.setLocation("Coimbatore");
+		persondto.setCreatedDate(LocalDate.now());
+		persondto.setName("Chandru depam");
+		
+		// JavaObject To JSON
+		
+		ObjectMapper mapper = new ObjectMapper();
+		
+		String payload = mapper
+							.writerWithDefaultPrettyPrinter()
+							.writeValueAsString(persondto);		
+		
+		System.out.println("Payload : \n" + payload);
+		
+		
+		//2. Preparing request object
+		
+		HttpRequest httpRequest = HttpRequest.newBuilder()
+									.uri(URI.create("http://localhost:1212/api/person/"))
+									.header("Content-Type", "application/json")
+									.header("Accept","application/json")
+									.POST(HttpRequest.BodyPublishers.ofString(payload))
+									.build();
+		
+
+									
+		
+	}
+
+	private void gettingPersonsInfo() throws IOException, InterruptedException {
+
+		//1. cREATE HttpClient Object
+		HttpClient httpClient = HttpClient.newHttpClient();
+		
+		//2. Preparing Request Object
+		
+		HttpRequest request = HttpRequest
+								.newBuilder()
+								.uri(URI.create("http://localhost:1212/api/person/"))
+								.header("Accept", "application/json")
+								.GET()
+								.build();
+		// 3. API Request Call
+		HttpResponse<String> httpResponse = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+		
+		if(httpResponse.statusCode() == 200) {
+			String responseBody = httpResponse.body();
+			System.out.println(responseBody);
+		}else {
+			System.out.println("Request Failed : " + httpResponse.statusCode());
+			System.out.println("Info : " + httpResponse.body());
+		}
+		
+	}
+
+}

@@ -1,0 +1,25 @@
+package com.feign.clients;
+
+import java.util.List;
+
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import com.response.AddressResponse;
+
+/*Without Service Registry */
+//@FeignClient(name = "${microservice.service.name}", url = "${address.server.url}")
+
+/* WITH SERVICE REGISTRY*/
+@FeignClient(name = "ADDRESS-SERVICE") // http://localhost:1122
+public interface AddressClient {
+
+	@GetMapping("/api/address/")
+	public ResponseEntity<List<AddressResponse>> getCustomerAddressListUsingWebClient();
+	
+	@GetMapping("/api/address/customer/{customerId}")
+	public ResponseEntity<AddressResponse> getAddressResponseUsingFiegnClient(@PathVariable("customerId")int id) ;
+	
+}

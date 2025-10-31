@@ -1,0 +1,18 @@
+package com.mit.dao;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.mit.entity.Light;
+
+public interface LightDao extends JpaRepository<Light, Integer>{
+	
+	/*Finders methods*/
+	
+	Iterable<Light> findByName(String name);
+	
+	Iterable<Light> findByType(String type);
+	
+	Iterable<Light> findByNameAndType(String name,String type); 
+	
+
+}

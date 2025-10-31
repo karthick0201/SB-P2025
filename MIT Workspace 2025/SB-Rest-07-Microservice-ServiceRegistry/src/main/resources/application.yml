@@ -1,0 +1,26 @@
+#spring:
+#  application:
+#    name: APPLICATION-ServiceRegistry
+#
+#server:
+#  port: 8761
+#  
+#eureka:
+#  client:
+#    register-with-eureka: false
+#    fetch-registry: false
+
+# application.yml (inside service-registry project)
+spring:
+  application:
+    name: SERVICE-REGISTRY
+  config:
+    import: optional:configserver:http://localhost:8888
+
+server:
+  port: 8761
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false

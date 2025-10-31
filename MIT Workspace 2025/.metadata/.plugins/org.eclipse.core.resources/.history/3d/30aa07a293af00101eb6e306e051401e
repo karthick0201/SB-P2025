@@ -1,0 +1,8 @@
+package com.feign.clients;
+
+import org.springframework.cloud.openfeign.FeignClient;
+
+@FeignClient(name = "${spring.application.name}", url = "${address.server.url}")
+public interface AddressClient {
+
+}

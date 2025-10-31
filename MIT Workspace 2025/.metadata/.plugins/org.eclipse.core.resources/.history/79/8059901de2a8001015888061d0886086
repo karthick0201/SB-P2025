@@ -1,0 +1,61 @@
+package com.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.entity.Product;
+import com.service.ProductService;
+
+@Controller
+public class ProductController {
+
+	
+	@Autowired
+	private ProductService productService;
+	
+	@Value("${supermarket.pageSize}")
+	private int pageSize;
+	
+	@GetMapping(value = "/products")
+	public String showProducts(ModelMap modelMap) {
+		
+		System.out.println(">>------| Landed showProducts Controller Method...");
+		return showProductsByPage(1, "ASC", "name",modelMap);
+		
+		
+	}
+	
+	@GetMapping(value = "/products/{pageNo}")
+	public String showProductsByPage(@PathVariable("pageNo")int pageNo,
+									@RequestParam("sortDirection")String sortDirection,
+									@RequestParam("sortField")String sortBy,
+									ModelMap modelMap) {
+		
+		System.out.println(">>------| Landed showProductsByPage Controller Method...");
+		
+		String str = String.format("PageNo : %d, SortDirection : %s, sortBy : %s, PageSize : %d", pageNo,sortDirection,sortBy,pageSize);
+		System.out.println(str);
+
+		Page<Product> productPage = productService.getProducts(pageNo, pageSize, sortBy, sortDirection);
+		
+		List<Product> productList = productPage.getContent();
+		
+		System.out.println(">>---> Product List : " );
+
+		productList.forEach(p -> System.out.println(p));
+		
+		modelMap.addAttribute("products",productList);
+		
+		return "show-products";
+	}
+	
+	
+}

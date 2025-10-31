@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="MavenProjectImportWizardPage">
+		<list key="rootDirectory">
+			<item value="E:\WorkSpace\CDP_SelinumWS_2025\02-abilash-springmvc-javabasedconfiguration"/>
+		</list>
+		<list key="projectNameTemplate">
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+			<item value="[name]"/>
+		</list>
+	</section>
+	<section name="org.eclipse.m2e.core.pom.overview">
+	</section>
+	<section name="org.eclipse.m2e.core.pom.dependencies">
+	</section>
+	<section name="MavenProjectWizardLocationPage">
+		<list key="location">
+			<item value="E:\WorkSpace\CDP_SelinumWS_2025\14-abilash-LoveCalculator\src\main\java\com\lovecal\config\BeansAppConf.java"/>
+			<item value="E:\WorkSpace\CDP_SelinumWS_2025\13-abilash-spring-jdbc"/>
+			<item value="E:\WorkSpace\CDP_SelinumWS_2025\12-abilash-javaMailAPI-feedbackform\pom.xml"/>
+			<item value="E:\WorkSpace\CDP_SelinumWS_2025\12-abilash-javaMailAPI-feedbackform\src\main\java\com\spring\controller\UserController.java"/>
+			<item value="E:\WorkSpace\CDP_SelinumWS_2025\11-abilash-cookie-session-sessionAttribute\src\main\java\com\track\controller\SessionController.java"/>
+			<item value="E:\WorkSpace\CDP_SelinumWS_2025\10-abilash-springValidationAPI-loadPropertiesFile"/>
+			<item value="E:\WorkSpace\CDP_SelinumWS_2025\09-abilash-propertyeditor-buildin-customPropertyEditor\src\main\java\com\spring\controller\BillAppController.java"/>
+			<item value="E:\WorkSpace\CDP_SelinumWS_2025\08-abilash-InitBinder-WebDataBinder-ProertyEditor-\src\main\java\com\spring\controller\UserController.java"/>
+			<item value="E:\WorkSpace\CDP_SelinumWS_2025\07-abilash-CustomAnnotation-propertiesFileAdd\src\main\java\com\form\config\BeansConfig.java"/>
+			<item value="E:\WorkSpace\CDP_SelinumWS_2025\07-abilash-CustomAnnotation-propertiesFileAdd"/>
+			<item value="E:\WorkSpace\CDP_SelinumWS_2025\06-abilash-formValidator-NestedObject\src\main\webapp\WEB-INF\views\result.jsp"/>
+			<item value="E:\WorkSpace\CDP_SelinumWS_2025\05-abilash-ClientAndServerSide-Validation\src\main\java\com\validation\dto\LoveCalculatorDTO.java"/>
+			<item value="E:\WorkSpace\CDP_SelinumWS_2025\04-abilash-formBuilding\src\main\webapp\WEB-INF\views\submit.jsp"/>
+			<item value="E:\WorkSpace\CDP_SelinumWS_2025\03-abilash-DataBinding\src\main\webapp\WEB-INF\views\result.jsp"/>
+			<item value="E:\WorkSpace\CDP_SelinumWS_2025\02-abilash-springmvc-javabasedconfiguration\src\main\java\MyWebApplicationInitializer.java"/>
+		</list>
+		<list key="projectNameTemplate">
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+			<item value="[name]"/>
+		</list>
+	</section>
+	<section name="MavenProjectWizardArchetypePage">
+		<item key="catalog" value="All Catalogs"/>
+		<list key="projectNameTemplate">
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+			<item value="[name]"/>
+		</list>
+	</section>
+	<section name="Maven2ProjectWizardArchifactPage">
+		<list key="package">
+			<item value="com.spring"/>
+		</list>
+		<list key="groupId">
+			<item value="selinumexpress"/>
+		</list>
+		<list key="artifactId">
+			<item value="01-hibernate-pratice"/>
+			<item value="14-abilash-lovecalculator2"/>
+			<item value="14-abilash-LoveCalculator"/>
+			<item value="13-abilash-spring-jdbc"/>
+			<item value="12-abilash-javaMailAPI-feedbackform"/>
+			<item value="11-abilash-cookie-session-sessionAttribute"/>
+			<item value="11-abilash-cookie-session-sessionattribute"/>
+			<item value="10-abilash-springValidationAPI-loadPropertiesFile"/>
+			<item value="09-abilash-propertyeditor-buildin-customPropertyEditor"/>
+			<item value="08-abilash-InitBinder-WebDataBinder-ProertyEditor-"/>
+		</list>
+		<list key="projectNameTemplate">
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+			<item value="[name]"/>
+		</list>
+		<list key="version">
+			<item value="0.0.1-SNAPSHOT"/>
+		</list>
+	</section>
+	<section name="MavenProjectWizardArtifactPage">
+		<list key="groupId">
+		</list>
+		<list key="name">
+		</list>
+		<list key="artifactId">
+		</list>
+		<list key="projectNameTemplate">
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+			<item value="[name]"/>
+		</list>
+		<list key="version">
+			<item value="0.0.1-SNAPSHOT"/>
+		</list>
+	</section>
+	<section name="org.eclipse.m2e.core.ui.internal.wizards.CustomArchetypeDialog">
+		<list key="archetypeGroupId">
+			<item value="org.apache.maven.archetypes"/>
+		</list>
+		<list key="archetypeArtifactId">
+			<item value="maven-archetype-quickstart"/>
+			<item value="maven-archetype-webapp"/>
+		</list>
+		<list key="archetypeVersion">
+			<item value="1.5"/>
+		</list>
+		<list key="repositoryUrl">
+			<item value=""/>
+		</list>
+	</section>
+</section>

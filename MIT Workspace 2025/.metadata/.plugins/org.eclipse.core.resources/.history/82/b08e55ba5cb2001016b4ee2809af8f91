@@ -1,0 +1,40 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+logging:
+  level:
+    org:
+      springframework:
+        cloud:
+          gateway:
+            filter: DEBUG
+            route: DEBUG
+management:
+  endpoint:
+    gateway:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health,info,gateway,routes
+server:
+  port: 7788
+spring:
+  application:
+    name: API-GATEWAY
+  cloud:
+    gateway:
+      routes:
+      - id: CUSTOMER-SERVICE
+        predicates:
+        - Path=/api/customer/**
+        uri: lb://CUSTOMER-SERVICE
+      - id: ADDRESS-SERVICE
+        predicates:
+        - Path=/api/address/**
+        uri: lb://ADDRESS-SERVICE
+      - id: CBI-DISCOVERY
+        predicates:
+        - Path=/**
+        uri: http://localhost:8761

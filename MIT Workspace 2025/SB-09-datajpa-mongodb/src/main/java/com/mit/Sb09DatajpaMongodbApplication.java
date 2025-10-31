@@ -1,0 +1,57 @@
+package com.mit;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import com.mit.dao.StudentDao;
+import com.mit.entity.Student;
+
+@SpringBootApplication
+public class Sb09DatajpaMongodbApplication implements CommandLineRunner{
+
+	public static void main(String[] args) {
+		SpringApplication.run(Sb09DatajpaMongodbApplication.class, args);
+	}
+	
+	
+	@Autowired
+	private StudentDao studentDao;
+
+	@Override
+	public void run(String... args) throws Exception {
+		
+		System.out.println(">>----------| 1. Pratcing MongoDB in JPA");
+		
+		Student s = new Student();
+		
+		s.setName("Arun");
+		String[] ids = {"ka@123.com","pa@123.com"};
+		s.setEmailIds(ids);
+		
+		Student std = studentDao.save(s);
+		
+		System.out.println("Student : " + std);
+		
+		System.out.println(">>-------| 2. Finder Methods ");
+		
+		Optional<Student> stdFind = studentDao.findByName("Arun");
+		
+		if(stdFind.isPresent()) {
+			System.out.println(stdFind.get());
+		}
+		
+		System.out.println(">>-------| 3. Query ");
+		List<Student> stdList = studentDao.getAllStudentsUsingQuery();
+		
+		stdList.forEach(ss -> System.out.println(ss));
+		
+		
+		
+	}
+
+}

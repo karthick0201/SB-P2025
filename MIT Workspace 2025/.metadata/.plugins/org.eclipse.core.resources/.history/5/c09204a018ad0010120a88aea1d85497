@@ -1,0 +1,168 @@
+package com.consumer;
+
+import java.time.LocalDate;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.client.RestTemplate;
+
+import com.dto.PersonDto;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+@Controller
+public class RestClientTemplatePratice {
+
+	
+	@Autowired
+	private RestTemplate restTemplate;
+	
+	public void restClientPratice() {
+
+	//	getMethodWithoutPathVariableExample();
+		//	getMethodWithPathVariableExample();
+	
+		getForObjectWithoutPathVariableExample();
+		
+		exchageMethodWithPathVariableExample();
+		
+		postForEntityAddPersonInformationExample();
+		
+		
+	}
+
+	private void postForEntityAddPersonInformationExample() {
+		String endpoint = "http://localhost:1212/api/person/";
+		
+		PersonDto personDto = new PersonDto();
+		personDto.setCreatedDate(LocalDate.now());
+		personDto.setEmail("priety.selvaraj@example.com");
+		personDto.setName("priety");
+		personDto.setLocation("Chennai");
+		
+		ObjectMapper mapper = new ObjectMapper();
+		
+		ResponseEntity<String> responseEntity = restTemplate
+													.postForEntity(
+														endpoint, 
+														personDto, 
+														String.class);
+		
+System.out.println("\n\n\n\n\n\n\n>>------| postForEntity - Post Method  |-----<<");
+		
+		if(responseEntity.getStatusCode() == HttpStatus.CREATED) {
+			System.out.println("Status Code : " + responseEntity.getStatusCode());
+			System.out.println("Response : \n" + responseEntity.getBody());
+			
+		}else {
+			System.out.println("Status Code : " + responseEntity.getStatusCode());
+			System.out.println(">>-----| Request Failed!!! : \n " + responseEntity.getBody());
+		}
+		
+		System.out.println(">>-----------------------------------------------------------------<<");
+		
+		
+	}
+
+	private void exchageMethodWithPathVariableExample() {
+		
+		String endpoint = "http://localhost:1212/api/person/{pid}";
+		
+		ResponseEntity<String> responseEntity = restTemplate
+													.exchange(
+														endpoint, 
+														HttpMethod.GET,
+														null,
+														String.class,
+														Map.of("pid",3));
+		
+		System.out.println("\n\n\n\n\n\n\n>>------| exchageMethod - Get Generic Method - With PathVariable |-----<<");
+		
+		if(responseEntity.getStatusCode() == HttpStatus.OK) {
+			System.out.println("Status Code : " + responseEntity.getStatusCode());
+			System.out.println("Response : \n" + responseEntity.getBody());
+			
+		}else {
+			System.out.println("Status Code : " + responseEntity.getStatusCode());
+			System.out.println(">>-----| Request Failed!!! : \n " + responseEntity.getBody());
+		}
+		
+		System.out.println(">>-----------------------------------------------------------------<<");
+		
+		
+		
+		
+	}
+
+	private void getForObjectWithoutPathVariableExample() {
+		System.out.println("\n\n\n\n\n\n\n>>------| getForObject - Get Method - Without PathVariable |-----<<");
+		
+		String endpointUrl = "http://localhost:1212/api/person/";
+		
+		String response = restTemplate.getForObject(endpointUrl, String.class);
+		
+		
+		if(response != null) {
+			System.out.println("getForObject Response : \n " + response);
+		}else {
+			System.out.println("getForObject - Request Failed!!!");
+		}
+		
+		System.out.println(">>-----------------------------------------------------------------<<");
+
+		
+	}
+
+	private void getMethodWithPathVariableExample() {
+		System.out.println("\n\n\n\n\n\n\n>>------| getForEntity - Get Method - Without PathVariable |-----<<\n\n");
+		String endPointUrl = "http://localhost:1212/api/person/{personId}";
+		
+		Map<String, Integer> pathVariableMap = Map.of("personId",114);
+		try {
+		ResponseEntity<String> responseEntity = 
+										restTemplate
+											.getForEntity(endPointUrl, String.class,pathVariableMap);
+		
+		if(responseEntity.getStatusCode() == HttpStatus.OK) {
+			System.out.println("Status Code : " + responseEntity.getStatusCode());
+			System.out.println("Response : \n" + responseEntity.getBody());
+			
+		}else {
+			System.out.println("Status Code : " + responseEntity.getStatusCode());
+			System.out.println(">>-----| Request Failed!!! : \n " + responseEntity.getBody());
+		}
+		
+		}catch(Exception e) {
+			System.out.println("Exception - Error code : " + e.getMessage());
+		}
+		
+		System.out.println("\n\n>>-----------------------------------------------------------------<<\n\n\n\n\n\n");
+		
+		
+	}
+
+	private void getMethodWithoutPathVariableExample() {
+		
+		System.out.println("\n\n\n\n\n\n\n>>------| getForEntity - Get Method - Without PathVariable |-----<<");
+		
+		String endPointUrl = "http://localhost:1212/api/person/";
+		
+		ResponseEntity<String> responseEntity = restTemplate.getForEntity(endPointUrl, String.class);
+		
+		if(responseEntity.getStatusCode() == HttpStatus.OK) {
+			System.out.println("Status Code : " + responseEntity.getStatusCode());
+			System.out.println("Response : \n" + responseEntity.getBody());
+			
+		}else {
+			System.out.println("Status Code : " + responseEntity.getStatusCode());
+			System.out.println(">>-----| Request Failed!!! : \n " + responseEntity.getBody());
+		}
+		
+		System.out.println(">>-----------------------------------------------------------------<<");
+		
+	}
+
+}

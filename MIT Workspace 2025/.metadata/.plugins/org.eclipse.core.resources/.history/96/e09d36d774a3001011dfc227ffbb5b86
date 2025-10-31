@@ -1,0 +1,41 @@
+package com.sb.controller;
+
+import java.util.Scanner;
+
+import ch.qos.logback.core.spi.ScanException;
+
+public class UserController {
+	
+	public void reception() {
+		Scanner in = new ScanException(System.in);
+		
+		
+		
+		while(true) {
+			System.out.println("1. Add Employee\n2. Delete Employee using id\n3. View All Employee\n4. Update Employee location Using id\n5. exit");
+			int option = in.nextInt();
+			switch(option) {
+			case 1 :
+				System.out.println("Adding Employee...");
+				break;
+			case 2 : 
+				System.out.println("Deleting Employee...");
+				break;
+			case 3 : 
+				System.out.println("View Employee...");
+				break;
+			case 4:
+				System.out.println("Update Employee...");
+				break;
+			case 5 : 
+				System.out.println("Thank You...");
+				return;
+				default:
+					System.out.println("Invalid Option!!!");
+			}
+			
+			
+		}
+	}
+
+}

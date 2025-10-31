@@ -1,0 +1,42 @@
+package com.consumer;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
+
+public class RestClientTemplatePratice {
+
+	
+	@Autowired
+	private RestTemplate restTemplate;
+	
+	public void restClientPratice() {
+
+		getMethodWithoutParamExample();
+		
+	}
+
+	private void getMethodWithoutParamExample() {
+		boolean isNull = resttemplate == null;
+		System.out.println("~~~~~~~~~~~~~ Is RestTemplate is Null : " + isNull);
+		
+		System.out.println(">>------| getForEntity - Get Method - Without PathVariable |-----<<");
+		String endPointUrl = "http://localhost:1212/api/persons/";
+		
+		ResponseEntity<String> responseEntity = restTemplate.getForEntity(endPointUrl, String.class);
+		
+		if(responseEntity.getStatusCode() == HttpStatus.OK) {
+			System.out.println("Status Code : " + responseEntity.getStatusCode());
+			System.out.println("Response : \n" + responseEntity.getBody());
+			
+		}else {
+			System.out.println("Status Code : " + responseEntity.getStatusCode());
+			System.out.println(">>-----| Request Failed!!! : \n " + responseEntity.getBody());
+		}
+		
+		System.out.println(">>-----------------------------------------------------------------<<");
+		
+	}
+
+}

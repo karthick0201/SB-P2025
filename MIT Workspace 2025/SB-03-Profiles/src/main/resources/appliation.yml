@@ -1,0 +1,43 @@
+#We can maintain Multiple Profiles info in single file
+
+spring:
+  profiles:
+    activate: prod
+    
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+      
+database:
+  username=kart@dev
+  password=kart@dev@123
+
+application:
+  emails=kart.dev@zc.com
+---
+spring:
+  config:
+    activate:
+      on-profile: qa
+      
+database:
+  username=vijay@qa
+  password=vijay@qa@123
+
+application:
+  emails=vijay.qa@zc.com
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+      
+database:
+  username=sym@prod
+  password=sym@prod@123
+  
+application:
+  emails=sym.prod@zc.com
+---

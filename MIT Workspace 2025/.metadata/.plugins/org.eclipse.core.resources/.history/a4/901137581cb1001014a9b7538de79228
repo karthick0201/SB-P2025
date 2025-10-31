@@ -1,0 +1,26 @@
+#Server portno changing
+server.port=7788
+
+#Configuring the Application Name
+spring.application.name=API-Gateway
+
+#Configure the Routes for Customer-Service
+spring.cloud.gateway.routes[0].id=CUSTOMER-SERVICE
+spring.cloud.gateway.routes[0].uri=lb://CUSTOMER-SERVICE
+spring.cloud.gateway.routes[0].predicates=Path=/api/customers/**
+
+#Configure the Routes for Address-Service
+spring.cloud.gateway.routes[1].id=ADDRESS-SERVICE
+spring.cloud.gateway.routes[1].uri=lb://Address-Service
+spring.cloud.gateway.routes[1].predicates=Path=/api/address/**
+
+
+#Configuring routes for Accessing the Static Resources of EurekaServer
+spring.cloud.gateway.routes[3].id=Discovery-Service-staticresource
+spring.cloud.gateway.routes[3].uri=http://localhost:8761
+spring.cloud.gateway.routes[3].predicates=Path=/eureka/**
+
+#Enabling logging statements
+logging.level.root=INFO
+logging.level.org.springframework.cloud.gateway.route.RouteDefinitionLocator=INFO
+logging.level.org.springframework.cloud.gateway=TRACE

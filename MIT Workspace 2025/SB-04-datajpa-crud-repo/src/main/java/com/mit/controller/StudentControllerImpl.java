@@ -1,0 +1,101 @@
+package com.mit.controller;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
+import com.mit.dao.StudentDao;
+import com.mit.entity.Student;
+
+@Controller
+public class StudentControllerImpl implements StudentControllerI{
+
+	
+	@Autowired
+	private StudentDao dao;
+	
+	@Override
+	public boolean saveStudent(Student student) {
+		
+		Student std = dao.save(student);
+
+		System.out.println("Save(std) Saved ...");
+		return true;
+	}
+
+	@Override
+	public boolean saveStudent(List<Student> students) {
+		
+		Iterable<Student> savedStudents = dao.saveAll(students);
+		
+		System.out.println("saveAll(stds) saved list of students...");
+		
+		return true;
+	}
+
+	@Override
+	public Student getStudentById(int id) {
+		Optional<Student> optional = dao.findById(id);
+		if(optional.isPresent()) {
+			return optional.get();
+		}
+		
+		return null;
+	}
+
+	@Override
+	public boolean isStudentPresent(int id) {
+		return dao.existsById(id);
+	}
+
+	@Override
+	public List<Student> getAllStudents() {
+		return (List<Student>) dao.findAll();
+	}
+
+	@Override
+	public List<Student> getAllStudentsById(List<Integer> ids) {
+		
+		Iterable<Student> students = dao.findAllById(ids);
+		
+		return (List<Student>) students;
+	}
+
+	@Override
+	public boolean deleteStudentById(int id) {
+
+		dao.deleteById(id);
+		
+		return true;
+	}
+
+	@Override
+	public boolean deleteStudent(Student student) {
+		dao.delete(student);
+		return true;
+	}
+
+	@Override
+	public boolean deleteStudentById(List<Integer> ids) {
+		dao.deleteAllById(ids);
+		return true;
+	}
+
+	@Override
+	public boolean deleteStudent(List<Student> students) {
+		
+		dao.deleteAll(students);
+		return true;
+	}
+
+	@Override
+	public boolean deleteAllStudents() {
+		dao.deleteAll();
+		return true;
+	}
+
+	
+	
+}

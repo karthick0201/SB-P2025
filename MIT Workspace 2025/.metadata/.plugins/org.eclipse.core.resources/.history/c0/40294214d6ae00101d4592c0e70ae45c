@@ -1,0 +1,20 @@
+spring.application.name=SB-Rest-06-Microservice-Address
+
+
+
+#DB Configuration
+
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.datasource.url=jdbc:mysql://localhost:3306/mageshit2025
+spring.datasource.username=root
+spring.datasource.password=root
+
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
+spring.jpa.hibernate.ddl-auto=create
+
+#Port Number
+server.port=1122
+
+
+#Note : In this 'Address Microserice' I used same mysql as Customer -> you check with Oracle with this ms.

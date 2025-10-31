@@ -1,0 +1,54 @@
+package com.mit.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.mit.dto.EnquiryDTO;
+import com.mit.service.EnquiryService;
+
+
+@Controller
+public class EnquireController {
+
+	
+	@GetMapping(value = "/")
+	public String enquiryForm(Model model) {
+		
+		model.addAttribute("enquiryForm",new EnquiryDTO());
+		
+		System.out.println(">> Landed Enquiery Form ");
+		
+		return "enquiryDetails";
+	}
+	
+	
+	@Autowired
+	private EnquiryService enquiryService;
+	
+	@PostMapping(value = "/processEnquiry")
+	public ModelAndView processEnquiry(EnquiryDTO enquiryDto) {
+		
+		System.out.println("Enquiry Dto : " + enquiryDto);
+		
+		EnquiryDTO enquiryRef = enquiryService.createEnquiry(enquiryDto);
+		
+		ModelAndView mav = new ModelAndView("enquiry-success");
+		
+		mav.addObject("enquiry",enquiryRef);
+		
+		return mav;
+	}
+	
+	@ResponseBody
+	@GetMapping(value = "/enquiry-details")
+	public String getEnquiryInfo() {
+		return enquiryService.getEnquiryRecords();
+		 
+	}
+	
+}

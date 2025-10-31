@@ -1,0 +1,39 @@
+package com.service;
+
+import java.awt.print.Pageable;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.stereotype.Service;
+
+import com.dao.ProductDao;
+import com.entity.Product;
+
+@Service
+public class ProductServiceImpl implements ProductService{
+
+	@Autowired
+	private ProductDao productDao;
+	
+	@Override
+	public List<Product> getAllProducts() {
+	
+		return productDao.findAll();
+	}
+
+	@Override
+	public Page<Product> getProducts(int pageNo, int records) {
+			
+		Pageable p = 
+
+		return null;
+	}
+
+	@Override
+	public Page<Product> getProducts(int pageNo, int pageSize, String sortField, String sortDirection) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

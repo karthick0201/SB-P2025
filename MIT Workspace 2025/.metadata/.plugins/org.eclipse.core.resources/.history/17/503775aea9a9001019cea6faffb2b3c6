@@ -1,0 +1,44 @@
+package com.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.dao.ProductDao;
+import com.entity.Product;
+
+@Service
+public class ProductServiceImpl implements ProudctService{
+
+	
+	@Autowired
+	private ProductDao productDao;
+	
+	@Override
+	public List<Product> listAllProducts() {
+		
+		return productDao.findAll();
+	}
+
+	@Override
+	public Optional<Product> getProductById(long id) {
+		
+		//return productDao.findById(id).orElseThrow( () -> new RuntimeException("Product Not Found"));
+		return productDao.findById(id);
+	}
+
+	@Override
+	public void saveProduct(Product product) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteProduct(long id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

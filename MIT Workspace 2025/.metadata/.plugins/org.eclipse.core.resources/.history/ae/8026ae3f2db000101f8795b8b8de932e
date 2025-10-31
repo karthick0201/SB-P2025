@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="SB-Rest-07-Microservice-ServiceRegistry">
+        <property name="context-root" value="SB-Rest-07-Microservice-ServiceRegistry"/>
+    </wb-module>
+</project-modules>

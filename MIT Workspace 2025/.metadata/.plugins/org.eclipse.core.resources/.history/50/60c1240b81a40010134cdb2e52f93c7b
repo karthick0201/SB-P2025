@@ -1,0 +1,14 @@
+spring.application.name=demo
+
+#Banner Information(off/log/console)
+
+#spring.main.banner-mode=off 
+
+
+#properties - no configuration provided
+
+ticket.passengerName=pranathi
+ticket.from=chennai
+ticket.to=megalaya
+ticket.ticketClass=First Class
+ticket.price=10000

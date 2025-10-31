@@ -1,0 +1,40 @@
+package com.mit;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import com.mit.dao.StudentDao;
+import com.mit.entity.Student;
+
+@SpringBootApplication
+public class Sb09DatajpaMongodbApplication implements CommandLineRunner{
+
+	public static void main(String[] args) {
+		SpringApplication.run(Sb09DatajpaMongodbApplication.class, args);
+	}
+	
+	
+	@Autowired
+	private StudentDao studentDao;
+
+	@Override
+	public void run(String... args) throws Exception {
+		
+		System.out.println(">>----------| Pratcing MongoDB in JPA");
+		
+		Student s = new Student();
+		
+		s.setName("Karthick R");
+		String[] ids = {"k@123.com","p@123.com"};
+		s.setEmailIds({"k@123.com","p@123.com"});
+		
+		
+		
+		
+		
+		
+	}
+
+}

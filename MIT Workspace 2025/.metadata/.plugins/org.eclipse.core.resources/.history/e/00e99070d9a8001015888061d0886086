@@ -1,0 +1,7 @@
+package com.dao;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public class ProductDao implements JpaRepository<T, ID> {
+
+}

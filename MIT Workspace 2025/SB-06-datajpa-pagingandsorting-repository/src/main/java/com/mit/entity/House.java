@@ -1,0 +1,59 @@
+package com.mit.entity;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "house_table")
+public class House {
+
+	@Id
+	@GeneratedValue
+	private int id;
+
+	private String owner;
+
+	private String type;
+
+	public House() {
+	}
+
+	public House(String owner, String type) {
+		this.owner = owner;
+		this.type = type;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getOwner() {
+		return owner;
+	}
+
+	public void setOwner(String owner) {
+		this.owner = owner;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	@Override
+	public String toString() {
+		
+		String str = id + " : " + owner + " : " + type ;
+		return str;
+	}
+
+}

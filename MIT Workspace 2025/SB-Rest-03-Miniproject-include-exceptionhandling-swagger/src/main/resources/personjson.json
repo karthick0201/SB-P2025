@@ -1,0 +1,37 @@
+[
+    {
+        "id": 1,
+        "name": "John Doe",
+        "location": "Chennai",
+        "email": "john.doe@example.com",
+        "createdDate": null
+    },
+    {
+        "id": 2,
+        "name": "Priya Sharma",
+        "location": "Mumbai",
+        "email": "priya.sharma@example.com",
+        "createdDate": "2024-05-15"
+    },
+    {
+        "id": 3,
+        "name": "Arun Kumar",
+        "location": "Bangalore",
+        "email": "arun.kumar@example.com",
+        "createdDate": "2024-04-20"
+    },
+    {
+        "id": 4,
+        "name": "Meera Singh",
+        "location": "Delhi",
+        "email": "meera.singh@example.com",
+        "createdDate": "2024-03-10"
+    },
+    {
+        "id": 5,
+        "name": "Rahul Verma",
+        "location": "Hyderabad",
+        "email": "rahul.verma@example.com",
+        "createdDate": "2024-02-28"
+    }
+]

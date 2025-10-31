@@ -1,0 +1,54 @@
+package com.consumer;
+
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.reactive.function.client.WebClient;
+
+import com.dto.PersonDto;
+
+@Controller
+public class WebClientPratice {
+
+	public void webClientPratice() {
+		
+		/* Add Dependency 
+		 * 
+		 * spring-boot-starter-webflux
+		 * 
+		 * */
+		getAllCustomersUsingWebClientWithBlocking();
+		
+		
+	}
+
+	private void getAllCustomersUsingWebClientWithBlocking() {
+		
+		String endpoint = "http://localhost1212/api/person/";
+		
+		WebClient webClient = WebClient.create(endpoint);
+		
+		/* 1. toEntity and block() (synchoronious) */
+		print("GETTING PERSONS INFO : TO ENTITY WITH BLOCK() METHOD");
+		webClient
+			.get()
+			.uri("/")
+			.accept(MediaType.APPLICATION_JSON)
+			.retrieve()
+			.toEntity(PersonDto.class)
+			.block();
+		
+
+		printLine();
+		
+	}
+
+	private void printLine() {
+		System.out.println(">>-----------| END | ------------------<<");
+	}
+
+	private void print(String string) {
+		System.out.println("\n\n\n\n>>>---------| " + string + "|-------------<<\n");
+		
+	}
+
+}

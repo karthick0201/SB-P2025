@@ -1,0 +1,37 @@
+package com.exception;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Setter
+@Getter
+public class ResourceNotFoundException extends RuntimeException{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private String resouceName;
+	
+	private String fieldName;
+	
+	private long fieldValue;
+	
+	public ResourceNotFoundException() {
+	}
+
+	public ResourceNotFoundException(String fieldName) {
+		super(String.format("%s not found", fieldName));
+		this.fieldName = fieldName;
+	}
+	public ResourceNotFoundException(String resouceName, String fieldName, long fieldValue) {
+		super(String.format("%s not found with %s : %s", resouceName,fieldName,fieldValue));
+		this.resouceName = resouceName;
+		this.fieldName = fieldName;
+		this.fieldValue = fieldValue;
+	}
+	
+	
+
+}

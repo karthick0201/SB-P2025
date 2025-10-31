@@ -1,0 +1,68 @@
+package com.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.dao.CourseDao;
+import com.dao.CourseRegistryDao;
+import com.entity.Course;
+import com.entity.CourseRegistry;
+
+@Service
+public class CourseServiceImpl implements CourseService{
+
+	
+	@Autowired
+	private CourseDao courseDao;
+	
+	@Autowired
+	private CourseRegistryDao courseregistryDao;
+	
+	@Override
+	public List<Course> getCourses() {
+		
+		return courseDao.findAll();
+	}
+
+	@Override
+	public boolean addCourse(Course course) {
+		courseDao.save(course);
+		return true;
+	}
+
+	@Override
+	public boolean deleteCourse(int id) {
+		
+		boolean isExists = courseDao.existsById(id);
+		
+		if(!isExists) return false;
+		
+		courseDao.deleteById(id);
+		
+		return true;
+	}
+
+	@Override
+	public boolean addCourse(List<Course> courses) {
+		
+		courseDao.saveAllAndFlush(courses);
+		return true;
+	}
+
+	@Override
+	public List<CourseRegistry> getExtrolledInfo() {
+		
+		return courseregistryDao.findAll();
+	}
+
+	@Override
+	public boolean enrollCourse(CourseRegistry courseRegistry) {
+		
+		courseregistryDao.save(courseRegistry);
+		
+		return true;
+	}
+
+}

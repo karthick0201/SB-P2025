@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;SB-11-mvc-products-pagination-sort/src/main/webapp/WEB-INF/views/welcome.jsp&apos; to &apos;view-products.jsp&apos;" description="Rename resource &apos;welcome.jsp&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/main/webapp/WEB-INF/views/welcome.jsp" name="view-products.jsp" stamp="1760435024201" updateReferences="true"/>
+</session>

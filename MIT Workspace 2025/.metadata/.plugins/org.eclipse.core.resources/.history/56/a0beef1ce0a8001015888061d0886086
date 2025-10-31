@@ -1,0 +1,36 @@
+package com.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.entity.Product;
+import com.service.ProductService;
+
+@Controller
+public class ProductController {
+
+	
+	@Autowired
+	private ProductService productService;
+	
+	@GetMapping(value = "/products")
+	public ModelAndView getProudcts(int pageNo,int count,String sortDirection,String sortBy) {
+		
+		ModelAndView mav = new ModelAndView("show-products");
+		
+		Page<Product> products = productService.getProducts(pageNo, pageNo, sortBy, sortDirection);
+		
+		List<Product> productsList = products.getContent();
+		
+		mav.addObject("products",productsList);
+		
+		return mav;
+	}
+	
+	
+}

@@ -1,0 +1,49 @@
+package com.mit.entity;
+
+import java.util.Arrays;
+
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import jakarta.persistence.Id;
+
+@Document("student")
+public class Student {
+
+	@Id
+	private String id;
+	
+	private String name;
+	
+	private String[] emailIds;
+
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String[] getEmailIds() {
+		return emailIds;
+	}
+
+	public void setEmailIds(String[] emailIds) {
+		this.emailIds = emailIds;
+	}
+	
+	@Override
+	public String toString() {
+		return "Student [id=" + id + ", name=" + name + ", emailIds=" + Arrays.toString(emailIds) + "]";
+	}
+	
+}

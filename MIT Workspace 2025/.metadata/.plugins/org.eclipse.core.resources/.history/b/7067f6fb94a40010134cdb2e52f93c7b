@@ -1,0 +1,6 @@
+#QA Environemnt Properties
+
+database.username=qa@vijay
+database.password=qa@vijay@123
+
+application.emails=qa.vijay@zc.com

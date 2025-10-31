@@ -1,0 +1,13 @@
+package com.request;
+
+import jakarta.persistence.Column;
+
+public class AddressRequest {
+	private String doorNo;
+
+	private String cityName;
+
+	private String pincode;
+
+	private Integer customerId;
+}

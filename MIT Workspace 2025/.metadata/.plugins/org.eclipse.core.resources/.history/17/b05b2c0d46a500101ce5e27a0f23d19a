@@ -1,0 +1,31 @@
+package com.mit.entity.customgenerator;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+
+import org.checkerframework.checker.initialization.qual.Initialized;
+import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.UnknownKeyFor;
+import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import org.hibernate.id.IdentifierGenerator;
+import org.hibernate.jdbc.ReturningWork;
+
+public class MyCustomIdGenerator implements IdentifierGenerator {
+
+	@Override
+	public Object generate(SharedSessionContractImplementor session, Object object) {
+		
+		String prefix = "cdp_%s";
+//		String id = String.format(prefix, suffixValue); 
+		
+		String suffixValue = "3";
+		
+		Connection con = 
+		
+		
+		
+		
+		return null;
+	}
+
+}

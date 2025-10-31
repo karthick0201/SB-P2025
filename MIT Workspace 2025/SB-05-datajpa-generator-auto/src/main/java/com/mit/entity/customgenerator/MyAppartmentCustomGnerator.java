@@ -1,0 +1,56 @@
+package com.mit.entity.customgenerator;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import org.hibernate.id.IdentifierGenerator;
+import org.hibernate.jdbc.ReturningWork;
+
+@SuppressWarnings("serial")
+public class MyAppartmentCustomGnerator implements IdentifierGenerator {
+
+	@Override
+	public Object generate(SharedSessionContractImplementor session, Object object) {
+		/* Reception  -> Example : Gov_1,Gov_2,etc...*/
+		String prefix="cdp";
+		String suffix="";
+		
+		/* 1. Get Connection Object */
+		Connection connection = session.doReturningWork(new ReturningWork<Connection>() {
+			@Override
+			public Connection execute(Connection con) throws SQLException{
+				return con;
+			}
+		});
+		/* 2. Get Suffix Value from DB */
+		try {
+			Statement stmt = connection.createStatement();
+			
+			String spl="Select max(room_no) from appartment_table_custom_pk_example";
+			
+			ResultSet rs = stmt.executeQuery(spl);
+			while(rs.next()) {
+				int pk = rs.getInt(1)+1;
+				suffix=String.valueOf(pk);				
+			}
+			
+		}catch (Exception e) {
+			System.out.println(">>---ERROR During Geting Suffix Value---<<");
+			e.printStackTrace();
+		}
+		
+		/* 3. Concating Prefix and Suffix Value */
+		
+//		String idStr=String.format("%s_%s", prefix,suffix);
+		String idStr=prefix + "_" + suffix;
+		/* 4. REturning Pk(String) Value */
+		
+		System.out.println("~~~~~~~~~~~~ Prefix and Suffix : " + idStr);
+		return idStr;
+		
+	}
+
+}

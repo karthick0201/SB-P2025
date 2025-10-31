@@ -1,0 +1,19 @@
+blogger:
+  category:
+  - Fashion
+  - Home Vlogs
+  - Office bytes
+  followersCount: 133
+  name: Velvet_p
+spring:
+  application:
+    name: demo
+ticket:
+  from: chennai
+  passengerName: pranathi
+  price: 10000
+  ticketClass: FirstClass
+  to: megalaya
+  
+  
+#If both application.properties(prioritise) and application.yml 

@@ -1,0 +1,68 @@
+package com.controller;
+
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.entity.Product;
+import com.service.ProudctService;
+
+
+@Controller
+@RequestMapping(value = "/products")
+public class ProductController {
+	
+	
+	@Autowired
+	private ProudctService productService;
+	
+	
+	@GetMapping
+	public String viewHomePage(Model model) {
+		model.addAttribute("listProducts",productService.listAllProducts());
+		return "products";
+	}
+	
+	@GetMapping("/new")
+	public String showNewProductForm(Model model) {
+		model.addAttribute("product",new Product());
+		return "product-form";
+	}
+	
+	@PostMapping("/save")
+	public String updateProduct(@ModelAttribute("product")Product product) { // update and save happen here
+		
+		productService.saveProduct(product);
+		
+		return "redirect:/products";
+		
+	}
+	
+	@GetMapping("/edit/{id}")
+	public String showEditProductForm(@PathVariable long id,Model model) {
+		
+		Optional<Product> optionalProduct = productService.getProductById(id);
+		String errorMessage = "";
+		if(!optionalProduct.isPresent()) {
+			errorMessage = "Record Not Found In DB!!!";
+			return "redirect:/products";
+		}
+		
+		Product product = optionalProduct.get();
+		model.addAttribute("product",product);
+		
+		return "product-page";
+	}
+	
+	
+	
+
+}

@@ -1,0 +1,34 @@
+package com.mit;
+
+import java.util.List;
+
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import com.mit.entity.Sticker;
+
+@SpringBootApplication
+public class Sb04DatajpaGeneratorAutoApplication implements CommandLineRunner{
+
+	public static void main(String[] args) {
+		SpringApplication.run(Sb04DatajpaGeneratorAutoApplication.class, args);
+	}
+
+	@Override
+	public void run(String... args) throws Exception {
+		
+		/* 1. Generator - AUTO */
+		
+		List<Sticker> stickersList = getStickersList();
+	}
+
+	private List<Sticker> getStickersList() {
+		
+		Sticker s = new Sticker("","",50);
+		
+		
+		return null;
+	}
+
+}

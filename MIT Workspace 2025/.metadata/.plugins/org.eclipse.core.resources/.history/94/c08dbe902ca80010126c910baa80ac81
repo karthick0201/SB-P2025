@@ -1,0 +1,54 @@
+package com.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.entity.Course;
+import com.entity.CourseRegistry;
+import com.service.CourseService;
+
+@RestController
+public class CourseController {
+	
+	
+	@Autowired
+	private CourseService courseService;
+	
+	@GetMapping(value = "/courses")
+	public List<Course> getCourses(){
+		
+		return courseService.getCourses();
+	}
+	
+	@GetMapping(value = "/courses/enrolled")
+	public List<CourseRegistry> enrolledStudents(){
+		
+		return courseService.getExtrolledInfo();
+	}
+	
+	@PostMapping(value = "/enroll-course")
+	public String enrollCourse() {
+		// data get from ui
+		//CourseRegistry
+		CourseRegistry cr = new CourseRegistry();
+		cr.setCourseName("Springboot and Microservice");
+		cr.setEmail("pran@cdp.com");
+		cr.setName("Pran cdp");
+		
+		courseService.enrollCourse(cr);
+		
+		return "success";
+		
+		
+		
+		
+	}
+	
+	
+	
+
+}

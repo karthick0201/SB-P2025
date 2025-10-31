@@ -1,0 +1,28 @@
+package com.mit.runner;
+
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
+import org.springframework.stereotype.Component;
+
+@Component
+public class TestApplicationRunner implements ApplicationRunner {
+
+	@Override
+	public void run(ApplicationArguments args) throws Exception {
+		/* It accepts Key value pair as a argument*/
+		System.out.println("<~~~~~~~~ Application Runner called...");
+		
+		System.out.println("Arguments : " + args.getOptionNames());
+		
+		System.out.println(args.getOptionValues("name"));
+		System.out.println(args.getOptionValues("age"));
+		System.out.println(args.getOptionValues("location"));
+		
+		System.out.println(">---------- Appplication Runner End ...");
+
+		
+		
+		
+	}
+
+}

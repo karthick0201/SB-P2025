@@ -1,0 +1,105 @@
+package com.mit;
+
+import java.util.Arrays;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import com.mit.dao.EclipseDao;
+import com.mit.dao.StickerDao;
+import com.mit.entity.Sticker;
+import com.mit.entity.sequence.Eclipse;
+
+@SpringBootApplication
+public class Sb04DatajpaGeneratorAutoApplication implements CommandLineRunner{
+
+	public static void main(String[] args) {
+		SpringApplication.run(Sb04DatajpaGeneratorAutoApplication.class, args);
+	}
+
+	
+	
+	
+	@Override
+	public void run(String... args) throws Exception {
+		
+		/* 1. Generator - AUTO */
+	
+		//generatorsAutoStertagyPratice();
+		
+		/* 2. Generator - Sequence (Customize) */
+		
+		generatorSequenceStertagyPrtice();
+		
+		
+		
+		
+		
+		
+	}
+	
+	@Autowired
+	private EclipseDao eclipseDao;
+	
+	private void generatorSequenceStertagyPrtice() {
+		List<Eclipse> stickersList = getEclipseList();
+
+		//Saving the data
+		 List<Eclipse> savedStickersList = eclipseDao.saveAll(stickersList);
+		 
+		 System.out.println(">>>----| Saved Stickers List Using Sequence : ");
+		 
+		 savedStickersList.forEach(s -> System.out.println(s));
+		 
+		 Eclipse ed = eclipseDao.save(new Eclipse("Problem Solving WK","White"));
+		 System.out.println("Last Sticker : " + ed);
+		
+	}
+
+	private List<Eclipse> getEclipseList() {
+		
+		Eclipse e1 = new Eclipse("2023 Magesh Workspace", "Dark Pink");
+		Eclipse e2 = new Eclipse("CDP - Magesh Workspace", "Dark Pink");
+		Eclipse e3 = new Eclipse("2023 Selinum Workspace", "Dark Pink");
+		Eclipse e4 = new Eclipse("CDP - Selinum Workspace", "Dark Pink");
+		
+		return Arrays.asList(e1,e2,e3,e4);
+	}
+
+	@Autowired
+	private StickerDao stickerDao;
+	
+
+	private void generatorsAutoStertagyPratice() {
+		List<Sticker> stickersList = getStickersList();
+
+		//Saving the data
+		 List<Sticker> savedStickersList = stickerDao.saveAll(stickersList);
+		 
+		 System.out.println(">>>----| Saved Stickers List Using AUTO : ");
+		 
+		 savedStickersList.forEach(s -> System.out.println(s));
+		 
+		 Sticker s = stickerDao.save(new Sticker("Neji","Team 6",60));
+		 System.out.println("Last Sticker : " + s);
+		
+	}
+
+
+
+
+	private List<Sticker> getStickersList() {
+		
+		Sticker s1 = new Sticker("Naruto","Team 7",60);
+		Sticker s2 = new Sticker("Sasuke","Team 7",50);
+		Sticker s3 = new Sticker("Sikamaru","Team 10",80);
+		Sticker s4 = new Sticker("Hinata","Team 9",40);
+		Sticker s5 = new Sticker("Rock Lee","Team 6",90);
+		
+		return Arrays.asList(s1,s2,s3,s4,s5);
+	}
+
+}

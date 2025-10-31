@@ -1,0 +1,73 @@
+package com.mit;
+
+import java.util.Date;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import com.mit.dao.LoginDao;
+import com.mit.dao.StudentDao;
+import com.mit.entity.Login;
+import com.mit.entity.Student;
+import com.mit.service.LoginService;
+
+@SpringBootApplication
+public class Sb08DatajpaAssociationsApplication implements CommandLineRunner{
+
+	public static void main(String[] args) {
+		SpringApplication.run(Sb08DatajpaAssociationsApplication.class, args);
+	}
+
+	@Override
+	public void run(String... args) throws Exception {
+		
+		System.out.println(">>----------| Assocations - One To One |--------<<");
+		
+		//oneToOneAssocationPratice();
+		
+		/*
+		 * 2. Lazy and Early Behaviour observice
+		 */
+		
+		lazyAndEarlyPratice();
+		
+		
+		
+		
+		
+		System.out.println(">>-----------------------------------------------<<");
+		
+	}
+
+
+	private void lazyAndEarlyPratice() {
+		
+		loginService.lazyEarlyExample();
+		
+	}
+
+
+	@Autowired
+	private LoginService loginService;
+	private void oneToOneAssocationPratice() {
+		line();
+		
+		/*Save Records*/
+		loginService.saveLogin();
+		
+
+		
+		
+		line();
+		
+	}
+
+	private void line() {
+		System.out.println("\n\n>>----------------------<<");
+		System.out.println(">>----------------------<<\n\n");
+		
+	}
+
+}

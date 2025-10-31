@@ -1,0 +1,131 @@
+package com.service;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.stereotype.Service;
+
+import com.dao.PersonDao;
+import com.dto.PersonDto;
+import com.entity.Person;
+import com.exception.ResourceNotFoundException;
+import com.response.PageResponse;
+
+@Service
+public class PersonServiceImpl implements PersonService{
+
+	@Autowired
+	private PersonDao personDao;
+	
+	@Autowired
+	private ModelMapper modelMapper;
+
+	/*@Override
+	public List<PersonDto> getPersons() {
+		List<Person> personList = personDao.findAll();
+		
+
+		List<PersonDto> personDtoList = personList
+								.stream()
+								.map(person -> modelMapper.map(person, PersonDto.class))
+								.collect(Collectors.toList());
+		
+		return personDtoList;
+	}*/
+	
+	@Override
+	public PageResponse getPersons(int pageNumber,int pageSize,String sortBy,String sortDirection) {
+
+		Direction direction = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) 
+								? Direction.ASC 
+								: Direction.DESC;
+		
+		Sort sortRef = Sort.by(direction,sortBy);
+		
+		Pageable pageable = PageRequest.of(pageNumber, pageSize, sortRef);
+		
+		Page<Person> pageRef = personDao.findAll(pageable); // Contains Page related information
+		
+		List<Person> personList = pageRef.getContent();
+		
+		List<PersonDto> personDtoList = personList
+										.stream()
+										.map(person -> modelMapper.map(person,PersonDto.class))
+										.collect(Collectors.toList());
+		
+	
+		PageResponse pageResponse =	PageResponse.builder()
+										.pageNo(pageRef.getNumber())
+										.pageSize(pageRef.getSize())
+										.content(personDtoList)
+										.totalElements(pageRef.getTotalElements())
+										.totalPages(pageRef.getTotalPages())
+										.isLastPage(pageRef.isLast())
+										.build();
+		
+		return pageResponse;
+		
+	}
+
+	@Override
+	public PersonDto getPerson(int id) throws ResourceNotFoundException {
+		
+		Optional<Person> OptionalPerson = personDao.findById(id);
+		
+		if(!OptionalPerson.isPresent()) {
+			throw new ResourceNotFoundException("Person","id",id);
+		}
+		
+		return modelMapper.map(OptionalPerson.get(), PersonDto.class);
+	}
+
+	@Override
+	public String deletePerson(int id) {
+		
+		personDao.deleteById(id);
+		
+		return id + " Record Deleted";
+	}
+
+	@Override
+	public PersonDto addPerson(PersonDto personDto) {
+		Person personRef = modelMapper.map(personDto, Person.class);
+		
+		Person savedPersonRef = personDao.save(personRef);
+		
+		return modelMapper.map(savedPersonRef, PersonDto.class);
+	}
+
+	@Override
+	public PersonDto updatePerson(PersonDto personDto) {
+		
+		Person personRef = modelMapper.map(personDto, Person.class);
+		Person savedPersonRef = personDao.save(personRef);
+		
+		return modelMapper.map(savedPersonRef, PersonDto.class);
+	}
+
+	@Override
+	public PersonDto updatePersonLocation(int id, String location) throws ResourceNotFoundException {
+		Optional<Person> person = personDao.findById(id);
+		
+		if(person.isEmpty()) {
+			throw new ResourceNotFoundException(id + "");
+		}
+		// 2. update location
+		Person personRef = person.get();
+		personRef.setLocation(location);
+		
+		return modelMapper.map(personRef, PersonDto.class);
+	}
+	
+	
+}

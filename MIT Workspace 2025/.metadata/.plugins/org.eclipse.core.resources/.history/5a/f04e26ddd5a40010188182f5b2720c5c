@@ -1,0 +1,14 @@
+spring.application.name=SB-03-datajpa-crud-repo
+
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.datasource.url=jdbc:mysql://localhost:3306/mageshit2025
+spring.datasource.username=root
+spring.datasource.password=root
+
+
+#Logging SQL Query
+spring.jpa.show-sql=create
+
+#Table Creation Using JPA
+spring.jpa.hibernate.ddl-auto=create
+

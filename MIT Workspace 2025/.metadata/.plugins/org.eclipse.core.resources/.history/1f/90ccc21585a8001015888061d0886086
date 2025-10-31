@@ -1,0 +1,19 @@
+package com.mit.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Controller
+public class EnquireController {
+
+	@GetMapping("/")
+	public String home(ModelMap modelMap) {
+		
+		String message = "Welcome To Our WebPage";
+		
+		modelMap.addAttribute("Message",message);
+		
+		return "home";
+	}
+}

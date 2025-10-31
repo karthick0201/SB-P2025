@@ -1,0 +1,10 @@
+package com.mit.dao;
+
+import org.springframework.data.repository.ListCrudRepository;
+
+import com.mit.entity.table.TableEntity;
+
+public interface TableEntityDao extends ListCrudRepository<TableEntity, Integer> {
+	
+
+}

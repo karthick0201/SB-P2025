@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: API-GATEWAY
+#Chaging Port Number
+server:
+  port: 7565
+#Eureka Deafult Route (Optional)
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+#Configure Microservice Routes and filters
+cloud:
+  gateway:
+    routes:
+      - id: customer-service
+        uri: lb://CUSTOMER-SERVICE
+        predicates:
+          - Path=/api/customer/**
+      - id: address-service
+        uri: lb://ADDRESS-SERVICE
+        predicates:
+          - Path=/api/address/**
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    reactor.netty.http.client: DEBUG
+    org.springframework.web: DEBUG

@@ -1,0 +1,87 @@
+package com.mit.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
+
+import com.mit.dao.HouseDao;
+import com.mit.entity.House;
+
+@Service
+public class HouseServiceImpl implements HouseServiceI {
+
+	
+	@Autowired
+	private HouseDao dao;
+	
+	@Override
+	public List<House> saveAllHome(List<House> houseList) {
+		return dao.saveAll(houseList);
+	}
+
+	@Override
+	public List<House> getHouseInfo(int pageNo, int noOfRecordsPerPage) {
+		
+		PageRequest pageReqRef = PageRequest.of(pageNo, noOfRecordsPerPage);
+		
+		Page<House> housePage = dao.findAll(pageReqRef);
+		
+		List<House> houseList = housePage.getContent();
+		
+		return houseList;
+	}
+
+	@Override
+	public void printCustomHouseInto() {
+		
+		long totalCount = dao.count();
+		
+		int perPageCount = 5;
+		
+		/*
+		 * If 50 Records are present
+		 * 	- Total = 10 Pages --> 0 - 9 pages
+		 * 	- 
+		 * 
+		 * */
+		
+		int pages = (int) (totalCount/perPageCount); // 50/5 ==> 10
+		
+		for (int i = 0; i < pages; i++) {
+
+			PageRequest pageReq = PageRequest.of(i, perPageCount);
+			
+			Page<House> pageHouse = dao.findAll(pageReq);
+			
+			List<House> houseList = pageHouse.getContent();
+			
+			printHouseList(houseList,i,totalCount,perPageCount);
+			
+			
+			
+		}
+		
+		
+	}
+
+	private void printHouseList(List<House> houseList, int pageNumber, long totalRecordCount, int perPageCount) {
+		
+		System.out.println("\n>-----| Page Number : " + pageNumber + " |----------<");
+		System.out.println("Per Page Count : " + totalRecordCount);
+		System.out.println("Total Record   : " + perPageCount);
+		
+		System.out.println("House List : ");
+		
+		houseList.forEach(hl -> System.out.println(hl));
+		
+		System.out.println(">---------------------------------<\n");
+		
+		
+		
+		
+	}
+
+}

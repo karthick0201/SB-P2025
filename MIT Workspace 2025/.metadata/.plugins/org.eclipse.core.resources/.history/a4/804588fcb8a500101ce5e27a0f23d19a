@@ -1,0 +1,189 @@
+package com.mit;
+
+import java.util.Arrays;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import com.mit.dao.LabtopDao;
+import com.mit.dao.LightDao;
+import com.mit.entity.Labtop;
+import com.mit.entity.Light;
+
+@SpringBootApplication
+public class Sb07DatajpaJparepositoryFindermethodsApplication implements CommandLineRunner{
+
+	public static void main(String[] args) {
+		SpringApplication.run(Sb07DatajpaJparepositoryFindermethodsApplication.class, args);
+	}
+
+	@Override
+	public void run(String... args) throws Exception {
+		System.out.println(">------------|JPA repository and Finder Methods in JPA |-----------------<");
+		
+		/*
+		 * 1. JpaRespository Methods Pratice
+		 */
+		
+		//jpaRepositoryPratice();
+
+		/*2. Finder Methods in Datajpa */
+		//finderMethodsPratice();
+		
+		/*3. Custom Querys
+		 * 
+		 *  - HQL/JPA - Hibernate Query Language
+		 *  - NQL = Native Query Language(sql)
+		 * */
+		addTestLabtopData();
+		
+		nativeQueryLanguagePratice();
+		
+		//hibernateQueryLanguage();
+		
+		
+		
+		
+		
+		
+		
+		
+		line();
+		
+	}
+	
+	
+	private void hibernateQueryLanguage() {
+		
+		System.out.println(">>------| 1. Hibernate Query Language");
+		
+		List<Labtop> labtopList = (List<Labtop>)labtopDao.getLabtopListUsingHQL();
+		labtopList.forEach(l -> System.out.println(l));
+
+		System.out.println(">>---------|2. Hibernate Query - Select ALL |---------<");
+		List<Object[]> hqlLabtopList = labtopDao.getLabtopSelectColumnUsingHQLQuery();
+		
+		hqlLabtopList.forEach(oa -> {
+			System.out.println(oa[0] + " : " + oa[1] + " : " + oa[2]);
+		});
+
+		line();
+		
+	}
+
+
+
+	@Autowired
+	private LabtopDao labtopDao;
+	
+	private void nativeQueryLanguagePratice() {
+		System.out.println(">>------| Native Query Language");
+		
+		System.out.println(">>---------|2. Native Query - Select ALL |---------<");
+		List<Labtop> labtopList = (List<Labtop>)labtopDao.getLabtopListUsingHQL();
+		labtopList.forEach(l -> System.out.println(l));
+
+		System.out.println(">>---------|2. Native Query - Particular Column |---------<");
+		List<Object[]> hqlLabtopList = labtopDao.getLabtopSelectColumnUsingHQLQuery();
+		
+		hqlLabtopList.forEach(oa -> {
+			System.out.println(oa[0] + " : " + oa[1] + " : " + oa[2]);
+		});
+
+		line();
+		
+		
+	}
+	private void addTestLabtopData() {
+		Labtop l1 = new Labtop("Dell A15",16,256);
+		Labtop l2 = new Labtop("Lenovo Ideapad gamin 3",8,1024);
+		Labtop l3 = new Labtop("Mac book m4",16,512);
+		Labtop l4 = new Labtop("Aser A2025",8,512);
+		Labtop l5 = new Labtop("Latitude 5",32,1024);
+		Labtop l6 = new Labtop("Aspire",16,256);
+		Labtop l7 = new Labtop("Lenovo Monstar A47",32,1024);
+		
+		List<Labtop> labtopList = Arrays.asList(l1,l2,l3,l4,l5,l6,l7);
+		
+		labtopDao.saveAllAndFlush(labtopList);
+		
+	}
+
+	private void finderMethodsPratice() {
+/*Finder Methods in Datajpa - for get non prime values*/
+		
+		//1. find by name
+		
+		String name = "Lenovo";
+		Iterable<Light> nameList = lightDao.findByName(name);
+		System.out.println(">>-----|PRINT - findByName : " + name);
+		printEntity((List<Light>) nameList);
+		
+		// 2. findByType 
+		
+		String type = "Study";
+		
+		Iterable<Light> typeList = lightDao.findByType(type);
+		System.out.println(">>-----|PRINT - findByType : " + type );
+		printEntity((List<Light>) typeList);
+		
+		
+		//3. findByNameAndType
+		
+		Iterable<Light> nameTypeList = lightDao.findByType(type);
+		System.out.println(">>-----|PRINT - findByNameAndType : " +name+ " : " + type);
+		printEntity((List<Light>) nameTypeList);
+		
+		
+		line();
+		
+	}
+
+
+	@Autowired
+	LightDao lightDao;
+
+	private void jpaRepositoryPratice() {
+		
+		line();
+		List<Light> lightList = getLightsList();
+		
+		lightDao.saveAllAndFlush(lightList);
+		
+		System.out.println(">>------| All Records");
+		
+		printEntity(lightDao.findAll());
+		
+		line();
+		
+		
+	}
+
+	
+	private void printEntity(List<Light> lightList) {
+		System.out.println(">>---------|| PRINT METHOD ||------------<<" );
+		lightList.forEach(l -> System.out.println(l));
+		line();
+		
+	}
+	private List<Light> getLightsList() {
+		Light l1 = new Light("Western","Study");
+		Light l2 = new Light("Lenovo","Monitor");
+		Light l3 = new Light("Samsung","Study");
+		Light l4 = new Light("Lenovo","Monitor");
+		Light l5 = new Light("dell","Study");
+		Light l6 = new Light("onida","Room");
+		Light l7 = new Light("Rgb","Room");
+		
+		return Arrays.asList(l1,l2,l3,l4,l5,l6,l7);
+	}
+
+	private void line() {
+		System.out.println("\n\n\n >---------------------------------------<");
+		System.out.println(">>----------------------------------------------<<\n\n\n");
+	}
+
+}

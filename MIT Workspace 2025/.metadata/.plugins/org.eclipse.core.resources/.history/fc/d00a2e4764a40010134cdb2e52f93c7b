@@ -1,0 +1,53 @@
+package com.mit;
+
+import org.springframework.boot.Banner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class Application {
+
+	public static void main(String[] args) throws Exception {
+		//SpringApplication.run(DemoApplication.class, args);
+
+		/*1. Banner Info - Here also configure*/
+		
+		SpringApplication app = new SpringApplication(Application.class);
+		
+		app.setBannerMode(Banner.Mode.CONSOLE); // PROORITY IS HERE - PROEPRTY IS SECOND
+		
+		app.run(args);
+		System.out.println("~~~~~~ Main Method Starts ....");
+		
+		/*
+		 * 2. Springboot runners Concept
+		 * 
+		 * Executes this methods after spring boot application started
+		 * 
+		 * THERE ARE 2 TYPES OF RUNNER AVAILABLE
+		 * 
+		 * 	1. Command Line Runner (Non-key value)
+		 * 	2. Application Runner (Key value)
+		 * 
+		 * 	Both are functional interfaces
+		 * 
+		 * Use : one time use - Testing purpose, add test data, like life cycle methods
+		 * 
+		 */
+		
+		/* 1. CommandLineRunner */ 
+		
+		// I created TestCommandLineRunner class to test commandLineRunner
+
+		
+		
+		
+		System.out.println("~~~~~~ Main Method Ends ....");
+		
+		
+		
+		
+		
+	}
+
+}

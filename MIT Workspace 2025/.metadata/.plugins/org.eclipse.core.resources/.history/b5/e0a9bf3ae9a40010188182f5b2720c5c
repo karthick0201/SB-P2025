@@ -1,0 +1,91 @@
+package com.mit.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
+import com.mit.dao.StudentDao;
+import com.mit.entity.Student;
+
+@Controller
+public class StudentControllerImpl implements StudentControllerI{
+
+	
+	@Autowired
+	private StudentDao dao;
+	
+	@Override
+	public boolean saveStuduent(Student student) {
+		
+		Student std = dao.save(student);
+		
+		System.out.println("~~~~~~Student saved... : " + std);
+		return true;
+	}
+
+	@Override
+	public boolean saveStudent(List<Student> students) {
+		
+		dao.saveAll(students);
+		
+		return true;
+	}
+
+	@Override
+	public Student getStudentById(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean isStudentPresent(int id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public List<Student> getAllStudents() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Student> getAllStudentsById(List<Integer> ids) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean deleteStudentById(int id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean deleteStudent(Student student) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean deleteStudentById(List<Integer> ids) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean deleteStudent(List<Student> students) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean deleteAllStudents() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	
+	
+}

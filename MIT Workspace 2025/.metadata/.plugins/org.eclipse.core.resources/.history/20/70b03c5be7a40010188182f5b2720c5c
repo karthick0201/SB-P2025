@@ -1,0 +1,10 @@
+package com.mit.controller;
+
+import com.mit.entity.Student;
+
+public interface StudentControllerI {
+
+	public boolean saveStuduent(Student student);
+	
+	
+}

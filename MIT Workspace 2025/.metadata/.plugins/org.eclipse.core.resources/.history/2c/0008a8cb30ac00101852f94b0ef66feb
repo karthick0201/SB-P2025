@@ -1,0 +1,17 @@
+package com.constants;
+
+public class ApplicationConstants {
+
+	
+	public static final int PAGE_NUMBER = 0;
+
+	public static final int PAGE_SIZE = 0;
+	
+	public static final int SORT_BY = 0;
+	
+	public static final int SORT_DIRECTION = 0;
+	
+	
+	
+	
+}

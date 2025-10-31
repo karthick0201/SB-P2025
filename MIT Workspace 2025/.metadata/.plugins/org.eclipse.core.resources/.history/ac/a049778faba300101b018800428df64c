@@ -1,0 +1,73 @@
+package com.sb.controller;
+
+import java.util.Scanner;
+
+import org.springframework.stereotype.Controller;
+
+@Controller
+public class EmployeeControllerImpl implements EmployeeControllerI {
+	
+	
+	@Override
+	public void reception() {
+		Scanner in = new Scanner(System.in);
+		
+		while(true) {
+			System.out.println("1. Add Employee\n2. Delete Employee using id\n3. View All Employee\n4. Update Employee location Using id\n5. exit");
+			System.out.print("Enter Your Option : ");
+			int option = in.nextInt();
+			switch(option) {
+			case 1 :
+				System.out.println("Adding Employee...");
+				break;
+			case 2 : 
+				System.out.println("Deleting Employee...");
+				break;
+			case 3 : 
+				System.out.println("View Employee...");
+				break;
+			case 4:
+				System.out.println("Update Employee...");
+				break;
+			case 5 : 
+				System.out.println("Thank You...");
+				return;
+				default:
+					System.out.println("Invalid Option!!!");
+			}
+			
+			
+		}
+	}
+
+	@Override
+	public void addEmployee() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteEmployee() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void getEmployeeById() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void getAllEmployees() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void containsEmployee() {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

@@ -1,0 +1,48 @@
+#address:
+#  server:
+#    url: http://localhost:1122/api/address
+#microservice:
+#  service:
+#    name: ADDRESS-SERVICE
+#server:
+#  port: 1212
+#spring:
+#  application:
+#    name: CUSTOMER-SERVICE
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    password: root
+#    url: jdbc:mysql://localhost:3306/mageshit2025
+#    username: root
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#    properties:
+#      hibernate:
+#        format_sql: true
+#    show-sql: false
+
+spring:
+  application:
+    name: CUSTOMER-SERVICE
+  profiles:
+    active: dev
+  config:
+    import: optional:configserver:http://localhost:8888
+    
+#Enabling all actuators in CustomerService
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  tracing:
+    sampling:
+      probability: 1.0
+  zipkin:
+    tracing:
+      endpoint: http://localhost:9411/api/v2/spans
+        
+#above Configuration for Zipkin Server(Logging and Tracing) ->Spring > 3.x - Used micrometer instead of sluth
+
+  

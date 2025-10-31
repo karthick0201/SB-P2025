@@ -1,0 +1,9 @@
+package com.mit.entity;
+
+import org.springframework.data.repository.CrudRepository;
+
+public interface StickerDao extends CrudRepository<Sticker,Integer> {
+	
+	
+
+}

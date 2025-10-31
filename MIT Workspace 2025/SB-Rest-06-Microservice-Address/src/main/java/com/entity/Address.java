@@ -1,0 +1,56 @@
+package com.entity;
+
+import java.time.LocalDateTime;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Entity
+@Table(name= "microservice_address")
+public class Address {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "address_id")
+	private int id;
+	
+	@Column(name = "door_no")
+	private String doorNo;
+	
+	@Column(name = "city_name")
+	private String cityName;
+	
+	@Column(name = "pincode")
+	private String pincode;
+	
+	@Column(name = "created_dt", updatable = false)
+	@CreationTimestamp
+	private LocalDateTime createdDate;
+	
+	@Column(name = "updated_dt", insertable = false)
+	@UpdateTimestamp
+	private LocalDateTime updatedDate;
+	
+	@Column(name = "customer_id")
+	private int customerId;
+	
+	
+	
+
+}

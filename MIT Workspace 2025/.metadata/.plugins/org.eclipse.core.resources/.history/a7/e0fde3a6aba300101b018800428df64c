@@ -1,0 +1,33 @@
+package com.sb;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
+
+import com.sb.controller.EmployeeControllerI;
+
+@SpringBootApplication
+@ComponentScan(basePackages = "com")
+public class Sb01LayerAppDevelopmentApplication implements CommandLineRunner{
+
+	@Autowired
+	private EmployeeControllerI employeeController;
+	
+	
+	public static void main(String[] args) {
+		SpringApplication.run(Sb01LayerAppDevelopmentApplication.class, args);
+		System.out.println("Main Method Ended!!!");
+		
+	}
+
+
+	@Override
+	public void run(String... args) throws Exception {
+		employeeController.reception();
+		System.out.println("Run Method Ended!!!");
+		
+	}
+
+}

@@ -1,0 +1,5 @@
+spring.application.name=demo
+
+
+#activating profile here
+spring.profiles.active=dev

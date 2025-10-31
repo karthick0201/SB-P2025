@@ -1,0 +1,13 @@
+package com;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class SbRest06MicroserviceAddressApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(SbRest06MicroserviceAddressApplication.class, args);
+	}
+
+}

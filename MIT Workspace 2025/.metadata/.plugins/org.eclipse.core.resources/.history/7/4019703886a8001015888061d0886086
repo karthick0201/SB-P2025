@@ -1,0 +1,7 @@
+package com.mit.service;
+
+public interface EnquiryService {
+	
+	public EnquiryDTO createEnquiry(EnquiryDTO enquiry);
+
+}

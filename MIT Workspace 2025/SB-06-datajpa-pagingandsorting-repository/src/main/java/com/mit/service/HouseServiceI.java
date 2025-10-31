@@ -1,0 +1,22 @@
+package com.mit.service;
+
+import java.util.List;
+
+import com.mit.entity.House;
+
+public interface HouseServiceI {
+
+	
+	List<House> saveAllHome(List<House> houseList);
+	
+	List<House> getHouseInfo(int pageNo, int noOfRecordsPerPage);
+	
+	void printCustomHouseInto();
+	
+	//Sorting House list using owner name
+	
+	List<House> printHouseRecordsSortByOwner();
+	List<House> printHouseRecordsSortByOwner(String direction,String... args);
+	
+	
+}

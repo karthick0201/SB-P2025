@@ -1,0 +1,79 @@
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://localhost:8761/eureka
+#logging:
+#  level:
+#    org:
+#      springframework:
+#        cloud:
+#          gateway:
+#            filter: DEBUG
+#            route: DEBUG
+#management:
+#  endpoint:
+#    gateway:
+#      enabled: true
+#  endpoints:
+#    web:
+#      exposure:
+#        include: health,info,gateway,routes
+#server:
+#  port: 7788
+#spring:
+#  application:
+#    name: API-GATEWAY
+#  cloud:
+#    gateway:
+#      routes:
+#      - id: CUSTOMER-SERVICE
+#        predicates:
+#        - Path=/api/customer/**
+#        uri: lb://CUSTOMER-SERVICE
+#      - id: ADDRESS-SERVICE
+#        predicates:
+#        - Path=/api/address/**
+#        uri: lb://ADDRESS-SERVICE
+#      - id: CBI-DISCOVERY
+#        predicates:
+#        - Path=/**
+#        uri: http://localhost:8761
+        
+spring:
+  application:
+    name: API-GATEWAY
+  config:
+    import: optional:configserver:http://localhost:8888
+        
+## server
+#server.port=7788
+#spring.application.name=API-GATEWAY
+#
+## Eureka - point to your registry
+#eureka.client.service-url.defaultZone=http://localhost:8761/eureka
+#
+## Gateway routes (use indexed syntax for predicates & filters)
+#spring.cloud.gateway.routes[0].id=CUSTOMER-SERVICE
+#spring.cloud.gateway.routes[0].uri=lb://CUSTOMER-SERVICE
+#spring.cloud.gateway.routes[0].predicates[0]=Path=/api/customer/**
+#
+#
+#spring.cloud.gateway.routes[1].id=ADDRESS-SERVICE
+#spring.cloud.gateway.routes[1].uri=lb://ADDRESS-SERVICE
+#spring.cloud.gateway.routes[1].predicates[0]=Path=/api/address/**
+#
+##Accessing Eureka dashboard via APIGateway(redirection)
+#spring.cloud.gateway.routes[2].id=CBI-DISCOVERY
+#spring.cloud.gateway.routes[2].uri=http://localhost:8761
+#spring.cloud.gateway.routes[2].predicates[0]=Path=/**
+#
+#
+## optional: expose actuator endpoints for debugging
+#management.endpoints.web.exposure.include=health,info,gateway,routes
+#management.endpoint.gateway.enabled=true
+#
+## verbose gateway logging (temporary for debugging)
+#logging.level.org.springframework.cloud.gateway=DEBUG
+#logging.level.org.springframework.cloud.gateway.filter=DEBUG
+#logging.level.org.springframework.cloud.gateway.route=DEBUG
+

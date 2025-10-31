@@ -1,0 +1,63 @@
+package com.service;
+
+import java.util.List;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.dao.AddressDao;
+import com.entity.Address;
+import com.request.AddressRequest;
+import com.response.AddressResponse;
+
+@Service
+public class AddressServiceImpl implements AddressService {
+
+	
+	@Autowired
+	private AddressDao addressDao;
+	
+	@Override
+	public List<AddressResponse> getAllAddress() {
+		
+		address
+		
+		
+		
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public AddressResponse getAddressById(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public AddressResponse getAddressByCustomerId(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean addAddress(AddressRequest addressRequest) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+	@Autowired
+	private ModelMapper mapper;
+	
+	/* Utility Method for Conversion */
+	public Address convertAddressRequestToAddressEntity(AddressRequest addressRequest) {
+		return mapper.map(addressRequest, Address.class);
+		
+	}
+	
+	public AddressResponse convertAddressEntityToAddressResponse(Address address) {
+		return mapper.map(address, AddressResponse.class);
+	}
+
+}

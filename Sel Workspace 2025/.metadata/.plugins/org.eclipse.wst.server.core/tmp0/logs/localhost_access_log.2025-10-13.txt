@@ -1,0 +1,13 @@
+0:0:0:0:0:0:0:1 - - [13/Oct/2025:01:36:55 +0530] "GET /14-abilash-LoveCalculator/love-calcultor HTTP/1.1" 302 -
+0:0:0:0:0:0:0:1 - - [13/Oct/2025:01:36:55 +0530] "GET /14-abilash-LoveCalculator/login HTTP/1.1" 200 757
+0:0:0:0:0:0:0:1 - - [13/Oct/2025:01:37:05 +0530] "POST /14-abilash-LoveCalculator/validate-user HTTP/1.1" 302 -
+0:0:0:0:0:0:0:1 - - [13/Oct/2025:01:37:05 +0530] "GET /14-abilash-LoveCalculator/love-calcultor HTTP/1.1" 200 858
+0:0:0:0:0:0:0:1 - - [13/Oct/2025:01:37:40 +0530] "GET /14-abilash-LoveCalculator/love-calcultor HTTP/1.1" 200 858
+0:0:0:0:0:0:0:1 - - [13/Oct/2025:01:37:41 +0530] "GET /14-abilash-LoveCalculator/love-calcultor HTTP/1.1" 200 858
+0:0:0:0:0:0:0:1 - - [13/Oct/2025:01:37:41 +0530] "GET /14-abilash-LoveCalculator/love-calcultor HTTP/1.1" 200 858
+0:0:0:0:0:0:0:1 - - [13/Oct/2025:01:37:42 +0530] "GET /14-abilash-LoveCalculator/love-calcultor HTTP/1.1" 200 858
+0:0:0:0:0:0:0:1 - - [13/Oct/2025:01:38:54 +0530] "POST /14-abilash-LoveCalculator/calculate HTTP/1.1" 302 -
+0:0:0:0:0:0:0:1 - - [13/Oct/2025:01:38:54 +0530] "GET /14-abilash-LoveCalculator/result-page-pcs HTTP/1.1" 200 1093
+0:0:0:0:0:0:0:1 - - [13/Oct/2025:01:39:02 +0530] "GET /14-abilash-LoveCalculator/result-page-pcs HTTP/1.1" 200 1079
+0:0:0:0:0:0:0:1 - - [13/Oct/2025:01:39:05 +0530] "GET /14-abilash-LoveCalculator/love-calcultor HTTP/1.1" 200 858
+0:0:0:0:0:0:0:1 - - [13/Oct/2025:01:39:09 +0530] "GET /14-abilash-LoveCalculator/view-history HTTP/1.1" 200 2896

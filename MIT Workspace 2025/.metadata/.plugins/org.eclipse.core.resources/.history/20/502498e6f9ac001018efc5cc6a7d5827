@@ -1,0 +1,10 @@
+package com.consumer;
+
+public class RestClientTemplatePratice {
+
+	public void restClientPratice() {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

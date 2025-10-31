@@ -1,0 +1,97 @@
+package com.resources;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.binding.Customer;
+import com.util.CustomerUtils;
+
+@RestController // --> @ResponseBody + @Controller(Marks this class as spring bean)
+@RequestMapping(value = "/api/customer")
+public class CustomerResource {
+
+	
+	/* 1. Getting All Customers */
+	@GetMapping(value = "/")
+	public ResponseEntity<List<Customer>> customerHandler(){
+		
+		List<Customer> customerList = CustomerUtils.getCustomerList();
+		
+		return new ResponseEntity<>(customerList,HttpStatus.OK);
+	}
+	
+	/* 2. Get Customer Using id */
+	
+	@GetMapping("/{customerId}")
+	public ResponseEntity<?> getCustomerUsingId(@PathVariable("customerId")int id){
+		
+		//Get From DB/Utils
+		List<Customer> customerList = CustomerUtils.getCustomerList();
+		
+		Optional<Customer> optionalCustomer = customerList.stream().filter(cus -> cus.getId() == id).findFirst();
+		
+		if(!optionalCustomer.isPresent()) {
+			return new ResponseEntity<String>("Customer Id is not Found in Records", HttpStatus.Ok);
+		}
+		
+		return new ResponseEntity<Customer>(optionalCustomer.get(),HttpStatus.OK);
+		
+	}
+	/* 3. Update Customer */
+	@PutMapping("/")
+	public ResponseEntity<?> updateCustomer(@RequestBody Customer customer){
+		
+		Optional<Customer> optionalCustomer = CustomerUtils
+												.getCustomerList()
+												.stream()
+												.filter(cus -> cus.getId() == customer.getId())
+												.findFirst();
+		
+		if(optionalCustomer.isEmpty()) {
+			return new ResponseEntity<String>("Id id not Found in Records!", HttpStatus.OK);
+		}
+		
+		//Updating info of Utils/db table
+		
+		Customer dbCustomer = optionalCustomer.get();
+		dbCustomer.setLevel(customer.getLevel());
+		
+		return new ResponseEntity<Customer>(dbCustomer, HttpStatus.OK);
+	}
+	
+	/* 4. Delete Customer */
+	@DeleteMapping("/{customerId}")
+	public ResponseEntity<String> deleteCustomer(@PathVariable("customerId") int id) {
+		
+		CustomerUtils.getCustomerList().removeIf(cus -> cus.getId() == id);
+		
+		return new ResponseEntity<String>(id + " is Record Removed From DB", HttpStatus.OK);
+	}
+	
+	/* 5. Add New Customer */
+	
+	@PostMapping("/")
+	public ResponseEntity<Customer> AddCustomer(@RequestBody Customer customer){
+		
+		/* Create Random Id */
+		int id = CustomerUtils.generateUniqueId();
+		customer.setId(id);
+		CustomerUtils.getCustomerList().add(customer);
+
+		return new ResponseEntity<>(customer,HttpStatus.OK);
+		
+	}
+	
+	
+}

@@ -1,0 +1,76 @@
+package com.service;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.dao.PersonDao;
+import com.dto.PersonDto;
+import com.entity.Person;
+
+@Service
+public class PersonServiceImpl implements PersonService{
+
+	@Autowired
+	private PersonDao personDao;
+	
+	@Autowired
+	private ModelMapper modelMapper;
+
+	@Override
+	public List<PersonDto> getPersons() {
+		List<Person> personList = personDao.findAll();
+		
+
+		List<PersonDto> personDtoList = personList
+								.stream()
+								.map(person -> modelMapper.map(person, PersonDto.class))
+								.collect(Collectors.toList());
+		
+		return personDtoList;
+	}
+
+	@Override
+	public PersonDto getPerson(int id) throws Exception {
+		
+		Optional<Person> OptionalPerson = personDao.findById(id);
+		
+		if(!OptionalPerson.isPresent()) {
+			throw new Exception("Id Not Found in Records");
+		}
+		
+		return modelMapper.map(OptionalPerson.get(), PersonDto.class);
+	}
+
+	@Override
+	public String deletePerson(int id) {
+		
+		personDao.deleteById(id);
+		
+		return id + " Record Deleted";
+	}
+
+	@Override
+	public PersonDto addPerson(PersonDto personDto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public PersonDto updatePerson(PersonDto personDto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public PersonDto updatePersonLocation(int id, String location) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
+}

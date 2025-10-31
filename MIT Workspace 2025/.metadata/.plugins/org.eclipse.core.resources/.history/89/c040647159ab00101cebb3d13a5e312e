@@ -1,0 +1,24 @@
+package com.conversion;
+
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
+
+import lombok.Data;
+
+@Data
+@JsonRootName(value = "room")
+public class Room {
+
+	@JsonProperty
+	private int roomNo;
+	
+	@JsonProperty
+	private String name;
+	
+	@JsonProperty
+	private String roomColor;
+	
+	private List<Light> lightsList;
+}

@@ -1,0 +1,41 @@
+package com.sb.dao;
+
+import java.util.List;
+
+import com.sb.entity.Employee;
+
+public class EmployeeDaoImpl implements EmployeeDaoI{
+
+	@Override
+	public boolean addEmployee(Employee e) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean deleteEmployee(int id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Employee getEmployeeById(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Employee> getAllEmployees() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean containsEmployee(int id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+	
+
+}

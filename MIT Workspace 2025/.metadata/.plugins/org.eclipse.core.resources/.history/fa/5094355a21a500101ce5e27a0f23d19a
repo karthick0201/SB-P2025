@@ -1,0 +1,5 @@
+package com.mit.entity.identity;
+
+public class AadharCard {
+
+}

@@ -1,0 +1,28 @@
+package com.mit.service;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.mit.dao.EnquiryDao;
+import com.mit.dto.EnquiryDTO;
+import com.mit.entity.Enquiry;
+
+@Service
+public class EnquiryServiceImpl implements EnquiryService {
+
+	@Autowired
+	private EnquiryDao enquiryDao;
+	
+	@Override
+	public EnquiryDTO createEnquiry(EnquiryDTO enquiry) {
+
+		ModelMapper mapper = new ModelMapper();
+		Enquiry enquiryRef = mapper.map(enquiry, Enquiry.class);
+		
+		enquiryDao.save(enquiryRef);
+		
+		return enquiry;
+	}
+
+}

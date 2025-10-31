@@ -1,0 +1,12 @@
+package com.mit.dao;
+
+import org.springframework.data.repository.ListCrudRepository;
+import org.springframework.data.repository.ListPagingAndSortingRepository;
+
+import com.mit.entity.House;
+
+public interface HouseDao extends ListPagingAndSortingRepository<House, Integer>, ListCrudRepository<House, Integer>{
+	
+	
+
+}

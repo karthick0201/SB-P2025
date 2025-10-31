@@ -1,0 +1,55 @@
+package com.mit.service;
+
+import java.util.Date;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.mit.dao.LoginDao;
+import com.mit.entity.Login;
+import com.mit.entity.Student;
+
+@Service
+public class LoginService {
+
+	@Autowired
+	private LoginDao loginDao;
+	
+	public boolean saveLogin() {
+		
+		// Student Information
+		
+		Student s1 = new Student();
+		s1.setJoinedDate(new Date());
+		s1.setLocation("Madurai");
+		s1.setName("Karthick R");
+		s1.setRollNo(20417);
+		
+		Student s2 = new Student();
+		s2.setJoinedDate(new Date());
+		s2.setLocation("Chennai");
+		s2.setName("Pranathi");
+		s2.setRollNo(22471);
+		
+		// Login Information
+		
+		Login l1 = new Login();
+		l1.setUserName("");
+		l1.setPassword("");
+		l1.setStatus("Active");
+		l1.setCreatedDate(new Date());
+		l1.setStudent(s1);
+		
+		Login l2 = new Login();
+		l2.setUserName("");
+		l2.setPassword("");
+		l2.setStatus("Active");
+		l2.setCreatedDate(new Date());
+		l2.setStudent(s2);
+		
+		
+		
+		return true;
+	}
+	
+}

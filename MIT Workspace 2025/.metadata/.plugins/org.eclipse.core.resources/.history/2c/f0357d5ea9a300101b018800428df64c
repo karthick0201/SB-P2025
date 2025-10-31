@@ -1,0 +1,18 @@
+package com.sb.entity;
+
+import java.time.LocalDate;
+
+public class Employee {
+
+	private int id;
+	private String name;
+	private String role;
+	private LocalDate joinedDate;
+	
+	
+	
+	
+	
+	
+
+}

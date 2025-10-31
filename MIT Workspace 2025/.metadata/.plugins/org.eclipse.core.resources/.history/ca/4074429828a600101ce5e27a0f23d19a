@@ -1,0 +1,20 @@
+package com.mit.service;
+
+import org.springframework.stereotype.Service;
+
+@Service
+public class PostService {
+
+	public void oneToManyPratice() {
+		
+	}
+	
+	public void insertRecordsToTable() {
+		
+		
+		
+	}
+	
+	
+	
+}

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;Airtel.java&apos; to &apos;spring-core-pratice/src/main/java/com.cdp.spring.beans&apos;&#x0D;&#x0A;- Original project: &apos;spring-core-pratice&apos;&#x0D;&#x0A;- Destination element: &apos;spring-core-pratice/src/main/java/com.cdp.spring.beans&apos;&#x0D;&#x0A;- Original element: &apos;com.cdp.spring.beans.Airtel.java&apos;" description="Copy compilation unit" destination="/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.cdp.spring.beans" element1="/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.cdp.spring.beans{Airtel.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1756650211252" units="1" version="1.0"/>
+</session>

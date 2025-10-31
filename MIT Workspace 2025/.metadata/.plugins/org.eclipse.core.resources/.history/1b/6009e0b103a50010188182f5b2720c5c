@@ -1,0 +1,7 @@
+spring.application.name=SB-04-datajpa-generator-auto
+
+#Mysql configuration
+
+
+spring.datasource.username=root
+spring.datasource.password=root

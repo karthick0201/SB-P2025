@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="SB-Rest-08-Microservice-APIGateway-Application">
+        <property name="context-root" value="APIGatewayApplication"/>
+        <property name="java-output-path" value="/SB-Rest-08-Microservice-APIGateway-Application/target/classes"/>
+    </wb-module>
+</project-modules>

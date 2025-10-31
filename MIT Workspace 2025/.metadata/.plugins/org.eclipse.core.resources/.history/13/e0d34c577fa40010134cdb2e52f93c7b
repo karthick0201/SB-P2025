@@ -1,0 +1,79 @@
+package com.mit.bean;
+
+
+public class Ticket {
+
+	private String passengerName;
+	
+	private String fromLocation;
+	
+	private String toLocation;
+	
+	private String ticketClass;
+	
+	private double price;
+
+	public String getPassengerName() {
+		return passengerName;
+	}
+
+	public void setPassengerName(String passengerName) {
+		this.passengerName = passengerName;
+	}
+
+	public String getFromLocation() {
+		return fromLocation;
+	}
+
+	public void setFromLocation(String fromLocation) {
+		this.fromLocation = fromLocation;
+	}
+
+	public String getToLocation() {
+		return toLocation;
+	}
+
+	public void setToLocation(String toLocation) {
+		this.toLocation = toLocation;
+	}
+
+	public String getTicketClass() {
+		return ticketClass;
+	}
+
+	public void setTicketClass(String ticketClass) {
+		this.ticketClass = ticketClass;
+	}
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
+	@Override
+	public String toString() {
+		
+		return "Ticket [passengerName=" + passengerName + ", fromLocation=" + fromLocation + ", toLocation="
+				+ toLocation + ", ticketClass=" + ticketClass + ", price=" + price + "]";
+	}
+	
+	public void display() {
+		
+		System.out.println(">------| Ticket Details |------<");
+		String str = String.format("Name : ", passengerName);
+		System.out.println(str);
+		str = String.format("From  : ", fromLocation);
+		System.out.println(str);
+		str = String.format("To    : ", toLocation);
+		System.out.println(str);
+		str = String.format("Price : ", price);
+		System.out.println(str);
+		System.out.println(">------------------------------<");
+	}
+	
+	
+	
+}

@@ -1,0 +1,217 @@
+package com.lovecal.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.support.SessionStatus;
+
+import com.lovecal.dao.LoveCalculatorDaoImpl;
+import com.lovecal.dto.LoginDTO;
+import com.lovecal.dto.LoveCalculatorDTO;
+import com.lovecal.dto.RegisterDTO;
+import com.lovecal.pojo.HistoryPojo;
+import com.lovecal.pojo.UserPojo;
+import com.lovecal.service.LoveCalculatorServiceI;
+
+import jakarta.servlet.http.HttpSession;
+
+@Controller
+public class LoveCalculatorController {
+
+	public LoveCalculatorController() {
+		
+		System.out.println("~~~~~~~~~~~ - controller Constructor called!!!");
+	}
+	
+	
+	@Autowired
+	private LoveCalculatorServiceI lcService;
+	@Autowired
+	private LoveCalculatorDaoImpl dao;
+	
+	@RequestMapping("/")
+	public String home() {
+		
+		//dao.createTable();
+		
+		return "home";
+	}
+	@RequestMapping("/register")
+	public String register(@ModelAttribute("registerDto") RegisterDTO registerDto) {
+		
+		
+		
+		return "register";
+	}
+	
+	@RequestMapping("save-user")
+	public String saveUser(RegisterDTO registerDto,BindingResult bindingResult) {
+		
+		boolean isRegSuccess = lcService.registerUser(registerDto);
+		
+		if(!isRegSuccess) {
+			bindingResult.addError(new ObjectError("Invalid", "registation failed..."));
+			System.out.println("register Failure ....");
+			return "redirect:/register";
+		}
+		
+		return "redirect:/login";
+	}
+	
+	@RequestMapping("/login")
+	public String login(@ModelAttribute("loginDto") LoginDTO loginDto) {
+		
+		return "login";
+	}
+	@RequestMapping("/logout")
+	public String logout() {
+		
+		return "redirect:/logout-session";
+	}
+	
+	@RequestMapping("/validate-user")
+	public String validateUser(LoginDTO loginDto,HttpSession session) {
+		
+		if(!lcService.validateUser(loginDto)) {
+			System.out.println("Login fail!!!");
+			return "redirect:/login";
+		}
+		
+		System.out.println("Validate : LoginDTO " + loginDto.getUserName() + " : || " + loginDto.getPassword() );
+		
+		UserPojo user = lcService.getUserByEmail(loginDto.getUserName());
+		System.out.println("Validate :: " + user);
+		session.setAttribute("user", user);
+		
+		System.out.println("Login success!!!");
+		UserPojo a = (UserPojo)session.getAttribute("user");
+		System.out.println("Before redirect :: validate Calculate - session USer Object : " + a);
+		return "redirect:/love-calcultor"; // redirect:
+	}
+	
+	
+	@RequestMapping("/love-calcultor")
+	public String loveCalculator(@ModelAttribute("loveDto")LoveCalculatorDTO loveDTO) {
+		return "love-calculator";
+	}
+	
+	@RequestMapping("/calculate")
+	public String calculate(LoveCalculatorDTO calculatorDto,Model model,HttpSession session) {
+		
+		UserPojo user = (UserPojo)session.getAttribute("user");
+		System.out.println("Calculate - session USer Object : " + user);
+		if(user == null) {
+			System.out.println("session user is null - redirecting to Login page!!!");
+			return "redirect:/login";
+		}
+		
+		/*
+		 * 1. Get yourname and crushname Using LovecalculatorDto
+		 * 2. calculate love logic -> get Result
+		 * 3. show in result page
+		 * 4. store in history
+		 * */
+		
+//		1. Get Yourname and crushname
+		int lovePercentage = lcService.calculateLovePercentage(calculatorDto.getYourName(), calculatorDto.getCrushName());
+		String relationShipType = lcService.calculateLove(lovePercentage);
+		
+		HistoryPojo history = new HistoryPojo();
+		history.setYourName(calculatorDto.getYourName());
+		history.setCrushName(calculatorDto.getCrushName());
+		history.setResult(lovePercentage);
+		history.setRelationType(relationShipType);
+		
+		history.setUserId(user.getId());
+		
+		
+		//3. show in result page
+		model.addAttribute("history",history);
+		
+		//4. store in history
+		boolean saveResultStatus = lcService.saveLoveResult(history, user.getId());
+		
+		if(!saveResultStatus) {
+			System.out.println("result not saved!!!");
+			// add log here...
+		}
+		
+		
+		
+		return "redirect:result-page-pcs"; // redirecting to Get for double posting problem
+	}
+	
+	
+	
+	@RequestMapping(value = "/result-page-pcs", method = RequestMethod.GET)
+	public String resultPage() {
+		
+		
+		
+		
+		return "result-page"; // view page
+	}
+	
+	
+	@RequestMapping("/view-history")
+	public String history(Model model,@SessionAttribute("user")UserPojo user) {
+		
+		List<HistoryPojo> history = lcService.getHistory(user.getId());
+		
+		//System.out.println("History : " + history);
+		//System.out.println("~~~~~~~~~~~~~> History Pojo : <~~~~~~~~~");
+		//history.forEach(hp -> System.out.println(hp));
+		
+		model.addAttribute("history",history);
+		
+		return "history";
+	}
+	@RequestMapping("/deletehistory/{hid}")
+	public String deleteHistory(@PathVariable("hid") int hid) {
+		
+		boolean isDeleted = lcService.deleteHistory(hid);
+		
+		if(!isDeleted) {
+			System.out.println("Log :: is not deleted!!!");
+		}
+		
+		return "redirect:/view-history";
+	}
+	
+	@RequestMapping("/error")
+	public String errorPage() {
+		return "error-page";
+	}
+	/*@RequestMapping("/logout-session")
+	public String logoutSession(SessionStatus sessionStatus) { // this only removes session of @Sessionattribute and attribures not HttpSession
+		sessionStatus.setComplete();
+		return "redirect:/login";
+	}*/
+	@RequestMapping("/logout-session")
+	public String logoutSession(HttpSession session) {
+	    session.invalidate(); //  clears all session data
+	    return "redirect:/login";
+	}
+
+	
+	public boolean validateSession(HttpSession session) {
+		
+		UserPojo user = (UserPojo)session.getAttribute("user");
+		if(user == null) {
+			System.out.println("Validating Session - User is " + user);
+			return false;
+		}
+		return true;
+		
+	}
+	
+}

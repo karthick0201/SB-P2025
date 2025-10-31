@@ -1,0 +1,5 @@
+package com.feign.clients;
+
+public interface AddressClient {
+
+}

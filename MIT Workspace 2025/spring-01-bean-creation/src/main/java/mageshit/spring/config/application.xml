@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	 <bean id="player" class="mageshit.spring.beans.Player">
+		
+		<!-- Setter Injection -->
+		<property name="name" value="Dhoni" />
+		<property name="jercyNumber" value="07" />
+
+	</bean> 
+
+	<bean id = "stadium" class = "mageshit.spring.beans.Stadium">
+		<!-- Constructor Injection  -->	
+		<constructor-arg name = "name" value = "Chepauk"/>		
+		<constructor-arg name = "location" value = "Chennai"/>
+	</bean>
+
+</beans>

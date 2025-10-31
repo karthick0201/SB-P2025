@@ -1,0 +1,32 @@
+package com.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.service.ProudctService;
+
+
+@Controller
+@RequestMapping(value = "/products")
+public class ProductController {
+	
+	
+	@Autowired
+	private ProudctService productService;
+	
+	
+	@GetMapping
+	public String viewHomePage(Model model) {
+		
+		model.addAttribute("listProducts",productService.listAllProducts());
+		
+		return "products";
+		
+	}
+	
+	
+
+}

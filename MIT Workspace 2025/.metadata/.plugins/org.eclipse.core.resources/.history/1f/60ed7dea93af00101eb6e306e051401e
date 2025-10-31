@@ -1,0 +1,15 @@
+package com.feign.clients;
+
+import java.util.List;
+
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.ResponseEntity;
+
+import com.response.AddressResponse;
+
+@FeignClient(name = "${spring.application.name}", url = "${address.server.url}")
+public interface AddressClient {
+
+	public ResponseEntity<List<AddressResponse>> getCustomerAddressListUsingWebClient();
+	
+}

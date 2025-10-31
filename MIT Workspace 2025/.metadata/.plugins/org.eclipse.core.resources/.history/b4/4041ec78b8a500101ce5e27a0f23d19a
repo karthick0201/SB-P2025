@@ -1,0 +1,30 @@
+package com.mit.dao;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import com.mit.entity.Labtop;
+
+public interface LabtopDao extends JpaRepository<Labtop,Integer>{
+	
+	
+	
+	// Native Query Methods
+	@Query(value = "SELECT * FROM labtop", nativeQuery = true)
+	Iterable<Labtop> getLabtopListUsingNativeQuery();
+	
+	@Query(value = "SELECT l.name,l.ram,l.rom FROM labtop as l", nativeQuery = true)
+	List<Object[]> getLabtopSelectColumnUsingNativeQuery();
+	
+	// JPA Query Language Methods
+	
+	@Query(value = "SELECT * FROM Labtop");
+	Iterable<Labtop> getLabtopListUsingHQL();
+	
+	@Query(value = "SELECT name,ram,rom FROM Labtop")
+	List<Object[]> getLabtopSelectColumnUsingHQLQuery();
+	
+
+}

@@ -1,0 +1,32 @@
+package com;
+
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import com.entity.Customer;
+
+@SpringBootApplication
+public class SbRest05MicroserviceCustomerApplication implements CommandLineRunner{
+
+	public static void main(String[] args) {
+		SpringApplication.run(SbRest05MicroserviceCustomerApplication.class, args);
+	}
+
+	@Override
+	public void run(String... args) throws Exception {
+		
+		Customer cus = Customer
+						.builder()
+						.email("chin.cdp@example.com")
+						.name("Pran")
+						.phoneNo("784512963")
+						.location("Chennai")
+						.gender("male")
+						.build();
+		
+		
+		
+	}
+
+}

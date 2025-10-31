@@ -1,0 +1,6 @@
+#QA Environemnt Properties
+
+database.username=prod@
+database.password=prod@sym@123
+
+application.emails=prod.sym@zc.com

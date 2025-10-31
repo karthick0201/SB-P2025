@@ -1,0 +1,224 @@
+package com.mit;
+
+import java.util.Arrays;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import com.mit.dao.AadharcardDao;
+import com.mit.dao.EclipseDao;
+import com.mit.dao.MonitorDao;
+import com.mit.dao.StickerDao;
+import com.mit.dao.TableEntityDao;
+import com.mit.entity.Sticker;
+import com.mit.entity.identity.AadharCard;
+import com.mit.entity.sequence.Eclipse;
+import com.mit.entity.table.Monitor;
+import com.mit.entity.table.TableEntity;
+
+@SpringBootApplication
+public class Sb04DatajpaGeneratorAutoApplication implements CommandLineRunner{
+
+	public static void main(String[] args) {
+		SpringApplication.run(Sb04DatajpaGeneratorAutoApplication.class, args);
+	}
+
+	
+	
+	
+	@Override
+	public void run(String... args) throws Exception {
+		
+		/* 1. Generator - AUTO */
+	
+		//generatorsAutoStertagyPratice();
+		
+		/* 2. Generator - Sequence (Customize) */
+		
+		//generatorSequenceStertagyPrtice();
+		
+		/* 3. Generator - Identity (Id generated from Database side) */
+		
+//		generatorIdentityStertagyPratice();
+		
+		/* 4. Generator - Table */
+		
+		generatorTableStrategyPratice();
+		
+		
+	}
+	
+	@Autowired
+	private TableEntityDao tableDao;
+	
+	@Autowired
+	private MonitorDao monitorDao;
+
+	private void generatorTableStrategyPratice() {
+		line();
+		System.out.println(">------| Generator : Table");
+		
+		List<TableEntity> tableList = getTableEntityList();
+		
+		
+		tableDao.saveAll(tableList);
+		
+		System.out.println(">>>-----| Table - Table Information |---------<<<");
+		
+		List<TableEntity> tList = tableDao.findAll();
+		
+		tList.forEach(l -> System.out.println(l));
+		
+		line();
+		
+		System.out.println(">------| Generator : Table - Monitor");
+		
+		List<Monitor> monitorList = getMonitorList();
+		
+		
+		monitorDao.saveAll(monitorList);
+		
+		System.out.println(">>>-----| Table - Table Information |---------<<<");
+		
+		List<Monitor> mList = monitorDao.findAll();
+		
+		mList.forEach(l -> System.out.println(l));
+		
+		line();
+		
+		
+	}
+
+	private List<Monitor> getMonitorList() {
+		
+		Monitor m1 = new Monitor("Dell");
+		Monitor m2 = new Monitor("Lenovo");
+		Monitor m3 = new Monitor("Vi");
+		Monitor m4 = new Monitor("Xami");
+		Monitor m5 = new Monitor("Samsung");
+		
+		return Arrays.asList(m1,m2,m3,m4,m5);
+	}
+
+
+
+
+	private List<TableEntity> getTableEntityList() {
+		
+		
+		TableEntity t1 = new TableEntity("Computer Table","Wood");
+		TableEntity t2 = new TableEntity("Study Table","Steel");
+		TableEntity t3 = new TableEntity("Food Table","Gold");
+		TableEntity t4 = new TableEntity("Kitchen Table","Silver");
+		TableEntity t5 = new TableEntity("Dinning Table","Diamond");
+		TableEntity t6 = new TableEntity("Tv Table","Star");
+		
+		return Arrays.asList(t1,t2,t3,t4,t5,t6);
+	}
+
+	@Autowired
+	private AadharcardDao aadharDao;
+	
+	private void generatorIdentityStertagyPratice() {
+
+		line();
+		System.out.println(">------| Generator : Identity");
+		
+		List<AadharCard> aadharcardList = getAadharcardList();
+		
+		aadharDao.saveAll(aadharcardList);
+		
+		System.out.println(">>>-----| Identity - Aadhar Information |---------<<<");
+		
+		List<AadharCard> aList = aadharDao.findAll();
+		
+		aList.forEach(l -> System.out.println(l));
+		
+		line();
+		
+		
+	}
+
+
+
+	private List<AadharCard> getAadharcardList() {
+		
+		AadharCard a1 = new AadharCard("Pranathi","Andra");
+		AadharCard a2 = new AadharCard("Priety","Chennai");
+		AadharCard a3 = new AadharCard("Sathish","Chennai");
+		AadharCard a4 = new AadharCard("Kannan","Madurai");
+		AadharCard a5 = new AadharCard("Raji","Tenkasi");
+		
+		return Arrays.asList(a1,a2,a3,a4,a5);
+	}
+
+	@Autowired
+	private EclipseDao eclipseDao;
+	
+	private void generatorSequenceStertagyPrtice() {
+		List<Eclipse> stickersList = getEclipseList();
+
+		//Saving the data
+		 List<Eclipse> savedStickersList = eclipseDao.saveAll(stickersList);
+		 
+		 System.out.println(">>>----| Saved Stickers List Using Sequence : ");
+		 
+		 savedStickersList.forEach(s -> System.out.println(s));
+		 
+		 Eclipse ed = eclipseDao.save(new Eclipse("Problem Solving WK","White"));
+		 System.out.println("Last Sticker : " + ed);
+		
+	}
+
+	private List<Eclipse> getEclipseList() {
+		
+		Eclipse e1 = new Eclipse("2023 Magesh Workspace", "Dark Pink");
+		Eclipse e2 = new Eclipse("CDP - Magesh Workspace", "Green");
+		Eclipse e3 = new Eclipse("2023 Selinum Workspace", "Red Yellow");
+		Eclipse e4 = new Eclipse("CDP - Selinum Workspace", "Orange");
+		
+		return Arrays.asList(e1,e2,e3,e4);
+	}
+
+	@Autowired
+	private StickerDao stickerDao;
+	
+
+	private void generatorsAutoStertagyPratice() {
+		List<Sticker> stickersList = getStickersList();
+
+		//Saving the data
+		 List<Sticker> savedStickersList = stickerDao.saveAll(stickersList);
+		 
+		 System.out.println(">>>----| Saved Stickers List Using AUTO : ");
+		 
+		 savedStickersList.forEach(s -> System.out.println(s));
+		 
+		 Sticker s = stickerDao.save(new Sticker("Neji","Team 6",60));
+		 System.out.println("Last Sticker : " + s);
+		
+	}
+
+
+
+
+	private List<Sticker> getStickersList() {
+		
+		Sticker s1 = new Sticker("Naruto","Team 7",60);
+		Sticker s2 = new Sticker("Sasuke","Team 7",50);
+		Sticker s3 = new Sticker("Sikamaru","Team 10",80);
+		Sticker s4 = new Sticker("Hinata","Team 9",40);
+		Sticker s5 = new Sticker("Rock Lee","Team 6",90);
+		
+		return Arrays.asList(s1,s2,s3,s4,s5);
+	}
+
+	private void line() {
+		System.out.println("\n\n >>--------------------------------<<");
+		System.out.println(">>------------------------------------<<\n\n");
+	}
+
+}

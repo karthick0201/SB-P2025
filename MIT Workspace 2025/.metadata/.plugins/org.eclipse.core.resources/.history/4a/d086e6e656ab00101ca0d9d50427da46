@@ -1,0 +1,18 @@
+package com.conversion;
+
+import com.fasterxml.jackson.annotation.JsonRootName;
+
+import lombok.Data;
+
+@Data
+@JsonRootName(value = "room")
+public class Room {
+
+	private int roomNo;
+	
+	private String name;
+	
+	private String roomColor;
+	
+	
+}

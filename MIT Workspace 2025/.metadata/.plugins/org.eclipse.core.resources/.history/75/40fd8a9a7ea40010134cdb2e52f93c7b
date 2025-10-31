@@ -1,0 +1,5 @@
+package com.mit.bean;
+
+public class Passenger {
+
+}

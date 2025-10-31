@@ -1,0 +1,77 @@
+package com.consumer;
+
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.reactive.function.client.WebClient;
+
+import com.dto.PersonDto;
+
+import reactor.core.publisher.Mono;
+
+@Controller
+public class WebClientPratice {
+
+	public void webClientPratice() {
+		
+		/* Add Dependency 
+		 * 
+		 * spring-boot-starter-webflux
+		 * 
+		 * */
+		getAllCustomersUsingWebClientWithBlocking();
+		
+		
+	}
+
+	private void getAllCustomersUsingWebClientWithBlocking() {
+		
+		String endpoint = "http://localhost1212/api/person";
+		
+		WebClient webClient = WebClient.create(endpoint);
+		
+		/* 1. toEntity and block() (synchoronious) */
+		print("GETTING PERSONS INFO : TO ENTITY WITH BLOCK() METHOD");
+		ResponseEntity<PersonDto> responseEntity = webClient
+													.get()
+													.uri("/")
+													.accept(MediaType.APPLICATION_JSON)
+													.retrieve()
+													.toEntity(PersonDto.class)
+													.block();
+		
+		PersonDto personDto = responseEntity.getBody();
+		System.out.println(">>______| Response Body | _______<<");
+		System.out.println(personDto);
+		System.out.println("STATUS CODE : " +  responseEntity.getStatusCode());
+		printLine();
+
+		
+		/* 1. bodyToMono - With Asynchronous 
+		
+		print("2. bodyToMono - With Asynchronous");
+		
+		Mono<PersonDto> monoResponse = webClient
+										.get()
+										.uri("/")
+										.accept(MediaType.APPLICATION_JSON)
+										.retrieve()
+										.bodyToMono(PersonDto.class);
+		
+		
+		*/
+		
+		
+		
+	}
+
+	private void printLine() {
+		System.out.println(">>-----------| END | ------------------<<");
+	}
+
+	private void print(String string) {
+		System.out.println("\n\n\n\n>>>---------| " + string + "|-------------<<\n");
+		
+	}
+
+}

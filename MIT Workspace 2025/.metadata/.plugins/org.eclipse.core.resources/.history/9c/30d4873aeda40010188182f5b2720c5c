@@ -1,0 +1,121 @@
+package com.mit;
+
+import java.util.Arrays;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import com.mit.controller.StudentControllerI;
+import com.mit.entity.Student;
+
+@SpringBootApplication
+public class Sb03DatajpaCrudRepoApplication implements CommandLineRunner {
+
+	public static void main(String[] args) {
+		SpringApplication.run(Sb03DatajpaCrudRepoApplication.class, args);
+	}
+
+
+
+	@Override
+	public void run(String... args) throws Exception {
+		System.out.println(">----| Spring Boot DATA JPA PRATICE|-----<");
+
+		/*
+		 * 1. CrudRepository Method Pratice
+		 */
+		crudMethodsPratice();
+
+		System.out.println(">|----------------------------------------|<");
+
+	}
+	
+	@Autowired
+	private StudentControllerI controller;
+	
+	private void crudMethodsPratice() {
+		line();
+		/*
+		1. CrudRepository 12 Methods Pratice
+		*/
+		
+		/*1. Save(Student)*/		
+		Student s1 = new Student(3, "Priety", "9894563214", "Madurai");
+		//controller.saveStudent(s1);
+		
+		/*2. Save List of Students*/
+		
+		List<Student> studentsList = getStudentsList();
+		
+	//	controller.saveStudent(studentsList);
+		
+		/* 3. get Student by id*/		
+		
+		Student std = controller.getStudentById(5);
+		System.out.println("~~~~~~~~~~~Id : " + 5 + " : " + std);
+		
+		/* 3. isStudent Exist*/	
+		
+		boolean isExist = controller.isStudentPresent(3);
+		System.out.println("~~~~~~~~~IS Student Exist : " + isExist);
+		
+		/* 4. getAll Students*/	
+		
+		List<Student> stdList = controller.getAllStudents();
+		System.out.println("~~~~~~ All Students List : " + stdList);
+		
+		/*5. GetAllStudentsById(List<Integer>)*/
+		List<Integer> ids = Arrays.asList(4,6,7);
+		List<Student> allStudentsById = controller.getAllStudentsById(ids);
+		System.out.println("~~~~~~~~~~~ All Students By ID : " + allStudentsById);
+		
+		/* 6. deleteById(int id)*/	
+		//boolean isdeleted = controller.deleteStudentById(6);
+		
+		//System.out.println("~~~~~~~~~~ is Delete by Id : " + isdeleted);
+		
+		/* 7. deleteAll*/	
+		
+		//controller.deleteStudent(allStudentsById);
+		
+		/* 8. delete All Students*/	
+		
+		//controller.deleteAllStudents();
+		
+		System.out.println("All Stduents are deleted....");
+		
+		
+		line();
+		
+		System.out.println(">>------------------------<");
+		System.out.println("All Students : " + controller.getAllStudents());
+		System.out.println(">>------------------------<");
+		
+		
+	}
+	
+	private void line() {
+		System.out.println("\n\n\n>>===========================================<<");
+		System.out.println(">>===========================================<<\n\n");
+		
+	}
+
+
+
+	public List<Student> getStudentsList(){
+		Student s1 = new Student(3, "Priety", "7894563214", "Madurai");
+		Student s2 = new Student(4, "Karthi", "784512963", "Chennai");
+		Student s3 = new Student(5, "kathija", "548721321", "Salem");
+		Student s4 = new Student(6, "Pranathi", "963258741", "Chennai");
+		Student s5 = new Student(7, "Charan", "7898785464", "Coimbatore");
+		Student s6 = new Student(8, "dharan", "2154879865", "Virudunagar");
+
+		List<Student> studentsList = Arrays.asList(s1,s2,s3,s4,s5,s6);
+		
+		return studentsList;
+	}
+
+}

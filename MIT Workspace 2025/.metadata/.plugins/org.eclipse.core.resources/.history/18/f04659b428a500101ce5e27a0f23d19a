@@ -1,0 +1,13 @@
+package com.mit.entity.table;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "monitor")
+public class Monitor {
+	
+	private int id;
+	private String brand;
+
+}

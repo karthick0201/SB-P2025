@@ -1,0 +1,5 @@
+package com.mit.beans;
+
+public class QAConfig {
+
+}

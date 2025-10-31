@@ -1,0 +1,27 @@
+package com.mit.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
+import com.mit.dao.StudentDao;
+import com.mit.entity.Student;
+
+@Controller
+public class StudentControllerImpl implements StudentControllerI{
+
+	
+	@Autowired
+	private StudentDao dao;
+	
+	@Override
+	public boolean saveStuduent(Student student) {
+		
+		Student std = dao.save(student);
+		
+		System.out.println("~~~~~~Student saved... : " + std);
+		return true;
+	}
+
+	
+	
+}

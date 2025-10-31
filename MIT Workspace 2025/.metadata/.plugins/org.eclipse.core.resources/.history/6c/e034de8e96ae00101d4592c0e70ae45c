@@ -1,0 +1,118 @@
+package com.consumer;
+
+import java.time.LocalDate;
+import java.util.List;
+
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.reactive.function.client.WebClient;
+
+import com.dto.PersonDto;
+
+import reactor.core.publisher.Mono;
+
+@Controller
+public class WebClientPratice {
+
+	public void webClientPratice() {
+		
+		/* Add Dependency 
+		 * 
+		 * spring-boot-starter-webflux
+		 * 
+		 * */
+		//getAllCustomersUsingWebClientWithBlocking();
+		
+		
+		//Adding person Object
+		
+		addingPersonObjectUsingWebClient();
+		
+		
+	}
+
+	private void addingPersonObjectUsingWebClient() {
+		
+		print("WebClient - Post Method - Adding Person Object");
+		PersonDto persondto = new PersonDto();
+		persondto.setName("nandu");
+		persondto.setLocation("madurai");
+		persondto.setEmail("avudai.nandu@example.com");
+		persondto.setCreatedDate(LocalDate.now());
+		
+		String url = "http://localhost:1212/api/person";
+		WebClient webclient = WebClient.create(url);
+		
+		 ResponseEntity<PersonDto> responseEntity = webclient.post()
+														.uri("/")
+														.accept(MediaType.APPLICATION_JSON)
+														.retrieve()
+														.toEntity(PersonDto.class)
+														.block();
+		 
+		 PersonDto savedPersonDto = responseEntity.getBody();
+		 System.out.println("SavedPersonDto : \n" + savedPersonDto);
+		 System.out.println("Status Code : " + responseEntity.getStatusCode());
+		 
+		 
+		 printLine();
+		 
+	}
+
+	private void getAllCustomersUsingWebClientWithBlocking() {
+		
+		String endpoint = "http://localhost:1212/api/person";
+		
+		WebClient webClient = WebClient.create(endpoint);
+		
+		/* 1. toEntity and block() (synchoronious) */
+		print("GETTING PERSONS INFO : TO ENTITY WITH BLOCK() METHOD");
+		ResponseEntity<String> responseEntity = webClient
+														.get()
+														.uri("/")
+														.accept(MediaType.APPLICATION_JSON)
+														.retrieve()
+														.toEntity(String.class)
+														.block();
+		
+		String response = responseEntity.getBody();
+		System.out.println(">>______| Response Body | _______<<");
+		System.out.println(response);
+		System.out.println("STATUS CODE : " +  responseEntity.getStatusCode());
+		printLine();
+
+		
+		/* 1. bodyToMono - With Asynchronous */
+		
+		print("2. bodyToMono - With Asynchronous - Get Value when you use Subscribe/block");
+		
+		Mono<String> bodyToMono = webClient
+										.get()
+										.uri("/")
+										.accept(MediaType.APPLICATION_JSON)
+										.retrieve()
+										.bodyToMono(String.class);
+		
+		bodyToMono.subscribe(
+				value -> System.out.println(value),
+				error -> System.out.println(error)
+				);
+				
+		printLine();
+
+		
+		
+		
+	}
+
+	private void printLine() {
+		System.out.println(">>-----------| END | ------------------<<");
+	}
+
+	private void print(String string) {
+		System.out.println("\n\n\n\n>>>---------| " + string + "|-------------<<\n");
+		
+	}
+
+}

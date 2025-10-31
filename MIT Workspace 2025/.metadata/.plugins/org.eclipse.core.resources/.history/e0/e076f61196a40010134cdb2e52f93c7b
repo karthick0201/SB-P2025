@@ -1,0 +1,8 @@
+spring.application.name=demo
+
+
+#activating profile here
+
+#spring.profiles.active=qa
+spring.profiles.active=prod
+#spring.profiles.active=dev

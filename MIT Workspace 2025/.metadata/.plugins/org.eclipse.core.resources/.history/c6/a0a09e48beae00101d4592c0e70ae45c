@@ -1,0 +1,75 @@
+package com.service;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.dao.AddressDao;
+import com.entity.Address;
+import com.request.AddressRequest;
+import com.response.AddressResponse;
+
+@Service
+public class AddressServiceImpl implements AddressService {
+
+	
+	@Autowired
+	private AddressDao addressDao;
+	
+	@Override
+	public List<AddressResponse> getAllAddress() {
+		
+		List<Address> addressList = addressDao.findAll();
+		
+		return addressList
+					.stream()
+					.map(add -> convertAddressEntityToAddressResponse(add))
+					.collect(Collectors.toList());
+	}
+
+	@Override
+	public AddressResponse getAddressById(int id) throws Exception {
+		
+		Optional<Address> oAddress = addressDao.findById(id);
+		
+		if(oAddress.isEmpty()) {
+			throw new Exception(String.format("Id : %s Not Present in Address Table", id)); // Note : After Change to CustomException and make it global
+		}
+		return mapper.map(oAddress.get(),AddressResponse.class);
+	}
+
+	@Override
+	public AddressResponse getAddressByCustomerId(int id) {
+		
+		return null;
+	}
+
+	@Override
+	public boolean addAddress(AddressRequest addressRequest) {
+		
+		Address addressRef = mapper.map(addressRequest, Address.class);
+		
+		Address savedAddressRef = addressDao.save(addressRef);
+		
+		return mapper.map(savedAddressRef, AddressResponse.class);
+		
+	}
+	
+	@Autowired
+	private ModelMapper mapper;
+	
+	/* Utility Method for Conversion */
+	public Address convertAddressRequestToAddressEntity(AddressRequest addressRequest) {
+		return mapper.map(addressRequest, Address.class);
+		
+	}
+	
+	public AddressResponse convertAddressEntityToAddressResponse(Address address) {
+		return mapper.map(address, AddressResponse.class);
+	}
+
+}

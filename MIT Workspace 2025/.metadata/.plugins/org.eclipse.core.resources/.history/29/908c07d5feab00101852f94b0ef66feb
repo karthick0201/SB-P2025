@@ -1,0 +1,67 @@
+package com.service;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.dao.PersonDao;
+import com.dto.PersonDto;
+import com.entity.Person;
+
+@Service
+public class PersonServiceImpl implements PersonService{
+
+	@Autowired
+	private PersonDao personDao;
+	
+	@Autowired
+	private ModelMapper modelMapper;
+	
+	@Override
+	public List<PersonDto> getCustomers() {
+	
+		List<Person> personList = personDao.findAll();
+		
+
+		List<PersonDto> personDtoList = personList
+											.stream()
+											.map(person -> modelMapper.map(person, PersonDto.class))
+											.collect(Collectors.toList());
+		
+		return personDtoList;
+	}
+
+	@Override
+	public PersonDto getCustomer(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String deleteCustomer(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public PersonDto addCustomer(PersonDto personDto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public PersonDto updateCustomer(PersonDto personDto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public PersonDto updateCustomerLocation(int id, String location) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

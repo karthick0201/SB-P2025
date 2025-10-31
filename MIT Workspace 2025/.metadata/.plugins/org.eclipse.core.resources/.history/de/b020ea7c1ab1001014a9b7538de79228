@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: API-GATEWAY
+
+  cloud:
+    gateway:
+      routes:
+        - id: CUSTOMER-SERVICE
+          uri: lb://CUSTOMER-SERVICE
+          predicates:
+            - Path=/api/customer/**
+          filters:
+            - StripPrefix=1
+
+        - id: ADDRESS-SERVICE
+          uri: lb://ADDRESS-SERVICE
+          predicates:
+            - Path=/api/address/**
+          filters:
+            - StripPrefix=1
+
+server:
+  port: 7565
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    reactor.netty.http.client: DEBUG
+    org.springframework.web: DEBUG
+    org.springframework.cloud.gateway.filter: DEBUG
+    org.springframework.cloud.gateway.route: DEBUG

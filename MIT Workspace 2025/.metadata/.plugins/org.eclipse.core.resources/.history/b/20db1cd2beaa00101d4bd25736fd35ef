@@ -1,0 +1,48 @@
+package com.example;
+
+import com.conversion.Order;
+import com.conversion.Product;
+
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+
+/**
+ * Hello world!
+ */
+public class MarshallingClient {
+    public static void main(String[] args) {
+        
+    	marshlingClient();
+    	
+    	
+    	
+    }
+
+	private static void marshlingClient() throws JAXBException {
+		
+		Order order = getOrderRef();
+		
+		
+		JAXBContext context = JAXBContext.newInstance(Order.class);
+		
+		
+	}
+
+	private static Order getOrderRef() {
+		
+		Product p1 = new Product(1,"Study Lamp",5,200);
+		Product p2 = new Product(2,"Monitor",1,12000);
+		Product p3 = new Product(3,"Labtop",2,45000);
+		Product p4 = new Product(4,"Chair",10,700);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		return null;
+	}
+}

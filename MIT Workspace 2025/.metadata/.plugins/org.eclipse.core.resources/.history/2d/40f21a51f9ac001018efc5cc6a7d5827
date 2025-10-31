@@ -1,0 +1,28 @@
+package com;
+
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import com.consumer.PersonConsumer;
+
+@SpringBootApplication
+public class SbRest04RestClientConsumerApplication implements CommandLineRunner{
+
+	public static void main(String[] args) {
+		SpringApplication.run(SbRest04RestClientConsumerApplication.class, args);
+	}
+
+	@Override
+	public void run(String... args) throws Exception {
+		System.out.println(">>--------| CONSUMER APPLICATION |----------<<");
+		
+		HttpClientAPIPratice httpClientPratice = new HttpClientAPIPratice();
+		httpClientPratice.httpClientPratice();
+		
+		System.out.println(">>------------------------------------------<<");
+		
+		
+	}
+
+}

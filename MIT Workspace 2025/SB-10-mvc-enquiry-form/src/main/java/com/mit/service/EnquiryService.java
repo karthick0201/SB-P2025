@@ -1,0 +1,11 @@
+package com.mit.service;
+
+import com.mit.dto.EnquiryDTO;
+
+public interface EnquiryService {
+	
+	public EnquiryDTO createEnquiry(EnquiryDTO enquiry);
+
+	public String getEnquiryRecords();
+
+}
