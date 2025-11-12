@@ -1,0 +1,9 @@
+server:
+  port: 1122
+spring:
+  application:
+    name: SB-Security-01-ProducerApplication-HttpBasicAuth
+  security:
+    user:
+      name: karthick
+      password: cdp

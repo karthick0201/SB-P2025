@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: SB-Security-02-ConsumerApplication-webclient-RestTemplate
+
+server:
+  port: 1212
